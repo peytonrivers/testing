@@ -1,4 +1,414 @@
-<!-- SKILLS SECTION -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mock Job Application</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+.header {
+    background: white;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 40px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+.container {
+    width: 700px;
+    max-width: 90%;
+    margin: 35px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+h2 { margin-top: 0; }
+
+.section-title {
+    margin-top: 35px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.field {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.required { color: #d93025; }
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #4285f4;
+    border-color: #4285f4;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.hint {
+    margin-top: 6px;
+    color: #777;
+    font-size: 13px;
+}
+
+/* AUTOCOMPLETE */
+
+.autocomplete-list {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #aaa;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 3px 7px rgba(0,0,0,.15);
+}
+
+.autocomplete-item {
+    padding: 11px;
+    cursor: pointer;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item.active {
+    background: #e8f0fe;
+}
+
+/* SKILLS */
+
+.skill-search-wrapper {
+    position: relative;
+}
+
+.selected-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.skill-chip {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #e8f0fe;
+    border: 1px solid #b8cdf5;
+    padding: 7px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.skill-chip button {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.skill-chip button:hover {
+    background: none;
+    color: #d93025;
+}
+
+.submit-button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    background: #1769aa;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background: #12558a;
+}
+
+#result {
+    display: none;
+    margin-top: 25px;
+    padding: 15px;
+    background: #e9f7ef;
+    border: 1px solid #79c99e;
+    border-radius: 5px;
+}
+
+.error {
+    border-color: red !important;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Acme Technologies</h1>
+    <p>Software Engineer Intern Application</p>
+</div>
+
+<div class="container">
+
+<h2>Job Application</h2>
+
+<p>
+Please complete the following information to apply for the
+Software Engineer Intern position.
+</p>
+
+
+<!-- ================= PERSONAL ================= -->
+
+<div class="section-title">Personal Information</div>
+
+<div class="field">
+    <label for="firstName">
+        First Name <span class="required">*</span>
+    </label>
+
+    <input
+        id="firstName"
+        name="first_name"
+        type="text"
+        placeholder="Enter your first name"
+        required
+    >
+</div>
+
+
+<div class="field">
+    <label for="lastName">
+        Last Name <span class="required">*</span>
+    </label>
+
+    <input
+        id="lastName"
+        name="last_name"
+        type="text"
+        placeholder="Enter your last name"
+        required
+    >
+</div>
+
+
+<div class="field">
+    <label for="email">
+        Email Address <span class="required">*</span>
+    </label>
+
+    <input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="name@example.com"
+        required
+    >
+</div>
+
+
+<div class="field">
+    <label for="phone">
+        Phone Number <span class="required">*</span>
+    </label>
+
+    <input
+        id="phone"
+        name="phone"
+        type="tel"
+        placeholder="(555) 555-5555"
+        required
+    >
+</div>
+
+
+
+<!-- ================= LOCATION ================= -->
+
+<div class="section-title">Location</div>
+
+<div class="field">
+
+    <label for="state">
+        State <span class="required">*</span>
+    </label>
+
+    <select id="state" name="state" required>
+
+        <option value="">Select a state</option>
+
+        <option>Alabama</option>
+        <option>Alaska</option>
+        <option>Arizona</option>
+        <option>California</option>
+        <option>Colorado</option>
+        <option>Florida</option>
+        <option>Georgia</option>
+        <option>Maryland</option>
+        <option>New York</option>
+        <option>North Carolina</option>
+        <option>South Carolina</option>
+        <option>Texas</option>
+        <option>Virginia</option>
+        <option>Washington</option>
+
+    </select>
+
+    <div class="hint">
+        Native dropdown — supports ArrowDown, ArrowUp and Enter.
+    </div>
+
+</div>
+
+
+
+<!-- SEARCHABLE CITY -->
+
+<div class="field">
+
+    <label for="city">
+        City <span class="required">*</span>
+    </label>
+
+    <input
+        id="city"
+        name="city"
+        type="text"
+        autocomplete="off"
+        placeholder="Start typing a city..."
+        required
+    >
+
+    <div
+        id="citySuggestions"
+        class="autocomplete-list">
+    </div>
+
+    <div class="hint">
+        Searchable field — type text, then use ArrowDown and Enter.
+    </div>
+
+</div>
+
+
+
+<!-- ================= EDUCATION ================= -->
+
+<div class="section-title">Education</div>
+
+<div class="field">
+
+    <label for="school">
+        College / University <span class="required">*</span>
+    </label>
+
+    <input
+        id="school"
+        name="school"
+        type="text"
+        autocomplete="off"
+        placeholder="Search for your university..."
+        required
+    >
+
+    <div
+        id="schoolSuggestions"
+        class="autocomplete-list">
+    </div>
+
+</div>
+
+
+<div class="field">
+
+    <label for="degree">
+        Degree <span class="required">*</span>
+    </label>
+
+    <select id="degree" name="degree" required>
+
+        <option value="">Select degree</option>
+
+        <option>High School Diploma</option>
+        <option>Associate Degree</option>
+        <option>Bachelor's Degree</option>
+        <option>Master's Degree</option>
+        <option>Doctorate</option>
+
+    </select>
+
+</div>
+
+
+<div class="field">
+
+    <label for="major">
+        Major / Field of Study
+    </label>
+
+    <input
+        id="major"
+        name="major"
+        type="text"
+        placeholder="Example: Computer Science"
+    >
+
+</div>
+
+
+
+<!-- ================= SKILLS ================= -->
 
 <div class="section-title">Skills</div>
 
@@ -8,15 +418,22 @@
         Skills <span class="required">*</span>
     </label>
 
-    <div class="hint" style="margin-bottom: 8px;">
-        Search for and add skills that are relevant to your experience.
+    <div class="hint" style="margin-bottom:10px;">
+        Search for and add skills relevant to your experience.
         You may add multiple skills.
     </div>
 
-    <!-- Selected skills appear here -->
-    <div id="selectedSkills" class="selected-skills"></div>
 
-    <!-- Search input -->
+    <!-- SELECTED SKILLS -->
+
+    <div
+        id="selectedSkills"
+        class="selected-skills">
+    </div>
+
+
+    <!-- SEARCH -->
+
     <div class="skill-search-wrapper">
 
         <input
@@ -29,12 +446,14 @@
 
         <div
             id="skillSuggestions"
-            class="autocomplete-list skill-list">
+            class="autocomplete-list">
         </div>
 
     </div>
 
-    <!-- Hidden value representing what a real form might submit -->
+
+    <!-- ACTUAL FORM VALUE -->
+
     <input
         type="hidden"
         id="skillsValue"
@@ -43,78 +462,458 @@
     >
 
     <div class="hint">
-        Start typing a skill, then select it from the suggestions.
+        Example: Python, Java, SQL, React, AWS
     </div>
 
 </div>
 
 
-<style>
 
-    /* =========================
-       SKILLS
-       ========================= */
+<!-- ================= EXPERIENCE ================= -->
 
-    .selected-skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 10px;
-    }
+<div class="section-title">Experience</div>
 
-    .skill-chip {
-        display: flex;
-        align-items: center;
-        gap: 7px;
+<div class="field">
 
-        background: #e8f0fe;
-        border: 1px solid #b8cdf5;
+    <label for="years">
+        Years of Programming Experience
+    </label>
 
-        padding: 7px 10px;
-        border-radius: 20px;
+    <select id="years" name="years_experience">
 
-        font-size: 14px;
-    }
+        <option value="">Select experience</option>
 
-    .skill-chip button {
-        width: auto;
-        margin: 0;
-        padding: 0;
+        <option>Less than 1 year</option>
+        <option>1 year</option>
+        <option>2 years</option>
+        <option>3 years</option>
+        <option>4 years</option>
+        <option>5+ years</option>
 
-        border: none;
-        background: none;
+    </select>
 
-        color: #555;
-        font-size: 17px;
+</div>
 
-        cursor: pointer;
-    }
 
-    .skill-chip button:hover {
-        background: none;
-        color: #d93025;
-    }
+<div class="field">
 
-    .skill-search-wrapper {
-        position: relative;
-    }
+    <label for="github">
+        GitHub Profile
+    </label>
 
-    .skill-list {
-        top: 45px;
-    }
+    <input
+        id="github"
+        name="github"
+        type="text"
+        placeholder="https://github.com/username"
+    >
 
-</style>
+</div>
+
+
+<div class="field">
+
+    <label for="linkedin">
+        LinkedIn Profile
+    </label>
+
+    <input
+        id="linkedin"
+        name="linkedin"
+        type="text"
+        placeholder="https://linkedin.com/in/username"
+    >
+
+</div>
+
+
+
+<!-- ================= EMPLOYMENT ================= -->
+
+<div class="section-title">Employment Questions</div>
+
+<div class="field">
+
+    <label for="authorization">
+        Are you legally authorized to work in the United States?
+        <span class="required">*</span>
+    </label>
+
+    <select
+        id="authorization"
+        name="work_authorization"
+        required>
+
+        <option value="">Select an option</option>
+        <option>Yes</option>
+        <option>No</option>
+
+    </select>
+
+</div>
+
+
+<div class="field">
+
+    <label for="sponsorship">
+        Will you now or in the future require employment sponsorship?
+        <span class="required">*</span>
+    </label>
+
+    <select
+        id="sponsorship"
+        name="sponsorship"
+        required>
+
+        <option value="">Select an option</option>
+        <option>Yes</option>
+        <option>No</option>
+
+    </select>
+
+</div>
+
+
+
+<!-- ================= TEXT QUESTION ================= -->
+
+<div class="section-title">Additional Questions</div>
+
+<div class="field">
+
+    <label for="why">
+        Why are you interested in this position?
+    </label>
+
+    <textarea
+        id="why"
+        name="why_interested"
+        placeholder="Enter your response..."
+    ></textarea>
+
+</div>
+
+
+
+<button
+    type="button"
+    class="submit-button"
+    onclick="submitApplication()">
+
+    Submit Application
+
+</button>
+
+
+<div id="result">
+    Application successfully completed.
+</div>
+
+</div>
 
 
 <script>
 
-/* =========================================
-   REALISTIC JOB APPLICATION SKILLS FIELD
-   ========================================= */
+/* ==================================================
+   GENERIC AUTOCOMPLETE
+   ================================================== */
+
+function createAutocomplete(inputId, listId, options) {
+
+    const input =
+        document.getElementById(inputId);
+
+    const list =
+        document.getElementById(listId);
+
+    let filtered = [];
+    let selectedIndex = -1;
+
+
+    function render() {
+
+        list.innerHTML = "";
+
+        const search =
+            input.value.trim().toLowerCase();
+
+
+        if (!search) {
+
+            list.style.display = "none";
+
+            return;
+        }
+
+
+        filtered =
+            options.filter(option =>
+                option.toLowerCase().includes(search)
+            );
+
+
+        if (filtered.length === 0) {
+
+            list.style.display = "none";
+
+            return;
+        }
+
+
+        filtered.forEach(option => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "autocomplete-item";
+
+            item.textContent =
+                option;
+
+
+            item.addEventListener(
+                "mousedown",
+                function() {
+
+                    input.value = option;
+
+                    list.style.display =
+                        "none";
+
+                    selectedIndex = -1;
+                }
+            );
+
+
+            list.appendChild(item);
+
+        });
+
+
+        selectedIndex = -1;
+
+        list.style.display = "block";
+    }
+
+
+    function updateActiveItem() {
+
+        const items =
+            list.querySelectorAll(
+                ".autocomplete-item"
+            );
+
+
+        items.forEach(item =>
+            item.classList.remove("active")
+        );
+
+
+        if (
+            selectedIndex >= 0 &&
+            items[selectedIndex]
+        ) {
+
+            items[selectedIndex]
+                .classList.add("active");
+
+
+            items[selectedIndex]
+                .scrollIntoView({
+                    block: "nearest"
+                });
+
+        }
+
+    }
+
+
+    input.addEventListener(
+        "input",
+        render
+    );
+
+
+    input.addEventListener(
+        "keydown",
+        function(event) {
+
+            const items =
+                list.querySelectorAll(
+                    ".autocomplete-item"
+                );
+
+
+            if (event.key === "ArrowDown") {
+
+                event.preventDefault();
+
+
+                if (items.length === 0)
+                    return;
+
+
+                selectedIndex++;
+
+
+                if (
+                    selectedIndex >=
+                    items.length
+                ) {
+
+                    selectedIndex = 0;
+
+                }
+
+
+                updateActiveItem();
+
+            }
+
+
+            else if (
+                event.key === "ArrowUp"
+            ) {
+
+                event.preventDefault();
+
+
+                if (items.length === 0)
+                    return;
+
+
+                selectedIndex--;
+
+
+                if (selectedIndex < 0) {
+
+                    selectedIndex =
+                        items.length - 1;
+
+                }
+
+
+                updateActiveItem();
+
+            }
+
+
+            else if (
+                event.key === "Enter"
+            ) {
+
+                if (
+                    selectedIndex >= 0 &&
+                    filtered[selectedIndex]
+                ) {
+
+                    event.preventDefault();
+
+
+                    input.value =
+                        filtered[selectedIndex];
+
+
+                    list.style.display =
+                        "none";
+
+
+                    selectedIndex = -1;
+
+                }
+
+            }
+
+
+            else if (
+                event.key === "Escape"
+            ) {
+
+                list.style.display =
+                    "none";
+
+                selectedIndex = -1;
+
+            }
+
+        }
+    );
+
+
+    input.addEventListener(
+        "blur",
+        function() {
+
+            setTimeout(function() {
+
+                list.style.display =
+                    "none";
+
+            }, 150);
+
+        }
+    );
+
+}
+
+
+
+/* ==================================================
+   CITY AUTOCOMPLETE
+   ================================================== */
+
+createAutocomplete(
+    "city",
+    "citySuggestions",
+    [
+        "Charlotte, NC",
+        "Raleigh, NC",
+        "Durham, NC",
+        "Chapel Hill, NC",
+        "Greensboro, NC",
+        "Winston-Salem, NC",
+        "Atlanta, GA",
+        "Austin, TX",
+        "New York, NY",
+        "San Francisco, CA",
+        "Seattle, WA",
+        "Boston, MA"
+    ]
+);
+
+
+
+/* ==================================================
+   UNIVERSITY AUTOCOMPLETE
+   ================================================== */
+
+createAutocomplete(
+    "school",
+    "schoolSuggestions",
+    [
+        "University of North Carolina at Charlotte",
+        "University of North Carolina at Chapel Hill",
+        "North Carolina State University",
+        "Duke University",
+        "Wake Forest University",
+        "Appalachian State University",
+        "East Carolina University",
+        "University of South Carolina",
+        "Georgia Institute of Technology",
+        "Virginia Tech"
+    ]
+);
+
+
+
+/* ==================================================
+   SKILLS
+   ================================================== */
 
 const availableSkills = [
 
-    /* Programming Languages */
+    /* LANGUAGES */
 
     "Python",
     "Java",
@@ -133,7 +932,7 @@ const availableSkills = [
     "MATLAB",
 
 
-    /* Web Development */
+    /* WEB */
 
     "HTML",
     "CSS",
@@ -151,7 +950,7 @@ const availableSkills = [
     "GraphQL",
 
 
-    /* Databases */
+    /* DATABASE */
 
     "SQL",
     "MySQL",
@@ -163,7 +962,7 @@ const availableSkills = [
     "Firebase",
 
 
-    /* Cloud / DevOps */
+    /* CLOUD */
 
     "AWS",
     "Microsoft Azure",
@@ -177,7 +976,7 @@ const availableSkills = [
     "Linux",
 
 
-    /* AI / Machine Learning */
+    /* AI */
 
     "Machine Learning",
     "Artificial Intelligence",
@@ -194,7 +993,7 @@ const availableSkills = [
     "OpenAI API",
 
 
-    /* Data */
+    /* DATA */
 
     "Data Analysis",
     "Data Science",
@@ -207,7 +1006,7 @@ const availableSkills = [
     "Statistics",
 
 
-    /* Software Engineering */
+    /* SOFTWARE ENGINEERING */
 
     "Object-Oriented Programming",
     "Data Structures",
@@ -224,7 +1023,7 @@ const availableSkills = [
     "Scrum",
 
 
-    /* General Professional Skills */
+    /* PROFESSIONAL */
 
     "Problem Solving",
     "Communication",
@@ -233,7 +1032,6 @@ const availableSkills = [
     "Project Management",
     "Technical Writing",
     "Critical Thinking"
-
 ];
 
 
@@ -241,13 +1039,19 @@ const skillInput =
     document.getElementById("skill");
 
 const skillSuggestions =
-    document.getElementById("skillSuggestions");
+    document.getElementById(
+        "skillSuggestions"
+    );
 
 const selectedSkillsContainer =
-    document.getElementById("selectedSkills");
+    document.getElementById(
+        "selectedSkills"
+    );
 
 const skillsValue =
-    document.getElementById("skillsValue");
+    document.getElementById(
+        "skillsValue"
+    );
 
 
 let selectedSkills = [];
@@ -258,108 +1062,108 @@ let skillSelectedIndex = -1;
 
 
 
-/* =========================================
+/* ==================================================
    SEARCH SKILLS
-   ========================================= */
+   ================================================== */
 
-skillInput.addEventListener("input", function() {
+skillInput.addEventListener(
+    "input",
+    function() {
 
-    const search =
-        skillInput.value
-            .trim()
-            .toLowerCase();
-
-
-    skillSuggestions.innerHTML = "";
-
-    skillSelectedIndex = -1;
+        const search =
+            skillInput.value
+                .trim()
+                .toLowerCase();
 
 
-    if (!search) {
+        skillSuggestions.innerHTML = "";
 
-        skillSuggestions.style.display = "none";
+        skillSelectedIndex = -1;
 
-        return;
+
+        if (!search) {
+
+            skillSuggestions.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        filteredSkills =
+            availableSkills.filter(skill =>
+
+                skill
+                    .toLowerCase()
+                    .includes(search)
+
+                &&
+
+                !selectedSkills.includes(skill)
+
+            );
+
+
+        /* Only show first 8 matches */
+
+        filteredSkills =
+            filteredSkills.slice(0, 8);
+
+
+        if (
+            filteredSkills.length === 0
+        ) {
+
+            skillSuggestions.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        filteredSkills.forEach(skill => {
+
+            const item =
+                document.createElement("div");
+
+
+            item.className =
+                "autocomplete-item";
+
+
+            item.textContent =
+                skill;
+
+
+            item.addEventListener(
+                "mousedown",
+                function() {
+
+                    addSkill(skill);
+
+                }
+            );
+
+
+            skillSuggestions
+                .appendChild(item);
+
+        });
+
+
+        skillSuggestions.style.display =
+            "block";
 
     }
-
-
-    filteredSkills =
-        availableSkills.filter(skill =>
-
-            skill
-                .toLowerCase()
-                .includes(search)
-
-            &&
-
-            !selectedSkills.includes(skill)
-
-        );
-
-
-    /*
-        Limit suggestions like many real
-        job application autocomplete fields.
-    */
-
-    filteredSkills =
-        filteredSkills.slice(0, 8);
-
-
-    if (filteredSkills.length === 0) {
-
-        skillSuggestions.style.display = "none";
-
-        return;
-
-    }
-
-
-    filteredSkills.forEach((skill, index) => {
-
-        const item =
-            document.createElement("div");
-
-        item.className =
-            "autocomplete-item";
-
-        item.textContent =
-            skill;
-
-
-        item.addEventListener(
-            "mousedown",
-            function() {
-
-                addSkill(skill);
-
-            }
-        );
-
-
-        skillSuggestions.appendChild(item);
-
-    });
-
-
-    skillSuggestions.style.display =
-        "block";
-
-});
+);
 
 
 
-/* =========================================
-   KEYBOARD CONTROL
-
-   Tests:
-
-   ArrowDown
-   ArrowUp
-   Enter
-   Escape
-   ========================================= */
+/* ==================================================
+   SKILL KEYBOARD CONTROL
+   ================================================== */
 
 skillInput.addEventListener(
     "keydown",
@@ -387,8 +1191,8 @@ skillInput.addEventListener(
 
 
             if (
-                skillSelectedIndex
-                >= items.length
+                skillSelectedIndex >=
+                items.length
             ) {
 
                 skillSelectedIndex = 0;
@@ -439,8 +1243,7 @@ skillInput.addEventListener(
         ) {
 
             if (
-                skillSelectedIndex >= 0
-                &&
+                skillSelectedIndex >= 0 &&
                 filteredSkills[
                     skillSelectedIndex
                 ]
@@ -469,6 +1272,7 @@ skillInput.addEventListener(
             skillSuggestions.style.display =
                 "none";
 
+
             skillSelectedIndex = -1;
 
         }
@@ -478,9 +1282,9 @@ skillInput.addEventListener(
 
 
 
-/* =========================================
-   HIGHLIGHT CURRENT OPTION
-   ========================================= */
+/* ==================================================
+   HIGHLIGHT SKILL
+   ================================================== */
 
 function updateSkillHighlight() {
 
@@ -491,16 +1295,13 @@ function updateSkillHighlight() {
             );
 
 
-    items.forEach(item => {
-
-        item.classList.remove("active");
-
-    });
+    items.forEach(item =>
+        item.classList.remove("active")
+    );
 
 
     if (
-        skillSelectedIndex >= 0
-        &&
+        skillSelectedIndex >= 0 &&
         items[skillSelectedIndex]
     ) {
 
@@ -512,9 +1313,7 @@ function updateSkillHighlight() {
         items[
             skillSelectedIndex
         ].scrollIntoView({
-
             block: "nearest"
-
         });
 
     }
@@ -523,9 +1322,9 @@ function updateSkillHighlight() {
 
 
 
-/* =========================================
+/* ==================================================
    ADD SKILL
-   ========================================= */
+   ================================================== */
 
 function addSkill(skill) {
 
@@ -541,15 +1340,11 @@ function addSkill(skill) {
     selectedSkills.push(skill);
 
 
-    /*
-        Clear the search field just like
-        a real application.
-    */
-
     skillInput.value = "";
 
 
     skillSuggestions.innerHTML = "";
+
 
     skillSuggestions.style.display =
         "none";
@@ -562,9 +1357,10 @@ function addSkill(skill) {
 
 
     /*
-        Keep keyboard focus on the field
-        so another skill can immediately
-        be entered.
+        Keep focus on the search box.
+
+        This allows automation to immediately
+        type the next skill.
     */
 
     skillInput.focus();
@@ -573,9 +1369,9 @@ function addSkill(skill) {
 
 
 
-/* =========================================
+/* ==================================================
    REMOVE SKILL
-   ========================================= */
+   ================================================== */
 
 function removeSkill(skill) {
 
@@ -591,19 +1387,21 @@ function removeSkill(skill) {
 
 
 
-/* =========================================
-   RENDER SELECTED SKILLS
-   ========================================= */
+/* ==================================================
+   RENDER SKILLS
+   ================================================== */
 
 function renderSelectedSkills() {
 
-    selectedSkillsContainer.innerHTML = "";
+    selectedSkillsContainer.innerHTML =
+        "";
 
 
     selectedSkills.forEach(skill => {
 
         const chip =
             document.createElement("div");
+
 
         chip.className =
             "skill-chip";
@@ -612,18 +1410,24 @@ function renderSelectedSkills() {
         const text =
             document.createElement("span");
 
+
         text.textContent =
             skill;
 
 
         const removeButton =
-            document.createElement("button");
+            document.createElement(
+                "button"
+            );
+
 
         removeButton.type =
             "button";
 
+
         removeButton.textContent =
             "×";
+
 
         removeButton.setAttribute(
             "aria-label",
@@ -641,6 +1445,7 @@ function renderSelectedSkills() {
 
         chip.appendChild(text);
 
+
         chip.appendChild(
             removeButton
         );
@@ -653,12 +1458,12 @@ function renderSelectedSkills() {
 
 
     /*
-        This is the actual value that
-        would be submitted by the form.
+        Simulates the value sent to the
+        backend by a real job application.
 
         Example:
 
-        Python,Java,SQL,React
+        Python,Java,SQL,FastAPI
     */
 
     skillsValue.value =
@@ -668,9 +1473,9 @@ function renderSelectedSkills() {
 
 
 
-/* =========================================
-   CLOSE SUGGESTIONS ON BLUR
-   ========================================= */
+/* ==================================================
+   CLOSE SKILLS DROPDOWN
+   ================================================== */
 
 skillInput.addEventListener(
     "blur",
@@ -686,4 +1491,84 @@ skillInput.addEventListener(
     }
 );
 
+
+
+/* ==================================================
+   SUBMIT / VALIDATION
+   ================================================== */
+
+function submitApplication() {
+
+    const required =
+        document.querySelectorAll(
+            "[required]"
+        );
+
+
+    let valid = true;
+
+
+    required.forEach(element => {
+
+        element.classList.remove("error");
+
+
+        if (!element.value.trim()) {
+
+            element.classList.add("error");
+
+            valid = false;
+
+        }
+
+    });
+
+
+    /*
+        Skills hidden field won't be visible,
+        so highlight the search box instead.
+    */
+
+    if (selectedSkills.length === 0) {
+
+        skillInput.classList.add("error");
+
+        valid = false;
+
+    }
+
+    else {
+
+        skillInput.classList.remove("error");
+
+    }
+
+
+    if (!valid) {
+
+        alert(
+            "Please complete all required fields."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "result"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "result"
+    ).scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
 </script>
+
+</body>
+</html>
