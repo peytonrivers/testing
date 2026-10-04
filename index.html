@@ -1,5 +1,7 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +9,9 @@
 <title>Mock Job Application</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -42,7 +46,9 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,.08);
 }
 
-h2 { margin-top: 0; }
+h2 {
+    margin-top: 0;
+}
 
 .section-title {
     margin-top: 35px;
@@ -64,7 +70,9 @@ label {
     margin-bottom: 7px;
 }
 
-.required { color: #d93025; }
+.required {
+    color: #d93025;
+}
 
 input,
 select,
@@ -95,7 +103,10 @@ textarea {
     font-size: 13px;
 }
 
-/* AUTOCOMPLETE */
+
+/* ==========================================
+   AUTOCOMPLETE
+   ========================================== */
 
 .autocomplete-list {
     display: none;
@@ -120,7 +131,10 @@ textarea {
     background: #e8f0fe;
 }
 
-/* SKILLS */
+
+/* ==========================================
+   SKILLS
+   ========================================== */
 
 .skill-search-wrapper {
     position: relative;
@@ -156,20 +170,171 @@ textarea {
 }
 
 .skill-chip button:hover {
-    background: none;
     color: #d93025;
 }
 
-.submit-button {
-    margin-top: 15px;
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 5px;
-    background: #1769aa;
+
+/* ==========================================
+   FOCUSABLE QUESTIONS
+   ========================================== */
+
+.question-focusable {
+    cursor: pointer;
+}
+
+.question-focusable:hover input,
+.question-focusable:hover select {
+    border-color: #4285f4;
+}
+
+
+/* ==========================================
+   FULL SCREEN QUESTION MODE
+   ========================================== */
+
+#questionFocusOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: white;
+    flex-direction: column;
+}
+
+.focus-header {
+    background: #13245a;
     color: white;
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+}
+
+.focus-header h2 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.focus-close {
+    border: none;
+    background: transparent;
+    color: white;
+
+    font-size: 36px;
+    line-height: 1;
+
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.focus-close:hover {
+    background: rgba(255,255,255,.1);
+}
+
+.focus-content {
+    flex: 1;
+    overflow-y: auto;
+
+    padding: 30px 20px 100px;
+
+    background: white;
+}
+
+#focusQuestionContainer {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+#focusQuestionContainer .field {
+    margin: 0;
+}
+
+#focusQuestionContainer .focus-original-label {
+    display: none;
+}
+
+
+/*
+Autocomplete needs to remain visible
+inside full-screen question mode.
+*/
+
+#focusQuestionContainer .autocomplete-list {
+    z-index: 10100;
+}
+
+
+/* ==========================================
+   DONE BUTTON
+   ========================================== */
+
+.focus-footer {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    padding: 14px 20px;
+
+    background: white;
+
+    border-top: 1px solid #ddd;
+
+    z-index: 10200;
+}
+
+.focus-done {
+    display: block;
+
+    width: 100%;
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: #1646b8;
+    color: white;
+
     font-size: 16px;
     font-weight: bold;
+
+    cursor: pointer;
+}
+
+.focus-done:hover {
+    background: #103999;
+}
+
+
+/* ==========================================
+   SUBMIT
+   ========================================== */
+
+.submit-button {
+    margin-top: 15px;
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #1769aa;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
     cursor: pointer;
 }
 
@@ -179,9 +344,12 @@ textarea {
 
 #result {
     display: none;
+
     margin-top: 25px;
     padding: 15px;
+
     background: #e9f7ef;
+
     border: 1px solid #79c99e;
     border-radius: 5px;
 }
@@ -192,30 +360,55 @@ textarea {
 </style>
 </head>
 
+
 <body>
 
+
+<!-- ==========================================
+     HEADER
+     ========================================== -->
+
 <div class="header">
+
     <h1>Acme Technologies</h1>
-    <p>Software Engineer Intern Application</p>
+
+    <p>
+        Software Engineer Intern Application
+    </p>
+
 </div>
+
+
+
+<!-- ==========================================
+     APPLICATION
+     ========================================== -->
 
 <div class="container">
 
 <h2>Job Application</h2>
 
 <p>
-Please complete the following information to apply for the
-Software Engineer Intern position.
+    Please complete the following information to apply for the
+    Software Engineer Intern position.
 </p>
 
 
-<!-- ================= PERSONAL ================= -->
 
-<div class="section-title">Personal Information</div>
+<!-- ==========================================
+     PERSONAL INFORMATION
+     ========================================== -->
+
+<div class="section-title">
+    Personal Information
+</div>
+
 
 <div class="field">
+
     <label for="firstName">
-        First Name <span class="required">*</span>
+        First Name
+        <span class="required">*</span>
     </label>
 
     <input
@@ -225,12 +418,15 @@ Software Engineer Intern position.
         placeholder="Enter your first name"
         required
     >
+
 </div>
 
 
 <div class="field">
+
     <label for="lastName">
-        Last Name <span class="required">*</span>
+        Last Name
+        <span class="required">*</span>
     </label>
 
     <input
@@ -240,12 +436,15 @@ Software Engineer Intern position.
         placeholder="Enter your last name"
         required
     >
+
 </div>
 
 
 <div class="field">
+
     <label for="email">
-        Email Address <span class="required">*</span>
+        Email Address
+        <span class="required">*</span>
     </label>
 
     <input
@@ -255,12 +454,15 @@ Software Engineer Intern position.
         placeholder="name@example.com"
         required
     >
+
 </div>
 
 
 <div class="field">
+
     <label for="phone">
-        Phone Number <span class="required">*</span>
+        Phone Number
+        <span class="required">*</span>
     </label>
 
     <input
@@ -270,23 +472,48 @@ Software Engineer Intern position.
         placeholder="(555) 555-5555"
         required
     >
+
 </div>
 
 
 
-<!-- ================= LOCATION ================= -->
+<!-- ==========================================
+     LOCATION
+     ========================================== -->
 
-<div class="section-title">Location</div>
+<div class="section-title">
+    Location
+</div>
 
-<div class="field">
 
-    <label for="state">
-        State <span class="required">*</span>
+
+<!-- ==========================================
+     STATE - FULL SCREEN
+     ========================================== -->
+
+<div
+    class="field question-focusable"
+    id="stateQuestion"
+    data-focus-title="State"
+>
+
+    <label
+        for="state"
+        class="focus-original-label"
+    >
+        State
+        <span class="required">*</span>
     </label>
 
-    <select id="state" name="state" required>
+    <select
+        id="state"
+        name="state"
+        required
+    >
 
-        <option value="">Select a state</option>
+        <option value="">
+            Select a state
+        </option>
 
         <option>Alabama</option>
         <option>Alaska</option>
@@ -306,19 +533,29 @@ Software Engineer Intern position.
     </select>
 
     <div class="hint">
-        Native dropdown — supports ArrowDown, ArrowUp and Enter.
+        Select your state.
     </div>
 
 </div>
 
 
 
-<!-- SEARCHABLE CITY -->
+<!-- ==========================================
+     CITY - FULL SCREEN
+     ========================================== -->
 
-<div class="field">
+<div
+    class="field question-focusable"
+    id="cityQuestion"
+    data-focus-title="City"
+>
 
-    <label for="city">
-        City <span class="required">*</span>
+    <label
+        for="city"
+        class="focus-original-label"
+    >
+        City
+        <span class="required">*</span>
     </label>
 
     <input
@@ -336,21 +573,27 @@ Software Engineer Intern position.
     </div>
 
     <div class="hint">
-        Searchable field — type text, then use ArrowDown and Enter.
+        Start typing your city and select a suggestion.
     </div>
 
 </div>
 
 
 
-<!-- ================= EDUCATION ================= -->
+<!-- ==========================================
+     EDUCATION
+     ========================================== -->
 
-<div class="section-title">Education</div>
+<div class="section-title">
+    Education
+</div>
+
 
 <div class="field">
 
     <label for="school">
-        College / University <span class="required">*</span>
+        College / University
+        <span class="required">*</span>
     </label>
 
     <input
@@ -373,18 +616,39 @@ Software Engineer Intern position.
 <div class="field">
 
     <label for="degree">
-        Degree <span class="required">*</span>
+        Degree
+        <span class="required">*</span>
     </label>
 
-    <select id="degree" name="degree" required>
+    <select
+        id="degree"
+        name="degree"
+        required
+    >
 
-        <option value="">Select degree</option>
+        <option value="">
+            Select degree
+        </option>
 
-        <option>High School Diploma</option>
-        <option>Associate Degree</option>
-        <option>Bachelor's Degree</option>
-        <option>Master's Degree</option>
-        <option>Doctorate</option>
+        <option>
+            High School Diploma
+        </option>
+
+        <option>
+            Associate Degree
+        </option>
+
+        <option>
+            Bachelor's Degree
+        </option>
+
+        <option>
+            Master's Degree
+        </option>
+
+        <option>
+            Doctorate
+        </option>
 
     </select>
 
@@ -408,31 +672,44 @@ Software Engineer Intern position.
 
 
 
-<!-- ================= SKILLS ================= -->
+<!-- ==========================================
+     SKILLS - FULL SCREEN
+     ========================================== -->
 
-<div class="section-title">Skills</div>
+<div class="section-title">
+    Skills
+</div>
 
-<div class="field">
 
-    <label for="skill">
-        Skills <span class="required">*</span>
+<div
+    class="field question-focusable"
+    id="skillsQuestion"
+    data-focus-title="Type to Add Skills"
+>
+
+    <label
+        for="skill"
+        class="focus-original-label"
+    >
+        Skills
+        <span class="required">*</span>
     </label>
 
-    <div class="hint" style="margin-bottom:10px;">
+
+    <div
+        class="hint"
+        style="margin-bottom:10px;"
+    >
         Search for and add skills relevant to your experience.
         You may add multiple skills.
     </div>
 
-
-    <!-- SELECTED SKILLS -->
 
     <div
         id="selectedSkills"
         class="selected-skills">
     </div>
 
-
-    <!-- SEARCH -->
 
     <div class="skill-search-wrapper">
 
@@ -452,8 +729,6 @@ Software Engineer Intern position.
     </div>
 
 
-    <!-- ACTUAL FORM VALUE -->
-
     <input
         type="hidden"
         id="skillsValue"
@@ -461,17 +736,18 @@ Software Engineer Intern position.
         required
     >
 
-    <div class="hint">
-        Example: Python, Java, SQL, React, AWS
-    </div>
-
 </div>
 
 
 
-<!-- ================= EXPERIENCE ================= -->
+<!-- ==========================================
+     EXPERIENCE
+     ========================================== -->
 
-<div class="section-title">Experience</div>
+<div class="section-title">
+    Experience
+</div>
+
 
 <div class="field">
 
@@ -479,11 +755,19 @@ Software Engineer Intern position.
         Years of Programming Experience
     </label>
 
-    <select id="years" name="years_experience">
+    <select
+        id="years"
+        name="years_experience"
+    >
 
-        <option value="">Select experience</option>
+        <option value="">
+            Select experience
+        </option>
 
-        <option>Less than 1 year</option>
+        <option>
+            Less than 1 year
+        </option>
+
         <option>1 year</option>
         <option>2 years</option>
         <option>3 years</option>
@@ -528,23 +812,36 @@ Software Engineer Intern position.
 
 
 
-<!-- ================= EMPLOYMENT ================= -->
+<!-- ==========================================
+     EMPLOYMENT QUESTIONS
+     ========================================== -->
 
-<div class="section-title">Employment Questions</div>
+<div class="section-title">
+    Employment Questions
+</div>
+
 
 <div class="field">
 
     <label for="authorization">
-        Are you legally authorized to work in the United States?
+
+        Are you legally authorized to work
+        in the United States?
+
         <span class="required">*</span>
+
     </label>
 
     <select
         id="authorization"
         name="work_authorization"
-        required>
+        required
+    >
 
-        <option value="">Select an option</option>
+        <option value="">
+            Select an option
+        </option>
+
         <option>Yes</option>
         <option>No</option>
 
@@ -556,16 +853,24 @@ Software Engineer Intern position.
 <div class="field">
 
     <label for="sponsorship">
-        Will you now or in the future require employment sponsorship?
+
+        Will you now or in the future require
+        employment sponsorship?
+
         <span class="required">*</span>
+
     </label>
 
     <select
         id="sponsorship"
         name="sponsorship"
-        required>
+        required
+    >
 
-        <option value="">Select an option</option>
+        <option value="">
+            Select an option
+        </option>
+
         <option>Yes</option>
         <option>No</option>
 
@@ -575,9 +880,14 @@ Software Engineer Intern position.
 
 
 
-<!-- ================= TEXT QUESTION ================= -->
+<!-- ==========================================
+     ADDITIONAL QUESTIONS
+     ========================================== -->
 
-<div class="section-title">Additional Questions</div>
+<div class="section-title">
+    Additional Questions
+</div>
+
 
 <div class="field">
 
@@ -595,13 +905,16 @@ Software Engineer Intern position.
 
 
 
+<!-- ==========================================
+     SUBMIT
+     ========================================== -->
+
 <button
     type="button"
     class="submit-button"
-    onclick="submitApplication()">
-
+    onclick="submitApplication()"
+>
     Submit Application
-
 </button>
 
 
@@ -609,92 +922,491 @@ Software Engineer Intern position.
     Application successfully completed.
 </div>
 
+
 </div>
+
+
+
+<!-- ==========================================
+     FULL SCREEN QUESTION OVERLAY
+     ========================================== -->
+
+<div id="questionFocusOverlay">
+
+    <div class="focus-header">
+
+        <h2 id="focusQuestionTitle">
+            Question
+        </h2>
+
+        <button
+            type="button"
+            class="focus-close"
+            id="focusCloseButton"
+            aria-label="Close question"
+        >
+            &times;
+        </button>
+
+    </div>
+
+
+    <div class="focus-content">
+
+        <div id="focusQuestionContainer">
+        </div>
+
+    </div>
+
+
+    <div class="focus-footer">
+
+        <button
+            type="button"
+            class="focus-done"
+            id="focusDoneButton"
+        >
+            Done
+        </button>
+
+    </div>
+
+</div>
+
 
 
 <script>
 
-/* ==================================================
-   GENERIC AUTOCOMPLETE
-   ================================================== */
+/* ==========================================
+   FULL SCREEN QUESTION SYSTEM
+   ========================================== */
 
-function createAutocomplete(inputId, listId, options) {
+const focusOverlay =
+    document.getElementById(
+        "questionFocusOverlay"
+    );
+
+const focusContainer =
+    document.getElementById(
+        "focusQuestionContainer"
+    );
+
+const focusTitle =
+    document.getElementById(
+        "focusQuestionTitle"
+    );
+
+const focusCloseButton =
+    document.getElementById(
+        "focusCloseButton"
+    );
+
+const focusDoneButton =
+    document.getElementById(
+        "focusDoneButton"
+    );
+
+
+let currentFocusedQuestion = null;
+let questionPlaceholder = null;
+
+
+
+/* ==========================================
+   OPEN QUESTION
+   ========================================== */
+
+function openQuestionFocus(question) {
+
+    if (currentFocusedQuestion) {
+        return;
+    }
+
+
+    currentFocusedQuestion = question;
+
+
+    /*
+    Remember where this question was located.
+    */
+
+    questionPlaceholder =
+        document.createComment(
+            "question-original-position"
+        );
+
+
+    question.parentNode.insertBefore(
+        questionPlaceholder,
+        question
+    );
+
+
+    /*
+    Set blue header title.
+    */
+
+    focusTitle.textContent =
+        question.dataset.focusTitle ||
+        "Question";
+
+
+    /*
+    Move the REAL question into the overlay.
+
+    We do not clone it.
+
+    Therefore all:
+    - event listeners
+    - values
+    - autocomplete
+    - keyboard behavior
+    - selected skills
+
+    continue working.
+    */
+
+    focusContainer.appendChild(
+        question
+    );
+
+
+    focusOverlay.style.display =
+        "flex";
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    /*
+    Find first usable input.
+    */
+
+    const firstInput =
+        question.querySelector(
+            'input:not([type="hidden"]), select, textarea'
+        );
+
+
+    if (firstInput) {
+
+        setTimeout(function() {
+
+            firstInput.focus();
+
+        }, 50);
+
+    }
+
+}
+
+
+
+/* ==========================================
+   CLOSE QUESTION
+   ========================================== */
+
+function closeQuestionFocus() {
+
+    if (!currentFocusedQuestion) {
+        return;
+    }
+
+
+    /*
+    Hide autocomplete menus.
+    */
+
+    const openLists =
+        currentFocusedQuestion
+            .querySelectorAll(
+                ".autocomplete-list"
+            );
+
+
+    openLists.forEach(
+        function(list) {
+
+            list.style.display =
+                "none";
+
+        }
+    );
+
+
+    /*
+    Move question back to original location.
+    */
+
+    questionPlaceholder
+        .parentNode
+        .insertBefore(
+            currentFocusedQuestion,
+            questionPlaceholder
+        );
+
+
+    questionPlaceholder.remove();
+
+
+    focusOverlay.style.display =
+        "none";
+
+
+    document.body.style.overflow =
+        "";
+
+
+    currentFocusedQuestion = null;
+
+    questionPlaceholder = null;
+
+}
+
+
+
+/* ==========================================
+   MAKE QUESTIONS CLICKABLE
+   ========================================== */
+
+document
+    .querySelectorAll(
+        ".question-focusable"
+    )
+    .forEach(
+        function(question) {
+
+            question.addEventListener(
+                "click",
+                function() {
+
+                    if (
+                        currentFocusedQuestion ===
+                        question
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    openQuestionFocus(
+                        question
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+
+/* ==========================================
+   X BUTTON
+   ========================================== */
+
+focusCloseButton.addEventListener(
+    "click",
+    closeQuestionFocus
+);
+
+
+
+/* ==========================================
+   DONE BUTTON
+   ========================================== */
+
+focusDoneButton.addEventListener(
+    "click",
+    closeQuestionFocus
+);
+
+
+
+/* ==========================================
+   ESCAPE KEY
+   ========================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape" &&
+            currentFocusedQuestion
+        ) {
+
+            /*
+            If autocomplete is currently open,
+            first Escape closes autocomplete.
+            */
+
+            const lists =
+                currentFocusedQuestion
+                    .querySelectorAll(
+                        ".autocomplete-list"
+                    );
+
+
+            let autocompleteOpen =
+                false;
+
+
+            lists.forEach(
+                function(list) {
+
+                    if (
+                        list.style.display ===
+                        "block"
+                    ) {
+
+                        autocompleteOpen =
+                            true;
+
+                    }
+
+                }
+            );
+
+
+            if (!autocompleteOpen) {
+
+                closeQuestionFocus();
+
+            }
+
+        }
+
+    }
+);
+
+
+
+/* ==========================================
+   GENERIC AUTOCOMPLETE
+   ========================================== */
+
+function createAutocomplete(
+    inputId,
+    listId,
+    options
+) {
 
     const input =
-        document.getElementById(inputId);
+        document.getElementById(
+            inputId
+        );
 
     const list =
-        document.getElementById(listId);
+        document.getElementById(
+            listId
+        );
+
 
     let filtered = [];
+
     let selectedIndex = -1;
+
 
 
     function render() {
 
         list.innerHTML = "";
 
+
         const search =
-            input.value.trim().toLowerCase();
+            input.value
+                .trim()
+                .toLowerCase();
 
 
         if (!search) {
 
-            list.style.display = "none";
+            list.style.display =
+                "none";
 
             return;
+
         }
 
 
         filtered =
-            options.filter(option =>
-                option.toLowerCase().includes(search)
+            options.filter(
+                option =>
+
+                    option
+                        .toLowerCase()
+                        .includes(search)
+
             );
 
 
-        if (filtered.length === 0) {
+        if (
+            filtered.length === 0
+        ) {
 
-            list.style.display = "none";
+            list.style.display =
+                "none";
 
             return;
+
         }
 
 
-        filtered.forEach(option => {
+        filtered.forEach(
+            function(option) {
 
-            const item =
-                document.createElement("div");
-
-            item.className =
-                "autocomplete-item";
-
-            item.textContent =
-                option;
+                const item =
+                    document.createElement(
+                        "div"
+                    );
 
 
-            item.addEventListener(
-                "mousedown",
-                function() {
-
-                    input.value = option;
-
-                    list.style.display =
-                        "none";
-
-                    selectedIndex = -1;
-                }
-            );
+                item.className =
+                    "autocomplete-item";
 
 
-            list.appendChild(item);
+                item.textContent =
+                    option;
 
-        });
+
+                item.addEventListener(
+                    "mousedown",
+                    function() {
+
+                        input.value =
+                            option;
+
+
+                        list.style.display =
+                            "none";
+
+
+                        selectedIndex =
+                            -1;
+
+                    }
+                );
+
+
+                list.appendChild(
+                    item
+                );
+
+            }
+        );
 
 
         selectedIndex = -1;
 
-        list.style.display = "block";
+
+        list.style.display =
+            "block";
+
     }
+
 
 
     function updateActiveItem() {
@@ -705,8 +1417,14 @@ function createAutocomplete(inputId, listId, options) {
             );
 
 
-        items.forEach(item =>
-            item.classList.remove("active")
+        items.forEach(
+            function(item) {
+
+                item.classList.remove(
+                    "active"
+                );
+
+            }
         );
 
 
@@ -715,24 +1433,32 @@ function createAutocomplete(inputId, listId, options) {
             items[selectedIndex]
         ) {
 
-            items[selectedIndex]
-                .classList.add("active");
+            items[
+                selectedIndex
+            ].classList.add(
+                "active"
+            );
 
 
-            items[selectedIndex]
-                .scrollIntoView({
-                    block: "nearest"
-                });
+            items[
+                selectedIndex
+            ].scrollIntoView({
+
+                block: "nearest"
+
+            });
 
         }
 
     }
 
 
+
     input.addEventListener(
         "input",
         render
     );
+
 
 
     input.addEventListener(
@@ -745,13 +1471,23 @@ function createAutocomplete(inputId, listId, options) {
                 );
 
 
-            if (event.key === "ArrowDown") {
+            /* ARROW DOWN */
+
+            if (
+                event.key ===
+                "ArrowDown"
+            ) {
 
                 event.preventDefault();
 
 
-                if (items.length === 0)
+                if (
+                    items.length === 0
+                ) {
+
                     return;
+
+                }
 
 
                 selectedIndex++;
@@ -772,21 +1508,31 @@ function createAutocomplete(inputId, listId, options) {
             }
 
 
+            /* ARROW UP */
+
             else if (
-                event.key === "ArrowUp"
+                event.key ===
+                "ArrowUp"
             ) {
 
                 event.preventDefault();
 
 
-                if (items.length === 0)
+                if (
+                    items.length === 0
+                ) {
+
                     return;
+
+                }
 
 
                 selectedIndex--;
 
 
-                if (selectedIndex < 0) {
+                if (
+                    selectedIndex < 0
+                ) {
 
                     selectedIndex =
                         items.length - 1;
@@ -799,41 +1545,54 @@ function createAutocomplete(inputId, listId, options) {
             }
 
 
+            /* ENTER */
+
             else if (
-                event.key === "Enter"
+                event.key ===
+                "Enter"
             ) {
 
                 if (
                     selectedIndex >= 0 &&
-                    filtered[selectedIndex]
+                    filtered[
+                        selectedIndex
+                    ]
                 ) {
 
                     event.preventDefault();
 
 
                     input.value =
-                        filtered[selectedIndex];
+                        filtered[
+                            selectedIndex
+                        ];
 
 
                     list.style.display =
                         "none";
 
 
-                    selectedIndex = -1;
+                    selectedIndex =
+                        -1;
 
                 }
 
             }
 
 
+            /* ESCAPE */
+
             else if (
-                event.key === "Escape"
+                event.key ===
+                "Escape"
             ) {
 
                 list.style.display =
                     "none";
 
-                selectedIndex = -1;
+
+                selectedIndex =
+                    -1;
 
             }
 
@@ -841,16 +1600,20 @@ function createAutocomplete(inputId, listId, options) {
     );
 
 
+
     input.addEventListener(
         "blur",
         function() {
 
-            setTimeout(function() {
+            setTimeout(
+                function() {
 
-                list.style.display =
-                    "none";
+                    list.style.display =
+                        "none";
 
-            }, 150);
+                },
+                150
+            );
 
         }
     );
@@ -859,9 +1622,9 @@ function createAutocomplete(inputId, listId, options) {
 
 
 
-/* ==================================================
+/* ==========================================
    CITY AUTOCOMPLETE
-   ================================================== */
+   ========================================== */
 
 createAutocomplete(
     "city",
@@ -884,9 +1647,9 @@ createAutocomplete(
 
 
 
-/* ==================================================
+/* ==========================================
    UNIVERSITY AUTOCOMPLETE
-   ================================================== */
+   ========================================== */
 
 createAutocomplete(
     "school",
@@ -907,9 +1670,9 @@ createAutocomplete(
 
 
 
-/* ==================================================
+/* ==========================================
    SKILLS
-   ================================================== */
+   ========================================== */
 
 const availableSkills = [
 
@@ -1032,21 +1795,28 @@ const availableSkills = [
     "Project Management",
     "Technical Writing",
     "Critical Thinking"
+
 ];
 
 
+
 const skillInput =
-    document.getElementById("skill");
+    document.getElementById(
+        "skill"
+    );
+
 
 const skillSuggestions =
     document.getElementById(
         "skillSuggestions"
     );
 
+
 const selectedSkillsContainer =
     document.getElementById(
         "selectedSkills"
     );
+
 
 const skillsValue =
     document.getElementById(
@@ -1062,9 +1832,9 @@ let skillSelectedIndex = -1;
 
 
 
-/* ==================================================
+/* ==========================================
    SEARCH SKILLS
-   ================================================== */
+   ========================================== */
 
 skillInput.addEventListener(
     "input",
@@ -1076,9 +1846,12 @@ skillInput.addEventListener(
                 .toLowerCase();
 
 
-        skillSuggestions.innerHTML = "";
+        skillSuggestions.innerHTML =
+            "";
 
-        skillSelectedIndex = -1;
+
+        skillSelectedIndex =
+            -1;
 
 
         if (!search) {
@@ -1092,27 +1865,36 @@ skillInput.addEventListener(
 
 
         filteredSkills =
-            availableSkills.filter(skill =>
+            availableSkills.filter(
+                function(skill) {
 
-                skill
-                    .toLowerCase()
-                    .includes(search)
+                    return (
 
-                &&
+                        skill
+                            .toLowerCase()
+                            .includes(search)
 
-                !selectedSkills.includes(skill)
+                        &&
 
+                        !selectedSkills
+                            .includes(skill)
+
+                    );
+
+                }
             );
 
 
-        /* Only show first 8 matches */
-
         filteredSkills =
-            filteredSkills.slice(0, 8);
+            filteredSkills.slice(
+                0,
+                8
+            );
 
 
         if (
-            filteredSkills.length === 0
+            filteredSkills.length ===
+            0
         ) {
 
             skillSuggestions.style.display =
@@ -1123,34 +1905,42 @@ skillInput.addEventListener(
         }
 
 
-        filteredSkills.forEach(skill => {
+        filteredSkills.forEach(
+            function(skill) {
 
-            const item =
-                document.createElement("div");
-
-
-            item.className =
-                "autocomplete-item";
-
-
-            item.textContent =
-                skill;
+                const item =
+                    document.createElement(
+                        "div"
+                    );
 
 
-            item.addEventListener(
-                "mousedown",
-                function() {
-
-                    addSkill(skill);
-
-                }
-            );
+                item.className =
+                    "autocomplete-item";
 
 
-            skillSuggestions
-                .appendChild(item);
+                item.textContent =
+                    skill;
 
-        });
+
+                item.addEventListener(
+                    "mousedown",
+                    function() {
+
+                        addSkill(
+                            skill
+                        );
+
+                    }
+                );
+
+
+                skillSuggestions
+                    .appendChild(
+                        item
+                    );
+
+            }
+        );
 
 
         skillSuggestions.style.display =
@@ -1161,9 +1951,9 @@ skillInput.addEventListener(
 
 
 
-/* ==================================================
-   SKILL KEYBOARD CONTROL
-   ================================================== */
+/* ==========================================
+   SKILL KEYBOARD
+   ========================================== */
 
 skillInput.addEventListener(
     "keydown",
@@ -1178,13 +1968,21 @@ skillInput.addEventListener(
 
         /* ARROW DOWN */
 
-        if (event.key === "ArrowDown") {
+        if (
+            event.key ===
+            "ArrowDown"
+        ) {
 
             event.preventDefault();
 
 
-            if (items.length === 0)
+            if (
+                items.length === 0
+            ) {
+
                 return;
+
+            }
 
 
             skillSelectedIndex++;
@@ -1195,7 +1993,8 @@ skillInput.addEventListener(
                 items.length
             ) {
 
-                skillSelectedIndex = 0;
+                skillSelectedIndex =
+                    0;
 
             }
 
@@ -1208,21 +2007,28 @@ skillInput.addEventListener(
         /* ARROW UP */
 
         else if (
-            event.key === "ArrowUp"
+            event.key ===
+            "ArrowUp"
         ) {
 
             event.preventDefault();
 
 
-            if (items.length === 0)
+            if (
+                items.length === 0
+            ) {
+
                 return;
+
+            }
 
 
             skillSelectedIndex--;
 
 
             if (
-                skillSelectedIndex < 0
+                skillSelectedIndex <
+                0
             ) {
 
                 skillSelectedIndex =
@@ -1239,7 +2045,8 @@ skillInput.addEventListener(
         /* ENTER */
 
         else if (
-            event.key === "Enter"
+            event.key ===
+            "Enter"
         ) {
 
             if (
@@ -1266,14 +2073,16 @@ skillInput.addEventListener(
         /* ESCAPE */
 
         else if (
-            event.key === "Escape"
+            event.key ===
+            "Escape"
         ) {
 
             skillSuggestions.style.display =
                 "none";
 
 
-            skillSelectedIndex = -1;
+            skillSelectedIndex =
+                -1;
 
         }
 
@@ -1282,9 +2091,9 @@ skillInput.addEventListener(
 
 
 
-/* ==================================================
-   HIGHLIGHT SKILL
-   ================================================== */
+/* ==========================================
+   SKILL HIGHLIGHT
+   ========================================== */
 
 function updateSkillHighlight() {
 
@@ -1295,25 +2104,37 @@ function updateSkillHighlight() {
             );
 
 
-    items.forEach(item =>
-        item.classList.remove("active")
+    items.forEach(
+        function(item) {
+
+            item.classList.remove(
+                "active"
+            );
+
+        }
     );
 
 
     if (
         skillSelectedIndex >= 0 &&
-        items[skillSelectedIndex]
+        items[
+            skillSelectedIndex
+        ]
     ) {
 
         items[
             skillSelectedIndex
-        ].classList.add("active");
+        ].classList.add(
+            "active"
+        );
 
 
         items[
             skillSelectedIndex
         ].scrollIntoView({
+
             block: "nearest"
+
         });
 
     }
@@ -1322,14 +2143,16 @@ function updateSkillHighlight() {
 
 
 
-/* ==================================================
+/* ==========================================
    ADD SKILL
-   ================================================== */
+   ========================================== */
 
 function addSkill(skill) {
 
     if (
-        selectedSkills.includes(skill)
+        selectedSkills.includes(
+            skill
+        )
     ) {
 
         return;
@@ -1337,30 +2160,33 @@ function addSkill(skill) {
     }
 
 
-    selectedSkills.push(skill);
+    selectedSkills.push(
+        skill
+    );
 
 
-    skillInput.value = "";
+    skillInput.value =
+        "";
 
 
-    skillSuggestions.innerHTML = "";
+    skillSuggestions.innerHTML =
+        "";
 
 
     skillSuggestions.style.display =
         "none";
 
 
-    skillSelectedIndex = -1;
+    skillSelectedIndex =
+        -1;
 
 
     renderSelectedSkills();
 
 
     /*
-        Keep focus on the search box.
-
-        This allows automation to immediately
-        type the next skill.
+    Keep focus in the search input so
+    another skill can immediately be added.
     */
 
     skillInput.focus();
@@ -1369,15 +2195,21 @@ function addSkill(skill) {
 
 
 
-/* ==================================================
+/* ==========================================
    REMOVE SKILL
-   ================================================== */
+   ========================================== */
 
 function removeSkill(skill) {
 
     selectedSkills =
         selectedSkills.filter(
-            item => item !== skill
+            function(item) {
+
+                return (
+                    item !== skill
+                );
+
+            }
         );
 
 
@@ -1387,9 +2219,9 @@ function removeSkill(skill) {
 
 
 
-/* ==================================================
-   RENDER SKILLS
-   ================================================== */
+/* ==========================================
+   RENDER SELECTED SKILLS
+   ========================================== */
 
 function renderSelectedSkills() {
 
@@ -1397,105 +2229,113 @@ function renderSelectedSkills() {
         "";
 
 
-    selectedSkills.forEach(skill => {
+    selectedSkills.forEach(
+        function(skill) {
 
-        const chip =
-            document.createElement("div");
-
-
-        chip.className =
-            "skill-chip";
-
-
-        const text =
-            document.createElement("span");
+            const chip =
+                document.createElement(
+                    "div"
+                );
 
 
-        text.textContent =
-            skill;
+            chip.className =
+                "skill-chip";
 
 
-        const removeButton =
-            document.createElement(
-                "button"
+            const text =
+                document.createElement(
+                    "span"
+                );
+
+
+            text.textContent =
+                skill;
+
+
+            const removeButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            removeButton.type =
+                "button";
+
+
+            removeButton.textContent =
+                "×";
+
+
+            removeButton.setAttribute(
+                "aria-label",
+                "Remove " + skill
             );
 
 
-        removeButton.type =
-            "button";
+            removeButton.onclick =
+                function() {
+
+                    removeSkill(
+                        skill
+                    );
+
+                };
 
 
-        removeButton.textContent =
-            "×";
+            chip.appendChild(
+                text
+            );
 
 
-        removeButton.setAttribute(
-            "aria-label",
-            "Remove " + skill
-        );
+            chip.appendChild(
+                removeButton
+            );
 
 
-        removeButton.onclick =
-            function() {
+            selectedSkillsContainer
+                .appendChild(
+                    chip
+                );
 
-                removeSkill(skill);
+        }
+    );
 
-            };
-
-
-        chip.appendChild(text);
-
-
-        chip.appendChild(
-            removeButton
-        );
-
-
-        selectedSkillsContainer
-            .appendChild(chip);
-
-    });
-
-
-    /*
-        Simulates the value sent to the
-        backend by a real job application.
-
-        Example:
-
-        Python,Java,SQL,FastAPI
-    */
 
     skillsValue.value =
-        selectedSkills.join(",");
+        selectedSkills.join(
+            ","
+        );
 
 }
 
 
 
-/* ==================================================
-   CLOSE SKILLS DROPDOWN
-   ================================================== */
+/* ==========================================
+   CLOSE SKILL DROPDOWN ON BLUR
+   ========================================== */
 
 skillInput.addEventListener(
     "blur",
     function() {
 
-        setTimeout(function() {
+        setTimeout(
+            function() {
 
-            skillSuggestions.style.display =
-                "none";
+                skillSuggestions.style.display =
+                    "none";
 
-        }, 150);
+            },
+            150
+        );
 
     }
 );
 
 
 
-/* ==================================================
+/* ==========================================
    SUBMIT / VALIDATION
-   ================================================== */
+   ========================================== */
 
 function submitApplication() {
 
@@ -1505,41 +2345,61 @@ function submitApplication() {
         );
 
 
-    let valid = true;
+    let valid =
+        true;
 
 
-    required.forEach(element => {
+    required.forEach(
+        function(element) {
 
-        element.classList.remove("error");
+            element.classList.remove(
+                "error"
+            );
 
 
-        if (!element.value.trim()) {
+            if (
+                !element.value.trim()
+            ) {
 
-            element.classList.add("error");
+                element.classList.add(
+                    "error"
+                );
 
-            valid = false;
+
+                valid =
+                    false;
+
+            }
 
         }
-
-    });
+    );
 
 
     /*
-        Skills hidden field won't be visible,
-        so highlight the search box instead.
+    Hidden skills field isn't visible,
+    so highlight the visible search input.
     */
 
-    if (selectedSkills.length === 0) {
+    if (
+        selectedSkills.length ===
+        0
+    ) {
 
-        skillInput.classList.add("error");
+        skillInput.classList.add(
+            "error"
+        );
 
-        valid = false;
+
+        valid =
+            false;
 
     }
 
     else {
 
-        skillInput.classList.remove("error");
+        skillInput.classList.remove(
+            "error"
+        );
 
     }
 
@@ -1550,6 +2410,7 @@ function submitApplication() {
             "Please complete all required fields."
         );
 
+
         return;
 
     }
@@ -1557,13 +2418,16 @@ function submitApplication() {
 
     document.getElementById(
         "result"
-    ).style.display = "block";
+    ).style.display =
+        "block";
 
 
     document.getElementById(
         "result"
     ).scrollIntoView({
+
         behavior: "smooth"
+
     });
 
 }
@@ -1572,3 +2436,4 @@ function submitApplication() {
 
 </body>
 </html>
+```
