@@ -5,9 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mock Job Application</title>
+<title>Graduation Date Test</title>
 
 <style>
+
+/* ==========================================
+   PAGE STYLING
+   ========================================== */
+
 * {
     box-sizing: border-box;
 }
@@ -18,6 +23,11 @@ body {
     background: #f4f6f8;
     color: #222;
 }
+
+
+/* ==========================================
+   HEADER
+   ========================================== */
 
 .header {
     background: white;
@@ -34,6 +44,11 @@ body {
     margin: 5px 0 0;
     color: #666;
 }
+
+
+/* ==========================================
+   MAIN CONTAINER
+   ========================================== */
 
 .container {
     width: 700px;
@@ -58,6 +73,11 @@ h2 {
     font-weight: bold;
 }
 
+
+/* ==========================================
+   QUESTION FIELDS
+   ========================================== */
+
 .field {
     margin-bottom: 24px;
     position: relative;
@@ -73,9 +93,7 @@ label {
     color: #d93025;
 }
 
-input,
-select,
-textarea {
+input {
     width: 100%;
     padding: 12px;
     border: 1px solid #aaa;
@@ -84,16 +102,9 @@ textarea {
     background: white;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
+input:focus {
     outline: 2px solid #4285f4;
     border-color: #4285f4;
-}
-
-textarea {
-    min-height: 110px;
-    resize: vertical;
 }
 
 .hint {
@@ -104,230 +115,19 @@ textarea {
 
 
 /* ==========================================
-   AUTOCOMPLETE
-   ========================================== */
-
-.autocomplete-list {
-    display: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #aaa;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 100;
-    box-shadow: 0 3px 7px rgba(0,0,0,.15);
-}
-
-.autocomplete-item {
-    padding: 11px;
-    cursor: pointer;
-}
-
-.autocomplete-item:hover,
-.autocomplete-item.active {
-    background: #e8f0fe;
-}
-
-
-/* ==========================================
-   SKILLS
-   ========================================== */
-
-.skill-search-wrapper {
-    position: relative;
-}
-
-.selected-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-.skill-chip {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    background: #e8f0fe;
-    border: 1px solid #b8cdf5;
-    padding: 7px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-}
-
-.skill-chip button {
-    width: auto;
-    margin: 0;
-    padding: 0;
-    background: none;
-    border: none;
-    color: #555;
-    font-size: 17px;
-    cursor: pointer;
-}
-
-.skill-chip button:hover {
-    color: #d93025;
-}
-
-
-/* ==========================================
-   FOCUSABLE QUESTIONS
-   ========================================== */
-
-.question-focusable {
-    cursor: pointer;
-}
-
-.question-focusable:hover input,
-.question-focusable:hover select {
-    border-color: #4285f4;
-}
-
-
-/* ==========================================
-   FULL SCREEN QUESTION MODE
-   ========================================== */
-
-#questionFocusOverlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 10000;
-    background: white;
-    flex-direction: column;
-}
-
-.focus-header {
-    background: #13245a;
-    color: white;
-    min-height: 72px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 20px;
-}
-
-.focus-header h2 {
-    margin: 0;
-    font-size: 25px;
-}
-
-.focus-close {
-    border: none;
-    background: transparent;
-    color: white;
-
-    font-size: 36px;
-    line-height: 1;
-
-    cursor: pointer;
-    padding: 5px 10px;
-}
-
-.focus-close:hover {
-    background: rgba(255,255,255,.1);
-}
-
-.focus-content {
-    flex: 1;
-    overflow-y: auto;
-
-    padding: 30px 20px 100px;
-
-    background: white;
-}
-
-#focusQuestionContainer {
-    width: 100%;
-    max-width: 650px;
-    margin: 0 auto;
-}
-
-#focusQuestionContainer .field {
-    margin: 0;
-}
-
-#focusQuestionContainer .focus-original-label {
-    display: none;
-}
-
-#focusQuestionContainer .autocomplete-list {
-    z-index: 10100;
-}
-
-
-/* ==========================================
-   DONE BUTTON
-   ========================================== */
-
-.focus-footer {
-    position: fixed;
-
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    padding: 14px 20px;
-
-    background: white;
-
-    border-top: 1px solid #ddd;
-
-    z-index: 10200;
-}
-
-.focus-done {
-    display: block;
-
-    width: 100%;
-    max-width: 650px;
-
-    margin: 0 auto;
-
-    padding: 14px;
-
-    border: none;
-    border-radius: 30px;
-
-    background: #1646b8;
-    color: white;
-
-    font-size: 16px;
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-.focus-done:hover {
-    background: #103999;
-}
-
-
-/* ==========================================
-   SUBMIT
+   SUBMIT BUTTON
    ========================================== */
 
 .submit-button {
     margin-top: 15px;
-
     width: 100%;
-
     padding: 14px;
-
     border: none;
     border-radius: 5px;
-
     background: #1769aa;
     color: white;
-
     font-size: 16px;
     font-weight: bold;
-
     cursor: pointer;
 }
 
@@ -335,14 +135,16 @@ textarea {
     background: #12558a;
 }
 
+
+/* ==========================================
+   SUCCESS MESSAGE
+   ========================================== */
+
 #result {
     display: none;
-
     margin-top: 25px;
     padding: 15px;
-
     background: #e9f7ef;
-
     border: 1px solid #79c99e;
     border-radius: 5px;
 }
@@ -350,7 +152,9 @@ textarea {
 .error {
     border-color: red !important;
 }
+
 </style>
+
 </head>
 
 
@@ -366,7 +170,7 @@ textarea {
     <h1>Acme Technologies</h1>
 
     <p>
-        Software Engineer Intern Application
+        Graduation Date Testing
     </p>
 
 </div>
@@ -374,602 +178,104 @@ textarea {
 
 
 <!-- ==========================================
-     APPLICATION
+     MAIN PAGE
      ========================================== -->
 
 <div class="container">
 
-<h2>Job Application</h2>
+    <h2>Education Dates</h2>
 
-<p>
-    Please complete the following information to apply for the
-    Software Engineer Intern position.
-</p>
-
-
-<!-- ==========================================
-     PERSONAL INFORMATION
-     ========================================== -->
-
-<div class="section-title">
-    Personal Information
-</div>
+    <p>
+        Please enter your education start and graduation dates.
+    </p>
 
 
-<div class="field">
-
-    <label for="firstName">
-        First Name
-        <span class="required">*</span>
-    </label>
-
-    <input
-        id="firstName"
-        name="first_name"
-        type="text"
-        placeholder="Enter your first name"
-        required
-    >
-
-</div>
-
-
-<div class="field">
-
-    <label for="lastName">
-        Last Name
-        <span class="required">*</span>
-    </label>
-
-    <input
-        id="lastName"
-        name="last_name"
-        type="text"
-        placeholder="Enter your last name"
-        required
-    >
-
-</div>
-
-
-<div class="field">
-
-    <label for="email">
-        Email Address
-        <span class="required">*</span>
-    </label>
-
-    <input
-        id="email"
-        name="email"
-        type="email"
-        placeholder="name@example.com"
-        required
-    >
-
-</div>
-
-
-<div class="field">
-
-    <label for="phone">
-        Phone Number
-        <span class="required">*</span>
-    </label>
-
-    <input
-        id="phone"
-        name="phone"
-        type="tel"
-        placeholder="(555) 555-5555"
-        required
-    >
-
-</div>
-
-
-
-<!-- ==========================================
-     LOCATION
-     ========================================== -->
-
-<div class="section-title">
-    Location
-</div>
-
-
-<!-- STATE - FULL SCREEN -->
-
-<div
-    class="field question-focusable"
-    id="stateQuestion"
-    data-focus-title="State"
->
-
-    <label
-        for="state"
-        class="focus-original-label"
-    >
-        State
-        <span class="required">*</span>
-    </label>
-
-    <select
-        id="state"
-        name="state"
-        required
-    >
-
-        <option value="">
-            Select a state
-        </option>
-
-        <option>Alabama</option>
-        <option>Alaska</option>
-        <option>Arizona</option>
-        <option>California</option>
-        <option>Colorado</option>
-        <option>Florida</option>
-        <option>Georgia</option>
-        <option>Maryland</option>
-        <option>New York</option>
-        <option>North Carolina</option>
-        <option>South Carolina</option>
-        <option>Texas</option>
-        <option>Virginia</option>
-        <option>Washington</option>
-
-    </select>
-
-    <div class="hint">
-        Select your state.
+    <div class="section-title">
+        Graduation Information
     </div>
 
-</div>
 
 
-<!-- CITY - FULL SCREEN -->
+    <!-- ==========================================
+         QUESTION 1
+         TEXT OR CALENDAR
+         ========================================== -->
 
-<div
-    class="field question-focusable"
-    id="cityQuestion"
-    data-focus-title="City"
->
+    <div class="field">
 
-    <label
-        for="city"
-        class="focus-original-label"
-    >
-        City
-        <span class="required">*</span>
-    </label>
+        <label for="graduationStart">
 
-    <input
-        id="city"
-        name="city"
-        type="text"
-        autocomplete="off"
-        placeholder="Start typing a city..."
-        required
-    >
+            Graduation Start Date
 
-    <div
-        id="citySuggestions"
-        class="autocomplete-list">
-    </div>
+            <span class="required">
+                *
+            </span>
 
-    <div class="hint">
-        Start typing your city and select a suggestion.
-    </div>
-
-</div>
-
-
-
-<!-- ==========================================
-     EDUCATION
-     ========================================== -->
-
-<div class="section-title">
-    Education
-</div>
-
-
-<div class="field">
-
-    <label for="school">
-        College / University
-        <span class="required">*</span>
-    </label>
-
-    <input
-        id="school"
-        name="school"
-        type="text"
-        autocomplete="off"
-        placeholder="Search for your university..."
-        required
-    >
-
-    <div
-        id="schoolSuggestions"
-        class="autocomplete-list">
-    </div>
-
-</div>
-
-
-<div class="field">
-
-    <label for="degree">
-        Degree
-        <span class="required">*</span>
-    </label>
-
-    <select
-        id="degree"
-        name="degree"
-        required
-    >
-
-        <option value="">
-            Select degree
-        </option>
-
-        <option>High School Diploma</option>
-        <option>Associate Degree</option>
-        <option>Bachelor's Degree</option>
-        <option>Master's Degree</option>
-        <option>Doctorate</option>
-
-    </select>
-
-</div>
-
-
-<div class="field">
-
-    <label for="major">
-        Major / Field of Study
-    </label>
-
-    <input
-        id="major"
-        name="major"
-        type="text"
-        placeholder="Example: Computer Science"
-    >
-
-</div>
-
-
-<!-- ==========================================
-     NEW: GRADUATION DATES
-     ========================================== -->
-
-<div class="field">
-
-    <label for="graduationStart">
-        Graduation Start Date
-        <span class="required">*</span>
-    </label>
-
-    <input
-        id="graduationStart"
-        name="graduation_start"
-        type="date"
-        required
-    >
-
-    <div class="hint">
-        You can type the date directly or use the calendar.
-    </div>
-
-</div>
-
-
-<div class="field">
-
-    <label for="graduationEnd">
-        Graduation End Date
-        <span class="required">*</span>
-    </label>
-
-    <input
-        id="graduationEnd"
-        name="graduation_end"
-        type="date"
-        required
-    >
-
-    <div class="hint">
-        This looks like a normal date input, but it can only be completed
-        using the calendar.
-    </div>
-
-</div>
-
-
-
-<!-- ==========================================
-     SKILLS - FULL SCREEN
-     ========================================== -->
-
-<div class="section-title">
-    Skills
-</div>
-
-
-<div
-    class="field question-focusable"
-    id="skillsQuestion"
-    data-focus-title="Type to Add Skills"
->
-
-    <label
-        for="skill"
-        class="focus-original-label"
-    >
-        Skills
-        <span class="required">*</span>
-    </label>
-
-    <div
-        class="hint"
-        style="margin-bottom:10px;"
-    >
-        Search for and add skills relevant to your experience.
-        You may add multiple skills.
-    </div>
-
-    <div
-        id="selectedSkills"
-        class="selected-skills">
-    </div>
-
-    <div class="skill-search-wrapper">
+        </label>
 
         <input
-            id="skill"
-            name="skill_search"
-            type="text"
-            autocomplete="off"
-            placeholder="Search for a skill..."
+            id="graduationStart"
+            name="graduation_start"
+            type="date"
+            required
         >
 
-        <div
-            id="skillSuggestions"
-            class="autocomplete-list">
+        <div class="hint">
+            You can type the date or use the calendar.
         </div>
 
     </div>
 
-    <input
-        type="hidden"
-        id="skillsValue"
-        name="skills"
-        required
-    >
 
-</div>
 
+    <!-- ==========================================
+         QUESTION 2
+         CALENDAR ONLY
+         ========================================== -->
 
+    <div class="field">
 
-<!-- ==========================================
-     EXPERIENCE
-     ========================================== -->
+        <label for="graduationEnd">
 
-<div class="section-title">
-    Experience
-</div>
+            Graduation End Date
 
+            <span class="required">
+                *
+            </span>
 
-<div class="field">
+        </label>
 
-    <label for="years">
-        Years of Programming Experience
-    </label>
-
-    <select
-        id="years"
-        name="years_experience"
-    >
-
-        <option value="">
-            Select experience
-        </option>
-
-        <option>Less than 1 year</option>
-        <option>1 year</option>
-        <option>2 years</option>
-        <option>3 years</option>
-        <option>4 years</option>
-        <option>5+ years</option>
-
-    </select>
-
-</div>
-
-
-<div class="field">
-
-    <label for="github">
-        GitHub Profile
-    </label>
-
-    <input
-        id="github"
-        name="github"
-        type="text"
-        placeholder="https://github.com/username"
-    >
-
-</div>
-
-
-<div class="field">
-
-    <label for="linkedin">
-        LinkedIn Profile
-    </label>
-
-    <input
-        id="linkedin"
-        name="linkedin"
-        type="text"
-        placeholder="https://linkedin.com/in/username"
-    >
-
-</div>
-
-
-
-<!-- ==========================================
-     EMPLOYMENT QUESTIONS
-     ========================================== -->
-
-<div class="section-title">
-    Employment Questions
-</div>
-
-
-<div class="field">
-
-    <label for="authorization">
-        Are you legally authorized to work
-        in the United States?
-        <span class="required">*</span>
-    </label>
-
-    <select
-        id="authorization"
-        name="work_authorization"
-        required
-    >
-
-        <option value="">
-            Select an option
-        </option>
-
-        <option>Yes</option>
-        <option>No</option>
-
-    </select>
-
-</div>
-
-
-<div class="field">
-
-    <label for="sponsorship">
-        Will you now or in the future require
-        employment sponsorship?
-        <span class="required">*</span>
-    </label>
-
-    <select
-        id="sponsorship"
-        name="sponsorship"
-        required
-    >
-
-        <option value="">
-            Select an option
-        </option>
-
-        <option>Yes</option>
-        <option>No</option>
-
-    </select>
-
-</div>
-
-
-
-<!-- ==========================================
-     ADDITIONAL QUESTIONS
-     ========================================== -->
-
-<div class="section-title">
-    Additional Questions
-</div>
-
-
-<div class="field">
-
-    <label for="why">
-        Why are you interested in this position?
-    </label>
-
-    <textarea
-        id="why"
-        name="why_interested"
-        placeholder="Enter your response..."
-    ></textarea>
-
-</div>
-
-
-
-<!-- ==========================================
-     SUBMIT
-     ========================================== -->
-
-<button
-    type="button"
-    class="submit-button"
-    onclick="submitApplication()"
->
-    Submit Application
-</button>
-
-<div id="result">
-    Application successfully completed.
-</div>
-
-</div>
-
-
-
-<!-- ==========================================
-     FULL SCREEN QUESTION OVERLAY
-     ========================================== -->
-
-<div id="questionFocusOverlay">
-
-    <div class="focus-header">
-
-        <h2 id="focusQuestionTitle">
-            Question
-        </h2>
-
-        <button
-            type="button"
-            class="focus-close"
-            id="focusCloseButton"
-            aria-label="Close question"
+        <input
+            id="graduationEnd"
+            name="graduation_end"
+            type="date"
+            required
         >
-            &times;
-        </button>
 
-    </div>
-
-    <div class="focus-content">
-
-        <div id="focusQuestionContainer">
+        <div class="hint">
+            Select your graduation date.
         </div>
 
     </div>
 
-    <div class="focus-footer">
 
-        <button
-            type="button"
-            class="focus-done"
-            id="focusDoneButton"
-        >
-            Done
-        </button>
+
+    <!-- ==========================================
+         SUBMIT
+         ========================================== -->
+
+    <button
+        type="button"
+        class="submit-button"
+        onclick="submitApplication()"
+    >
+        Submit
+    </button>
+
+
+    <div id="result">
+
+        Graduation dates successfully completed.
 
     </div>
 
@@ -980,21 +286,16 @@ textarea {
 <script>
 
 /* ==========================================
-   GRADUATION END DATE
-   CALENDAR-ONLY BEHAVIOR
+   CALENDAR-ONLY END DATE
    ========================================== */
 
 const graduationEndInput =
     document.getElementById("graduationEnd");
 
+
 /*
-This field remains type="date" so it looks exactly like a
-normal date input.
-
-However, keyboard input is prevented.
-
-This means the user/automation has to interact with the
-calendar picker instead.
+Block normal keyboard entry into the
+Graduation End Date field.
 */
 
 graduationEndInput.addEventListener(
@@ -1002,17 +303,23 @@ graduationEndInput.addEventListener(
     function(event) {
 
         /*
-        Allow Tab so the user can still move through
-        the form normally.
+        Tab is still allowed so keyboard
+        navigation continues to work.
         */
 
         if (event.key !== "Tab") {
+
             event.preventDefault();
+
         }
 
     }
 );
 
+
+/*
+Block pasting a date.
+*/
 
 graduationEndInput.addEventListener(
     "paste",
@@ -1023,6 +330,10 @@ graduationEndInput.addEventListener(
     }
 );
 
+
+/*
+Block dragging text into the input.
+*/
 
 graduationEndInput.addEventListener(
     "drop",
@@ -1035,8 +346,8 @@ graduationEndInput.addEventListener(
 
 
 /*
-Try to open the native browser calendar when the
-field itself is clicked.
+When the field is clicked, open the
+browser's calendar picker.
 */
 
 graduationEndInput.addEventListener(
@@ -1057,8 +368,9 @@ graduationEndInput.addEventListener(
             catch (error) {
 
                 /*
-                Browser will fall back to its normal
-                date input behavior.
+                If showPicker is unavailable,
+                use the browser's normal
+                date-input behavior.
                 */
 
             }
@@ -1071,1115 +383,66 @@ graduationEndInput.addEventListener(
 
 
 /* ==========================================
-   FULL SCREEN QUESTION SYSTEM
-   ========================================== */
-
-const focusOverlay =
-    document.getElementById(
-        "questionFocusOverlay"
-    );
-
-const focusContainer =
-    document.getElementById(
-        "focusQuestionContainer"
-    );
-
-const focusTitle =
-    document.getElementById(
-        "focusQuestionTitle"
-    );
-
-const focusCloseButton =
-    document.getElementById(
-        "focusCloseButton"
-    );
-
-const focusDoneButton =
-    document.getElementById(
-        "focusDoneButton"
-    );
-
-
-let currentFocusedQuestion = null;
-let questionPlaceholder = null;
-
-
-
-function openQuestionFocus(question) {
-
-    if (currentFocusedQuestion) {
-        return;
-    }
-
-    currentFocusedQuestion = question;
-
-    questionPlaceholder =
-        document.createComment(
-            "question-original-position"
-        );
-
-    question.parentNode.insertBefore(
-        questionPlaceholder,
-        question
-    );
-
-    focusTitle.textContent =
-        question.dataset.focusTitle ||
-        "Question";
-
-    focusContainer.appendChild(
-        question
-    );
-
-    focusOverlay.style.display =
-        "flex";
-
-    document.body.style.overflow =
-        "hidden";
-
-    const firstInput =
-        question.querySelector(
-            'input:not([type="hidden"]), select, textarea'
-        );
-
-    if (firstInput) {
-
-        setTimeout(function() {
-
-            firstInput.focus();
-
-        }, 50);
-
-    }
-
-}
-
-
-
-function closeQuestionFocus() {
-
-    if (!currentFocusedQuestion) {
-        return;
-    }
-
-    const openLists =
-        currentFocusedQuestion
-            .querySelectorAll(
-                ".autocomplete-list"
-            );
-
-    openLists.forEach(
-        function(list) {
-
-            list.style.display =
-                "none";
-
-        }
-    );
-
-    questionPlaceholder
-        .parentNode
-        .insertBefore(
-            currentFocusedQuestion,
-            questionPlaceholder
-        );
-
-    questionPlaceholder.remove();
-
-    focusOverlay.style.display =
-        "none";
-
-    document.body.style.overflow =
-        "";
-
-    currentFocusedQuestion = null;
-
-    questionPlaceholder = null;
-
-}
-
-
-
-document
-    .querySelectorAll(
-        ".question-focusable"
-    )
-    .forEach(
-        function(question) {
-
-            question.addEventListener(
-                "click",
-                function() {
-
-                    if (
-                        currentFocusedQuestion ===
-                        question
-                    ) {
-
-                        return;
-
-                    }
-
-                    openQuestionFocus(
-                        question
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-focusCloseButton.addEventListener(
-    "click",
-    closeQuestionFocus
-);
-
-
-focusDoneButton.addEventListener(
-    "click",
-    closeQuestionFocus
-);
-
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape" &&
-            currentFocusedQuestion
-        ) {
-
-            const lists =
-                currentFocusedQuestion
-                    .querySelectorAll(
-                        ".autocomplete-list"
-                    );
-
-            let autocompleteOpen =
-                false;
-
-            lists.forEach(
-                function(list) {
-
-                    if (
-                        list.style.display ===
-                        "block"
-                    ) {
-
-                        autocompleteOpen =
-                            true;
-
-                    }
-
-                }
-            );
-
-            if (!autocompleteOpen) {
-
-                closeQuestionFocus();
-
-            }
-
-        }
-
-    }
-);
-
-
-
-/* ==========================================
-   GENERIC AUTOCOMPLETE
-   ========================================== */
-
-function createAutocomplete(
-    inputId,
-    listId,
-    options
-) {
-
-    const input =
-        document.getElementById(
-            inputId
-        );
-
-    const list =
-        document.getElementById(
-            listId
-        );
-
-    let filtered = [];
-
-    let selectedIndex = -1;
-
-
-    function render() {
-
-        list.innerHTML = "";
-
-        const search =
-            input.value
-                .trim()
-                .toLowerCase();
-
-        if (!search) {
-
-            list.style.display =
-                "none";
-
-            return;
-
-        }
-
-        filtered =
-            options.filter(
-                option =>
-
-                    option
-                        .toLowerCase()
-                        .includes(search)
-
-            );
-
-        if (
-            filtered.length === 0
-        ) {
-
-            list.style.display =
-                "none";
-
-            return;
-
-        }
-
-        filtered.forEach(
-            function(option) {
-
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-                item.className =
-                    "autocomplete-item";
-
-                item.textContent =
-                    option;
-
-                item.addEventListener(
-                    "mousedown",
-                    function() {
-
-                        input.value =
-                            option;
-
-                        list.style.display =
-                            "none";
-
-                        selectedIndex =
-                            -1;
-
-                    }
-                );
-
-                list.appendChild(
-                    item
-                );
-
-            }
-        );
-
-        selectedIndex = -1;
-
-        list.style.display =
-            "block";
-
-    }
-
-
-    function updateActiveItem() {
-
-        const items =
-            list.querySelectorAll(
-                ".autocomplete-item"
-            );
-
-        items.forEach(
-            function(item) {
-
-                item.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-        if (
-            selectedIndex >= 0 &&
-            items[selectedIndex]
-        ) {
-
-            items[
-                selectedIndex
-            ].classList.add(
-                "active"
-            );
-
-            items[
-                selectedIndex
-            ].scrollIntoView({
-
-                block: "nearest"
-
-            });
-
-        }
-
-    }
-
-
-    input.addEventListener(
-        "input",
-        render
-    );
-
-
-    input.addEventListener(
-        "keydown",
-        function(event) {
-
-            const items =
-                list.querySelectorAll(
-                    ".autocomplete-item"
-                );
-
-            if (
-                event.key ===
-                "ArrowDown"
-            ) {
-
-                event.preventDefault();
-
-                if (
-                    items.length === 0
-                ) {
-
-                    return;
-
-                }
-
-                selectedIndex++;
-
-                if (
-                    selectedIndex >=
-                    items.length
-                ) {
-
-                    selectedIndex = 0;
-
-                }
-
-                updateActiveItem();
-
-            }
-
-            else if (
-                event.key ===
-                "ArrowUp"
-            ) {
-
-                event.preventDefault();
-
-                if (
-                    items.length === 0
-                ) {
-
-                    return;
-
-                }
-
-                selectedIndex--;
-
-                if (
-                    selectedIndex < 0
-                ) {
-
-                    selectedIndex =
-                        items.length - 1;
-
-                }
-
-                updateActiveItem();
-
-            }
-
-            else if (
-                event.key ===
-                "Enter"
-            ) {
-
-                if (
-                    selectedIndex >= 0 &&
-                    filtered[
-                        selectedIndex
-                    ]
-                ) {
-
-                    event.preventDefault();
-
-                    input.value =
-                        filtered[
-                            selectedIndex
-                        ];
-
-                    list.style.display =
-                        "none";
-
-                    selectedIndex =
-                        -1;
-
-                }
-
-            }
-
-            else if (
-                event.key ===
-                "Escape"
-            ) {
-
-                list.style.display =
-                    "none";
-
-                selectedIndex =
-                    -1;
-
-            }
-
-        }
-    );
-
-
-    input.addEventListener(
-        "blur",
-        function() {
-
-            setTimeout(
-                function() {
-
-                    list.style.display =
-                        "none";
-
-                },
-                150
-            );
-
-        }
-    );
-
-}
-
-
-
-/* ==========================================
-   CITY AUTOCOMPLETE
-   ========================================== */
-
-createAutocomplete(
-    "city",
-    "citySuggestions",
-    [
-        "Charlotte, NC",
-        "Raleigh, NC",
-        "Durham, NC",
-        "Chapel Hill, NC",
-        "Greensboro, NC",
-        "Winston-Salem, NC",
-        "Atlanta, GA",
-        "Austin, TX",
-        "New York, NY",
-        "San Francisco, CA",
-        "Seattle, WA",
-        "Boston, MA"
-    ]
-);
-
-
-
-/* ==========================================
-   UNIVERSITY AUTOCOMPLETE
-   ========================================== */
-
-createAutocomplete(
-    "school",
-    "schoolSuggestions",
-    [
-        "University of North Carolina at Charlotte",
-        "University of North Carolina at Chapel Hill",
-        "North Carolina State University",
-        "Duke University",
-        "Wake Forest University",
-        "Appalachian State University",
-        "East Carolina University",
-        "University of South Carolina",
-        "Georgia Institute of Technology",
-        "Virginia Tech"
-    ]
-);
-
-
-
-/* ==========================================
-   SKILLS
-   ========================================== */
-
-const availableSkills = [
-
-    "Python",
-    "Java",
-    "JavaScript",
-    "TypeScript",
-    "C",
-    "C++",
-    "C#",
-    "Go",
-    "Rust",
-    "Swift",
-    "Kotlin",
-    "PHP",
-    "Ruby",
-    "R",
-    "MATLAB",
-
-    "HTML",
-    "CSS",
-    "React",
-    "Next.js",
-    "Vue.js",
-    "Angular",
-    "Node.js",
-    "Express.js",
-    "FastAPI",
-    "Django",
-    "Flask",
-    "Spring Boot",
-    "REST APIs",
-    "GraphQL",
-
-    "SQL",
-    "MySQL",
-    "PostgreSQL",
-    "MongoDB",
-    "SQLite",
-    "Redis",
-    "Supabase",
-    "Firebase",
-
-    "AWS",
-    "Microsoft Azure",
-    "Google Cloud Platform",
-    "Docker",
-    "Kubernetes",
-    "Git",
-    "GitHub",
-    "GitLab",
-    "CI/CD",
-    "Linux",
-
-    "Machine Learning",
-    "Artificial Intelligence",
-    "Deep Learning",
-    "Natural Language Processing",
-    "Computer Vision",
-    "Large Language Models",
-    "Generative AI",
-    "Prompt Engineering",
-    "PyTorch",
-    "TensorFlow",
-    "Scikit-learn",
-    "LangChain",
-    "OpenAI API",
-
-    "Data Analysis",
-    "Data Science",
-    "Pandas",
-    "NumPy",
-    "Power BI",
-    "Tableau",
-    "Data Visualization",
-    "ETL",
-    "Statistics",
-
-    "Object-Oriented Programming",
-    "Data Structures",
-    "Algorithms",
-    "Software Development",
-    "Software Testing",
-    "Unit Testing",
-    "API Development",
-    "Backend Development",
-    "Frontend Development",
-    "Full Stack Development",
-    "Microservices",
-    "Agile Development",
-    "Scrum",
-
-    "Problem Solving",
-    "Communication",
-    "Leadership",
-    "Teamwork",
-    "Project Management",
-    "Technical Writing",
-    "Critical Thinking"
-
-];
-
-
-const skillInput =
-    document.getElementById(
-        "skill"
-    );
-
-const skillSuggestions =
-    document.getElementById(
-        "skillSuggestions"
-    );
-
-const selectedSkillsContainer =
-    document.getElementById(
-        "selectedSkills"
-    );
-
-const skillsValue =
-    document.getElementById(
-        "skillsValue"
-    );
-
-let selectedSkills = [];
-
-let filteredSkills = [];
-
-let skillSelectedIndex = -1;
-
-
-
-skillInput.addEventListener(
-    "input",
-    function() {
-
-        const search =
-            skillInput.value
-                .trim()
-                .toLowerCase();
-
-        skillSuggestions.innerHTML =
-            "";
-
-        skillSelectedIndex =
-            -1;
-
-        if (!search) {
-
-            skillSuggestions.style.display =
-                "none";
-
-            return;
-
-        }
-
-        filteredSkills =
-            availableSkills.filter(
-                function(skill) {
-
-                    return (
-
-                        skill
-                            .toLowerCase()
-                            .includes(search)
-
-                        &&
-
-                        !selectedSkills
-                            .includes(skill)
-
-                    );
-
-                }
-            );
-
-        filteredSkills =
-            filteredSkills.slice(
-                0,
-                8
-            );
-
-        if (
-            filteredSkills.length ===
-            0
-        ) {
-
-            skillSuggestions.style.display =
-                "none";
-
-            return;
-
-        }
-
-        filteredSkills.forEach(
-            function(skill) {
-
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-                item.className =
-                    "autocomplete-item";
-
-                item.textContent =
-                    skill;
-
-                item.addEventListener(
-                    "mousedown",
-                    function() {
-
-                        addSkill(
-                            skill
-                        );
-
-                    }
-                );
-
-                skillSuggestions
-                    .appendChild(
-                        item
-                    );
-
-            }
-        );
-
-        skillSuggestions.style.display =
-            "block";
-
-    }
-);
-
-
-
-skillInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        const items =
-            skillSuggestions
-                .querySelectorAll(
-                    ".autocomplete-item"
-                );
-
-        if (
-            event.key ===
-            "ArrowDown"
-        ) {
-
-            event.preventDefault();
-
-            if (
-                items.length === 0
-            ) {
-
-                return;
-
-            }
-
-            skillSelectedIndex++;
-
-            if (
-                skillSelectedIndex >=
-                items.length
-            ) {
-
-                skillSelectedIndex = 0;
-
-            }
-
-            updateSkillActive();
-
-        }
-
-        else if (
-            event.key ===
-            "ArrowUp"
-        ) {
-
-            event.preventDefault();
-
-            if (
-                items.length === 0
-            ) {
-
-                return;
-
-            }
-
-            skillSelectedIndex--;
-
-            if (
-                skillSelectedIndex < 0
-            ) {
-
-                skillSelectedIndex =
-                    items.length - 1;
-
-            }
-
-            updateSkillActive();
-
-        }
-
-        else if (
-            event.key ===
-            "Enter"
-        ) {
-
-            if (
-                skillSelectedIndex >= 0 &&
-                filteredSkills[
-                    skillSelectedIndex
-                ]
-            ) {
-
-                event.preventDefault();
-
-                addSkill(
-                    filteredSkills[
-                        skillSelectedIndex
-                    ]
-                );
-
-            }
-
-        }
-
-        else if (
-            event.key ===
-            "Escape"
-        ) {
-
-            skillSuggestions.style.display =
-                "none";
-
-            skillSelectedIndex =
-                -1;
-
-        }
-
-    }
-);
-
-
-
-function updateSkillActive() {
-
-    const items =
-        skillSuggestions
-            .querySelectorAll(
-                ".autocomplete-item"
-            );
-
-    items.forEach(
-        function(item) {
-
-            item.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-    if (
-        skillSelectedIndex >= 0 &&
-        items[
-            skillSelectedIndex
-        ]
-    ) {
-
-        items[
-            skillSelectedIndex
-        ].classList.add(
-            "active"
-        );
-
-    }
-
-}
-
-
-
-function addSkill(skill) {
-
-    if (
-        selectedSkills.includes(skill)
-    ) {
-
-        return;
-
-    }
-
-    selectedSkills.push(
-        skill
-    );
-
-    skillInput.value =
-        "";
-
-    skillSuggestions.style.display =
-        "none";
-
-    skillSelectedIndex =
-        -1;
-
-    renderSelectedSkills();
-
-}
-
-
-
-function removeSkill(skill) {
-
-    selectedSkills =
-        selectedSkills.filter(
-            function(item) {
-
-                return item !== skill;
-
-            }
-        );
-
-    renderSelectedSkills();
-
-}
-
-
-
-function renderSelectedSkills() {
-
-    selectedSkillsContainer.innerHTML =
-        "";
-
-    selectedSkills.forEach(
-        function(skill) {
-
-            const chip =
-                document.createElement(
-                    "div"
-                );
-
-            chip.className =
-                "skill-chip";
-
-            const text =
-                document.createElement(
-                    "span"
-                );
-
-            text.textContent =
-                skill;
-
-            const remove =
-                document.createElement(
-                    "button"
-                );
-
-            remove.type =
-                "button";
-
-            remove.textContent =
-                "×";
-
-            remove.addEventListener(
-                "click",
-                function(event) {
-
-                    event.stopPropagation();
-
-                    removeSkill(
-                        skill
-                    );
-
-                }
-            );
-
-            chip.appendChild(
-                text
-            );
-
-            chip.appendChild(
-                remove
-            );
-
-            selectedSkillsContainer
-                .appendChild(
-                    chip
-                );
-
-        }
-    );
-
-    skillsValue.value =
-        selectedSkills.join(
-            ", "
-        );
-
-}
-
-
-
-/* ==========================================
-   SUBMIT
+   SUBMIT VALIDATION
    ========================================== */
 
 function submitApplication() {
 
-    const requiredFields =
-        document.querySelectorAll(
-            "[required]"
+    const startDate =
+        document.getElementById(
+            "graduationStart"
         );
+
+    const endDate =
+        document.getElementById(
+            "graduationEnd"
+        );
+
+
+    startDate.classList.remove(
+        "error"
+    );
+
+    endDate.classList.remove(
+        "error"
+    );
+
 
     let valid = true;
 
-    requiredFields.forEach(
-        function(field) {
 
-            field.classList.remove(
-                "error"
-            );
+    if (!startDate.value) {
 
-            if (
-                !field.value ||
-                !field.value.trim()
-            ) {
+        startDate.classList.add(
+            "error"
+        );
 
-                field.classList.add(
-                    "error"
-                );
+        valid = false;
 
-                valid = false;
+    }
 
-            }
 
-        }
-    );
+    if (!endDate.value) {
+
+        endDate.classList.add(
+            "error"
+        );
+
+        valid = false;
+
+    }
+
 
     if (!valid) {
 
         alert(
-            "Please complete all required fields."
+            "Please complete both graduation dates."
         );
 
         return;
 
     }
+
 
     document.getElementById(
         "result"
@@ -2190,5 +453,7 @@ function submitApplication() {
 
 </script>
 
+
 </body>
+
 </html>
