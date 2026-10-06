@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -115,6 +116,22 @@ input:focus {
 
 
 /* ==========================================
+   TEST TYPE LABEL
+   ========================================== */
+
+.test-type {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: #eef2f7;
+    color: #555;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* ==========================================
    SUBMIT BUTTON
    ========================================== */
 
@@ -190,18 +207,30 @@ input:focus {
     </p>
 
 
+    <!-- ==========================================
+         DATE QUESTIONS
+         ========================================== -->
+
     <div class="section-title">
-        Graduation Information
+        Date Inputs
     </div>
 
 
 
     <!-- ==========================================
          QUESTION 1
-         TEXT OR CALENDAR
+
+         TYPE = DATE
+
+         TEXT ENTRY ALLOWED
+         CALENDAR ALLOWED
          ========================================== -->
 
     <div class="field">
+
+        <div class="test-type">
+            DATE — TEXT + CALENDAR
+        </div>
 
         <label for="graduationStart">
 
@@ -230,10 +259,17 @@ input:focus {
 
     <!-- ==========================================
          QUESTION 2
+
+         TYPE = DATE
+
          CALENDAR ONLY
          ========================================== -->
 
     <div class="field">
+
+        <div class="test-type">
+            DATE — CALENDAR ONLY
+        </div>
 
         <label for="graduationEnd">
 
@@ -253,7 +289,96 @@ input:focus {
         >
 
         <div class="hint">
-            Select your graduation date.
+            Keyboard entry is blocked. Select the date using the calendar.
+        </div>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         MONTH QUESTIONS
+         ========================================== -->
+
+    <div class="section-title">
+        Month Inputs
+    </div>
+
+
+
+    <!-- ==========================================
+         QUESTION 3
+
+         TYPE = MONTH
+
+         TEXT ENTRY ALLOWED
+         MONTH PICKER ALLOWED
+         ========================================== -->
+
+    <div class="field">
+
+        <div class="test-type">
+            MONTH — TEXT + PICKER
+        </div>
+
+        <label for="graduationStartMonth">
+
+            Graduation Start Month
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+        <input
+            id="graduationStartMonth"
+            name="graduation_start_month"
+            type="month"
+            required
+        >
+
+        <div class="hint">
+            You can type the month/year or use the month picker.
+        </div>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         QUESTION 4
+
+         TYPE = MONTH
+
+         MONTH PICKER ONLY
+         ========================================== -->
+
+    <div class="field">
+
+        <div class="test-type">
+            MONTH — PICKER ONLY
+        </div>
+
+        <label for="graduationEndMonth">
+
+            Graduation End Month
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+        <input
+            id="graduationEndMonth"
+            name="graduation_end_month"
+            type="month"
+            required
+        >
+
+        <div class="hint">
+            Keyboard entry is blocked. Select the month and year using the picker.
         </div>
 
     </div>
@@ -286,26 +411,25 @@ input:focus {
 <script>
 
 /* ==========================================
-   CALENDAR-ONLY END DATE
+   CALENDAR-ONLY DATE INPUT
    ========================================== */
 
 const graduationEndInput =
-    document.getElementById("graduationEnd");
+    document.getElementById(
+        "graduationEnd"
+    );
 
 
 /*
 Block normal keyboard entry into the
 Graduation End Date field.
+
+Tab is still allowed.
 */
 
 graduationEndInput.addEventListener(
     "keydown",
     function(event) {
-
-        /*
-        Tab is still allowed so keyboard
-        navigation continues to work.
-        */
 
         if (event.key !== "Tab") {
 
@@ -318,7 +442,7 @@ graduationEndInput.addEventListener(
 
 
 /*
-Block pasting a date.
+Block pasting.
 */
 
 graduationEndInput.addEventListener(
@@ -332,7 +456,7 @@ graduationEndInput.addEventListener(
 
 
 /*
-Block dragging text into the input.
+Block dragging text into the field.
 */
 
 graduationEndInput.addEventListener(
@@ -346,8 +470,8 @@ graduationEndInput.addEventListener(
 
 
 /*
-When the field is clicked, open the
-browser's calendar picker.
+Open the browser's calendar picker
+when the field is clicked.
 */
 
 graduationEndInput.addEventListener(
@@ -368,9 +492,103 @@ graduationEndInput.addEventListener(
             catch (error) {
 
                 /*
-                If showPicker is unavailable,
-                use the browser's normal
-                date-input behavior.
+                Browser will fall back to its
+                normal date-input behavior.
+                */
+
+            }
+
+        }
+
+    }
+);
+
+
+
+/* ==========================================
+   PICKER-ONLY MONTH INPUT
+   ========================================== */
+
+const graduationEndMonthInput =
+    document.getElementById(
+        "graduationEndMonth"
+    );
+
+
+/*
+Block normal keyboard entry into the
+Graduation End Month field.
+
+Tab is still allowed.
+*/
+
+graduationEndMonthInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key !== "Tab") {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
+/*
+Block pasting.
+*/
+
+graduationEndMonthInput.addEventListener(
+    "paste",
+    function(event) {
+
+        event.preventDefault();
+
+    }
+);
+
+
+/*
+Block dragging text into the field.
+*/
+
+graduationEndMonthInput.addEventListener(
+    "drop",
+    function(event) {
+
+        event.preventDefault();
+
+    }
+);
+
+
+/*
+Open the browser's month picker
+when the field is clicked.
+*/
+
+graduationEndMonthInput.addEventListener(
+    "click",
+    function() {
+
+        if (
+            typeof graduationEndMonthInput.showPicker ===
+            "function"
+        ) {
+
+            try {
+
+                graduationEndMonthInput.showPicker();
+
+            }
+
+            catch (error) {
+
+                /*
+                Browser will fall back to its
+                normal month-input behavior.
                 */
 
             }
@@ -393,56 +611,86 @@ function submitApplication() {
             "graduationStart"
         );
 
+
     const endDate =
         document.getElementById(
             "graduationEnd"
         );
 
 
-    startDate.classList.remove(
-        "error"
-    );
+    const startMonth =
+        document.getElementById(
+            "graduationStartMonth"
+        );
 
-    endDate.classList.remove(
-        "error"
-    );
+
+    const endMonth =
+        document.getElementById(
+            "graduationEndMonth"
+        );
+
+
+    const fields = [
+
+        startDate,
+        endDate,
+        startMonth,
+        endMonth
+
+    ];
 
 
     let valid = true;
 
 
-    if (!startDate.value) {
+    /*
+    Remove previous error styling
+    and check every required field.
+    */
 
-        startDate.classList.add(
-            "error"
-        );
+    fields.forEach(
+        function(field) {
 
-        valid = false;
+            field.classList.remove(
+                "error"
+            );
 
-    }
+
+            if (!field.value) {
+
+                field.classList.add(
+                    "error"
+                );
 
 
-    if (!endDate.value) {
+                valid = false;
 
-        endDate.classList.add(
-            "error"
-        );
+            }
 
-        valid = false;
+        }
+    );
 
-    }
 
+    /*
+    Stop submission if any field
+    is empty.
+    */
 
     if (!valid) {
 
         alert(
-            "Please complete both graduation dates."
+            "Please complete all graduation dates."
         );
+
 
         return;
 
     }
 
+
+    /*
+    Everything is complete.
+    */
 
     document.getElementById(
         "result"
@@ -457,3 +705,4 @@ function submitApplication() {
 </body>
 
 </html>
+```
