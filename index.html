@@ -1,708 +1,144 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Graduation Date Test</title>
-
+<title>Graduation Date Test — Custom Calendars</title>
 <style>
-
-/* ==========================================
-   PAGE STYLING
-   ========================================== */
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    color: #222;
-}
-
-
-/* ==========================================
-   HEADER
-   ========================================== */
-
-.header {
-    background: white;
-    border-bottom: 1px solid #ddd;
-    padding: 20px 40px;
-}
-
-.header h1 {
-    margin: 0;
-    font-size: 24px;
-}
-
-.header p {
-    margin: 5px 0 0;
-    color: #666;
-}
-
-
-/* ==========================================
-   MAIN CONTAINER
-   ========================================== */
-
-.container {
-    width: 700px;
-    max-width: 90%;
-    margin: 35px auto;
-    background: white;
-    padding: 35px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.08);
-}
-
-h2 {
-    margin-top: 0;
-}
-
-.section-title {
-    margin-top: 35px;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #ddd;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-
-/* ==========================================
-   QUESTION FIELDS
-   ========================================== */
-
-.field {
-    margin-bottom: 24px;
-    position: relative;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 7px;
-}
-
-.required {
-    color: #d93025;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    font-size: 16px;
-    background: white;
-}
-
-input:focus {
-    outline: 2px solid #4285f4;
-    border-color: #4285f4;
-}
-
-.hint {
-    margin-top: 6px;
-    color: #777;
-    font-size: 13px;
-}
-
-
-/* ==========================================
-   TEST TYPE LABEL
-   ========================================== */
-
-.test-type {
-    display: inline-block;
-    margin-bottom: 8px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background: #eef2f7;
-    color: #555;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-
-/* ==========================================
-   SUBMIT BUTTON
-   ========================================== */
-
-.submit-button {
-    margin-top: 15px;
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 5px;
-    background: #1769aa;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.submit-button:hover {
-    background: #12558a;
-}
-
-
-/* ==========================================
-   SUCCESS MESSAGE
-   ========================================== */
-
-#result {
-    display: none;
-    margin-top: 25px;
-    padding: 15px;
-    background: #e9f7ef;
-    border: 1px solid #79c99e;
-    border-radius: 5px;
-}
-
-.error {
-    border-color: red !important;
-}
-
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#222}.header{background:white;border-bottom:1px solid #ddd;padding:20px 40px}.header h1{margin:0;font-size:24px}.header p{margin:5px 0 0;color:#666}.container{width:700px;max-width:90%;margin:35px auto;background:white;padding:35px;border-radius:8px;box-shadow:0 2px 10px #0001}h2{margin-top:0}.section-title{margin:35px 0 15px;padding-bottom:8px;border-bottom:1px solid #ddd;font-size:18px;font-weight:bold}.field{margin-bottom:24px;position:relative}label{display:block;font-weight:bold;margin-bottom:7px}.required{color:#d93025}.test-type{display:inline-block;margin-bottom:8px;padding:4px 8px;border-radius:4px;background:#eef2f7;color:#555;font-size:12px;font-weight:bold}.hint{margin-top:6px;color:#777;font-size:13px}.control{display:flex;align-items:stretch;border:1px solid #aaa;border-radius:5px;background:#fff;overflow:hidden}.control:focus-within{outline:2px solid #4285f4;border-color:#4285f4}.control input{min-width:0;flex:1;padding:12px;border:0;background:transparent;font-size:16px;outline:0}.control input[readonly]{cursor:pointer}.calendar-trigger{border:0;border-left:1px solid #ddd;background:#fff;padding:0 15px;cursor:pointer;font-size:20px;color:#4b5563}.calendar-trigger:hover{background:#eef2f7}.calendar-popup{position:absolute;top:calc(100% - 19px);left:0;width:320px;max-width:100%;z-index:20;background:#fff;border:1px solid #cfd6df;border-radius:8px;box-shadow:0 8px 26px #0003;padding:15px}.calendar-popup[hidden]{display:none}.calendar-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.calendar-header button{background:#fff;border:1px solid #d7dce4;border-radius:5px;padding:7px 10px;cursor:pointer;font-size:16px}.calendar-header button:hover,.day:hover,.month-choice:hover{background:#e9f1ff}.calendar-title{font-size:15px;font-weight:bold;text-align:center}.calendar-weekdays,.calendar-days,.month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}.calendar-weekdays span{text-align:center;color:#687383;font-size:12px;padding:7px 0}.day{border:0;background:white;border-radius:4px;cursor:pointer;min-height:34px;font-size:13px}.day.selected,.month-choice.selected{background:#1769aa;color:white}.day.blank{visibility:hidden}.month-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.month-choice{background:#fff;border:1px solid #d8dce3;border-radius:5px;cursor:pointer;padding:12px 2px}.calendar-footer{display:flex;justify-content:space-between;gap:10px;margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb}.calendar-footer button{border:0;background:none;color:#1769aa;cursor:pointer;padding:5px}.submit-button{margin-top:15px;width:100%;padding:14px;border:none;border-radius:5px;background:#1769aa;color:white;font-size:16px;font-weight:bold;cursor:pointer}.submit-button:hover{background:#12558a}#result{display:none;margin-top:25px;padding:15px;background:#e9f7ef;border:1px solid #79c99e;border-radius:5px}.error{border-color:red!important;outline:1px solid red!important}@media(max-width:500px){.header{padding:18px}.container{padding:20px}.calendar-popup{width:100%}}
 </style>
-
 </head>
-
-
 <body>
-
-
-<!-- ==========================================
-     HEADER
-     ========================================== -->
-
-<div class="header">
-
-    <h1>Acme Technologies</h1>
-
-    <p>
-        Graduation Date Testing
-    </p>
-
-</div>
-
-
-
-<!-- ==========================================
-     MAIN PAGE
-     ========================================== -->
-
+<div class="header"><h1>Acme Technologies</h1><p>Graduation Date Testing — Custom Calendars</p></div>
 <div class="container">
-
-    <h2>Education Dates</h2>
-
-    <p>
-        Please enter your education start and graduation dates.
-    </p>
-
-
-    <!-- ==========================================
-         DATE QUESTIONS
-         ========================================== -->
-
-    <div class="section-title">
-        Date Inputs
-    </div>
-
-
-
-    <!-- ==========================================
-         QUESTION 1
-
-         TYPE = DATE
-
-         TEXT ENTRY ALLOWED
-         CALENDAR ALLOWED
-         ========================================== -->
-
-    <div class="field">
-
-        <div class="test-type">
-            DATE — TEXT + CALENDAR
-        </div>
-
-        <label for="graduationStart">
-
-            Graduation Start Date
-
-            <span class="required">
-                *
-            </span>
-
-        </label>
-
-        <input
-            id="graduationStart"
-            name="graduation_start"
-            type="date"
-            required
-        >
-
-        <div class="hint">
-            You can type the date or use the calendar.
-        </div>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         QUESTION 2
-
-         TYPE = DATE
-
-         CALENDAR ONLY
-         ========================================== -->
-
-    <div class="field">
-
-        <div class="test-type">
-            DATE — CALENDAR ONLY
-        </div>
-
-        <label for="graduationEnd">
-
-            Graduation End Date
-
-            <span class="required">
-                *
-            </span>
-
-        </label>
-
-        <input
-            id="graduationEnd"
-            name="graduation_end"
-            type="date"
-            required
-        >
-
-        <div class="hint">
-            Keyboard entry is blocked. Select the date using the calendar.
-        </div>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         MONTH QUESTIONS
-         ========================================== -->
-
-    <div class="section-title">
-        Month Inputs
-    </div>
-
-
-
-    <!-- ==========================================
-         QUESTION 3
-
-         TYPE = MONTH
-
-         TEXT ENTRY ALLOWED
-         MONTH PICKER ALLOWED
-         ========================================== -->
-
-    <div class="field">
-
-        <div class="test-type">
-            MONTH — TEXT + PICKER
-        </div>
-
-        <label for="graduationStartMonth">
-
-            Graduation Start Month
-
-            <span class="required">
-                *
-            </span>
-
-        </label>
-
-        <input
-            id="graduationStartMonth"
-            name="graduation_start_month"
-            type="month"
-            required
-        >
-
-        <div class="hint">
-            You can type the month/year or use the month picker.
-        </div>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         QUESTION 4
-
-         TYPE = MONTH
-
-         MONTH PICKER ONLY
-         ========================================== -->
-
-    <div class="field">
-
-        <div class="test-type">
-            MONTH — PICKER ONLY
-        </div>
-
-        <label for="graduationEndMonth">
-
-            Graduation End Month
-
-            <span class="required">
-                *
-            </span>
-
-        </label>
-
-        <input
-            id="graduationEndMonth"
-            name="graduation_end_month"
-            type="month"
-            required
-        >
-
-        <div class="hint">
-            Keyboard entry is blocked. Select the month and year using the picker.
-        </div>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         SUBMIT
-         ========================================== -->
-
-    <button
-        type="button"
-        class="submit-button"
-        onclick="submitApplication()"
-    >
-        Submit
-    </button>
-
-
-    <div id="result">
-
-        Graduation dates successfully completed.
-
-    </div>
-
+<h2>Education Dates</h2><p>Please enter your education start and graduation dates.</p>
+<div class="section-title">Date Inputs</div>
+<div class="field" data-calendar="date" data-editable="true">
+  <div class="test-type">DATE — TEXT + CUSTOM CALENDAR</div>
+  <label for="graduationStart">Graduation Start Date <span class="required">*</span></label>
+  <div class="control"><input id="graduationStart" name="graduation_start" type="text" placeholder="MM/DD/YYYY" autocomplete="off" required><button class="calendar-trigger" type="button" aria-label="Open graduation start date calendar">▦</button></div>
+  <div class="hint">Type MM/DD/YYYY or select a date in the custom calendar.</div>
 </div>
-
-
-
+<div class="field" data-calendar="date" data-editable="false">
+  <div class="test-type">DATE — CUSTOM CALENDAR ONLY</div>
+  <label for="graduationEnd">Graduation End Date <span class="required">*</span></label>
+  <div class="control"><input id="graduationEnd" name="graduation_end" type="text" placeholder="Select a date" readonly required><button class="calendar-trigger" type="button" aria-label="Open graduation end date calendar">▦</button></div>
+  <div class="hint">Keyboard entry is disabled. Select the day, month, and year using the popup.</div>
+</div>
+<div class="section-title">Month Inputs</div>
+<div class="field" data-calendar="month" data-editable="true">
+  <div class="test-type">MONTH — TEXT + CUSTOM PICKER</div>
+  <label for="graduationStartMonth">Graduation Start Month <span class="required">*</span></label>
+  <div class="control"><input id="graduationStartMonth" name="graduation_start_month" type="text" placeholder="MM/YYYY" autocomplete="off" required><button class="calendar-trigger" type="button" aria-label="Open graduation start month picker">▦</button></div>
+  <div class="hint">Type MM/YYYY or select the month and year in the custom picker.</div>
+</div>
+<div class="field" data-calendar="month" data-editable="false">
+  <div class="test-type">MONTH — CUSTOM PICKER ONLY</div>
+  <label for="graduationEndMonth">Graduation End Month <span class="required">*</span></label>
+  <div class="control"><input id="graduationEndMonth" name="graduation_end_month" type="text" placeholder="Select a month" readonly required><button class="calendar-trigger" type="button" aria-label="Open graduation end month picker">▦</button></div>
+  <div class="hint">Keyboard entry is disabled. Select a month and year using the popup.</div>
+</div>
+<button type="button" class="submit-button" onclick="submitApplication()">Submit</button>
+<div id="result">Graduation dates successfully completed.</div>
+</div>
 <script>
-
-/* ==========================================
-   CALENDAR-ONLY DATE INPUT
-   ========================================== */
-
-const graduationEndInput =
-    document.getElementById(
-        "graduationEnd"
-    );
-
-
-/*
-Block normal keyboard entry into the
-Graduation End Date field.
-
-Tab is still allowed.
-*/
-
-graduationEndInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key !== "Tab") {
-
-            event.preventDefault();
-
-        }
-
-    }
-);
-
-
-/*
-Block pasting.
-*/
-
-graduationEndInput.addEventListener(
-    "paste",
-    function(event) {
-
-        event.preventDefault();
-
-    }
-);
-
-
-/*
-Block dragging text into the field.
-*/
-
-graduationEndInput.addEventListener(
-    "drop",
-    function(event) {
-
-        event.preventDefault();
-
-    }
-);
-
-
-/*
-Open the browser's calendar picker
-when the field is clicked.
-*/
-
-graduationEndInput.addEventListener(
-    "click",
-    function() {
-
-        if (
-            typeof graduationEndInput.showPicker ===
-            "function"
-        ) {
-
-            try {
-
-                graduationEndInput.showPicker();
-
-            }
-
-            catch (error) {
-
-                /*
-                Browser will fall back to its
-                normal date-input behavior.
-                */
-
-            }
-
-        }
-
-    }
-);
-
-
-
-/* ==========================================
-   PICKER-ONLY MONTH INPUT
-   ========================================== */
-
-const graduationEndMonthInput =
-    document.getElementById(
-        "graduationEndMonth"
-    );
-
-
-/*
-Block normal keyboard entry into the
-Graduation End Month field.
-
-Tab is still allowed.
-*/
-
-graduationEndMonthInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key !== "Tab") {
-
-            event.preventDefault();
-
-        }
-
-    }
-);
-
-
-/*
-Block pasting.
-*/
-
-graduationEndMonthInput.addEventListener(
-    "paste",
-    function(event) {
-
-        event.preventDefault();
-
-    }
-);
-
-
-/*
-Block dragging text into the field.
-*/
-
-graduationEndMonthInput.addEventListener(
-    "drop",
-    function(event) {
-
-        event.preventDefault();
-
-    }
-);
-
-
-/*
-Open the browser's month picker
-when the field is clicked.
-*/
-
-graduationEndMonthInput.addEventListener(
-    "click",
-    function() {
-
-        if (
-            typeof graduationEndMonthInput.showPicker ===
-            "function"
-        ) {
-
-            try {
-
-                graduationEndMonthInput.showPicker();
-
-            }
-
-            catch (error) {
-
-                /*
-                Browser will fall back to its
-                normal month-input behavior.
-                */
-
-            }
-
-        }
-
-    }
-);
-
-
-
-/* ==========================================
-   SUBMIT VALIDATION
-   ========================================== */
-
-function submitApplication() {
-
-    const startDate =
-        document.getElementById(
-            "graduationStart"
-        );
-
-
-    const endDate =
-        document.getElementById(
-            "graduationEnd"
-        );
-
-
-    const startMonth =
-        document.getElementById(
-            "graduationStartMonth"
-        );
-
-
-    const endMonth =
-        document.getElementById(
-            "graduationEndMonth"
-        );
-
-
-    const fields = [
-
-        startDate,
-        endDate,
-        startMonth,
-        endMonth
-
-    ];
-
-
-    let valid = true;
-
-
-    /*
-    Remove previous error styling
-    and check every required field.
-    */
-
-    fields.forEach(
-        function(field) {
-
-            field.classList.remove(
-                "error"
-            );
-
-
-            if (!field.value) {
-
-                field.classList.add(
-                    "error"
-                );
-
-
-                valid = false;
-
-            }
-
-        }
-    );
-
-
-    /*
-    Stop submission if any field
-    is empty.
-    */
-
-    if (!valid) {
-
-        alert(
-            "Please complete all graduation dates."
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-    Everything is complete.
-    */
-
-    document.getElementById(
-        "result"
-    ).style.display =
-        "block";
-
+const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const pad=n=>String(n).padStart(2,'0');
+let openField=null;
+function validDateText(text){
+  const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(text.trim());
+  if(!m)return false;
+  const month=Number(m[1]),day=Number(m[2]),year=Number(m[3]);
+  if(year<1||month<1||month>12||day<1)return false;
+  return day<=new Date(year,month,0).getDate();
 }
-
+function validMonthText(text){
+  const m=/^(\d{1,2})\/(\d{4})$/.exec(text.trim());
+  return !!m&&Number(m[1])>=1&&Number(m[1])<=12&&Number(m[2])>=1;
+}
+function closeCalendars(){document.querySelectorAll('.calendar-popup').forEach(p=>p.hidden=true);openField=null;}
+function renderCalendar(field){
+  const popup=field.querySelector('.calendar-popup');
+  const kind=field.dataset.calendar;
+  const year=Number(field.dataset.viewYear),month=Number(field.dataset.viewMonth);
+  popup.replaceChildren();
+  const header=document.createElement('div');header.className='calendar-header';
+  const prev=document.createElement('button');prev.type='button';prev.textContent='‹';prev.setAttribute('aria-label',kind==='date'?'Previous month':'Previous year');
+  const next=document.createElement('button');next.type='button';next.textContent='›';next.setAttribute('aria-label',kind==='date'?'Next month':'Next year');
+  const title=document.createElement('div');title.className='calendar-title';title.textContent=kind==='date'?`${monthNames[month]} ${year}`:String(year);
+  prev.onclick=()=>navigate(field,-1);next.onclick=()=>navigate(field,1);
+  header.append(prev,title,next);popup.append(header);
+  if(kind==='date'){
+    const weekdays=document.createElement('div');weekdays.className='calendar-weekdays';
+    ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{const s=document.createElement('span');s.textContent=d;weekdays.append(s)});popup.append(weekdays);
+    const grid=document.createElement('div');grid.className='calendar-days';
+    const offset=new Date(year,month,1).getDay();
+    const days=new Date(year,month+1,0).getDate();
+    for(let i=0;i<offset;i++){const blank=document.createElement('span');blank.className='day blank';grid.append(blank)}
+    for(let day=1;day<=days;day++){
+      const button=document.createElement('button');button.type='button';button.className='day';button.textContent=day;
+      button.setAttribute('aria-label',`${monthNames[month]} ${day}, ${year}`);
+      if(field.querySelector('input').value===`${pad(month+1)}/${pad(day)}/${year}`)button.classList.add('selected');
+      button.onclick=()=>choose(field,`${pad(month+1)}/${pad(day)}/${year}`);grid.append(button);
+    }
+    popup.append(grid);
+  }else{
+    const grid=document.createElement('div');grid.className='month-grid';
+    monthNames.forEach((name,index)=>{
+      const button=document.createElement('button');button.type='button';button.className='month-choice';button.textContent=name.slice(0,3);
+      button.setAttribute('aria-label',`${name} ${year}`);
+      if(field.querySelector('input').value===`${pad(index+1)}/${year}`)button.classList.add('selected');
+      button.onclick=()=>choose(field,`${pad(index+1)}/${year}`);grid.append(button);
+    });popup.append(grid);
+  }
+  const footer=document.createElement('div');footer.className='calendar-footer';
+  const today=document.createElement('button');today.type='button';today.textContent=kind==='date'?'Today':'This month';
+  today.onclick=()=>{const d=new Date();choose(field,kind==='date'?`${pad(d.getMonth()+1)}/${pad(d.getDate())}/${d.getFullYear()}`:`${pad(d.getMonth()+1)}/${d.getFullYear()}`)};
+  const clear=document.createElement('button');clear.type='button';clear.textContent='Clear';clear.onclick=()=>choose(field,'');
+  footer.append(today,clear);popup.append(footer);
+}
+function navigate(field,delta){
+  let year=Number(field.dataset.viewYear),month=Number(field.dataset.viewMonth);
+  if(field.dataset.calendar==='date'){
+    month+=delta;if(month<0){month=11;year--}else if(month>11){month=0;year++}
+  }else year+=delta;
+  if(year<1||year>9999)return;
+  field.dataset.viewYear=year;field.dataset.viewMonth=month;renderCalendar(field);
+}
+function choose(field,value){
+  const input=field.querySelector('input');input.value=value;
+  input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));
+  field.querySelector('.control').classList.remove('error');closeCalendars();
+}
+function toggleCalendar(field){
+  const wasOpen=openField===field;
+  closeCalendars();if(wasOpen)return;
+  const now=new Date(),input=field.querySelector('input'),kind=field.dataset.calendar;
+  const parts=input.value.match(kind==='date'?/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/:/^(\d{1,2})\/(\d{4})$/);
+  field.dataset.viewYear=parts?Number(parts[kind==='date'?3:2]):now.getFullYear();
+  field.dataset.viewMonth=parts?Number(parts[1])-1:now.getMonth();
+  renderCalendar(field);field.querySelector('.calendar-popup').hidden=false;openField=field;
+}
+document.querySelectorAll('[data-calendar]').forEach(field=>{
+  const popup=document.createElement('div');popup.className='calendar-popup';popup.hidden=true;popup.setAttribute('role','dialog');popup.setAttribute('aria-label',field.dataset.calendar==='date'?'Custom date calendar':'Custom month picker');field.append(popup);
+  const input=field.querySelector('input');const trigger=field.querySelector('.calendar-trigger');
+  trigger.addEventListener('click',()=>toggleCalendar(field));
+  if(input.readOnly){input.addEventListener('click',()=>toggleCalendar(field));}
+  input.addEventListener('keydown',e=>{if(e.key==='Escape')closeCalendars();if(e.key==='ArrowDown'&&!input.readOnly){e.preventDefault();toggleCalendar(field)}});
+  input.addEventListener('input',()=>field.querySelector('.control').classList.remove('error'));
+});
+document.addEventListener('pointerdown',e=>{if(openField&&!openField.contains(e.target))closeCalendars()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCalendars()});
+function submitApplication(){
+  let valid=true;
+  document.querySelectorAll('[data-calendar]').forEach(field=>{
+    const input=field.querySelector('input'),value=input.value.trim();
+    const ok=field.dataset.calendar==='date'?validDateText(value):validMonthText(value);
+    field.querySelector('.control').classList.toggle('error',!ok);if(!ok)valid=false;
+  });
+  const result=document.getElementById('result');result.style.display=valid?'block':'none';
+  if(!valid)alert('Please complete all graduation dates with valid values.');
+}
 </script>
-
-
 </body>
-
 </html>
-```
