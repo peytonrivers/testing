@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acme Technologies | Click & View Form Test</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#222}.header{background:white;border-bottom:1px solid #ddd;padding:20px 40px}.header h1{margin:0;font-size:24px}.header p{margin:5px 0 0;color:#666}.container{width:700px;max-width:92%;margin:35px auto;background:white;padding:35px;border-radius:8px;box-shadow:0 2px 10px #0001}h2{margin-top:0}.section-title{margin:35px 0 15px;padding-bottom:8px;border-bottom:1px solid #ddd;font-size:18px;font-weight:bold}.field{margin-bottom:22px;position:relative}label{display:block;font-weight:bold;margin-bottom:7px}input,select,textarea{width:100%;padding:12px;border:1px solid #aaa;border-radius:5px;font-size:16px;background:white}input:focus,select:focus,textarea:focus{outline:2px solid #4285f4;border-color:#4285f4}textarea{min-height:95px;resize:vertical}.required{color:#d93025}.hint{font-size:13px;color:#777;margin:6px 0 12px}.add-button{width:100%;padding:14px;border:2px dashed #1769aa;background:#f4f9ff;color:#1769aa;border-radius:6px;font-size:16px;font-weight:bold;cursor:pointer;text-align:left}.add-button:hover{background:#e8f0fe}.entry{margin:18px 0;padding:22px;border:1px solid #cdd7e2;border-radius:8px;background:#fafcff}.entry-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.entry-header h3{margin:0;font-size:17px}.remove-button{border:1px solid #d93025;border-radius:5px;background:white;color:#b3261e;padding:8px 12px;cursor:pointer}.remove-button:hover{background:#fff1f0}.row-fields{display:grid;grid-template-columns:1fr 1fr;gap:15px}.checkbox-row{display:flex;align-items:center;gap:9px;margin:0 0 18px}.checkbox-row input{width:auto}.checkbox-row label{margin:0;font-weight:normal}.submit-button{margin-top:25px;width:100%;padding:14px;border:0;border-radius:5px;background:#1769aa;color:white;font-size:16px;font-weight:bold;cursor:pointer}.submit-button:hover{background:#12558a}#result{display:none;margin-top:24px;padding:16px;background:#e9f7ef;border:1px solid #79c99e;border-radius:5px}#result pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}.error{border-color:#d93025!important}.count{font-weight:normal;font-size:13px;color:#777;margin-left:8px}@media(max-width:550px){.row-fields{grid-template-columns:1fr}.container{padding:20px}.header{padding:20px}}
+</style>
+</head>
+<body>
+<header class="header"><h1>Acme Technologies</h1><p>Education & Experience Test</p></header>
+<main class="container"><h2>Click & View Form Test</h2><p>Use the two buttons below to reveal repeatable education and work experience questions.</p><form id="applicationForm">
+<div class="section-title">Education <span id="educationCount" class="count">0 added</span></div>
+<p class="hint">Click Add Education to reveal questions. You can add or remove as many schools as needed.</p>
+<div id="educationEntries"></div>
+<button type="button" class="add-button" id="addEducation">+ Add Education</button>
+<div class="section-title">Work Experience <span id="experienceCount" class="count">0 added</span></div>
+<p class="hint">Click Add Experience to reveal questions. Each position can be edited or removed independently.</p>
+<div id="experienceEntries"></div>
+<button type="button" class="add-button" id="addExperience">+ Add Experience</button>
+<button class="submit-button" type="submit">Submit Application</button>
+</form>
+<div id="result" role="status"><strong>Form successfully completed (local test only).</strong><p>Collected form data:</p><pre id="output"></pre></div>
+</main>
+<template id="educationTemplate"><section class="entry" data-kind="education"><div class="entry-header"><h3>Education <span class="entry-number"></span></h3><button type="button" class="remove-button">Remove Education</button></div>
+<div class="field"><label>College / University <span class="required">*</span></label><input data-field="school" placeholder="Enter college or university" required></div>
+<div class="field"><label>Degree <span class="required">*</span></label><select data-field="degree" required><option value="">Select degree</option><option>High School Diploma</option><option>Associate Degree</option><option>Bachelor's Degree</option><option>Master's Degree</option><option>Doctorate</option><option>Other</option></select></div>
+<div class="field"><label>Major / Field of Study</label><input data-field="major" placeholder="Computer Science"></div>
+<div class="row-fields"><div class="field"><label>Start Date <span class="required">*</span></label><input data-field="start_date" type="month" required></div><div class="field"><label>End / Expected Graduation Date <span class="required">*</span></label><input data-field="end_date" type="month" required></div></div>
+<div class="field"><label>Graduation Status</label><select data-field="status"><option value="">Select status</option><option>Currently enrolled</option><option>Graduated</option><option>Did not graduate</option></select></div>
+</section></template>
+<template id="experienceTemplate"><section class="entry" data-kind="experience"><div class="entry-header"><h3>Experience <span class="entry-number"></span></h3><button type="button" class="remove-button">Remove Experience</button></div>
+<div class="field"><label>Company / Organization <span class="required">*</span></label><input data-field="company" placeholder="Enter company name" required></div>
+<div class="field"><label>Job Title <span class="required">*</span></label><input data-field="title" placeholder="Software Engineer Intern" required></div>
+<div class="field"><label>Employment Type</label><select data-field="employment_type"><option value="">Select employment type</option><option>Internship</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Freelance</option><option>Volunteer</option></select></div>
+<div class="field"><label>Location</label><input data-field="location" placeholder="Charlotte, NC or Remote"></div>
+<div class="row-fields"><div class="field"><label>Start Date <span class="required">*</span></label><input data-field="start_date" type="month" required></div><div class="field"><label>End Date <span class="required">*</span></label><input data-field="end_date" type="month" required></div></div>
+<div class="checkbox-row"><input type="checkbox" data-field="current" class="current-check"><label> I currently work here</label></div>
+<div class="field"><label>Responsibilities / Description</label><textarea data-field="description" placeholder="Describe your responsibilities and achievements..."></textarea></div>
+</section></template>
+<script>
+let nextEducationId=0,nextExperienceId=0;
+function refresh(kind){const entries=[...document.querySelectorAll(`[data-kind="${kind}"]`)];entries.forEach((entry,index)=>entry.querySelector('.entry-number').textContent=`#${index+1}`);document.getElementById(kind+'Count').textContent=`${entries.length} added`;}
+function addEntry(kind){const id=kind==='education'?++nextEducationId:++nextExperienceId;const fragment=document.getElementById(kind+'Template').content.cloneNode(true);const entry=fragment.querySelector('.entry');entry.dataset.id=String(id);entry.querySelectorAll('[data-field]').forEach(control=>{const field=control.dataset.field;control.id=`${kind}_${id}_${field}`;control.name=`${kind}[${id}][${field}]`;const label=control.closest('.field')?.querySelector('label');if(label)label.htmlFor=control.id;});entry.querySelector('.remove-button').addEventListener('click',()=>{entry.remove();refresh(kind);});if(kind==='experience'){const checkbox=entry.querySelector('.current-check');const end=entry.querySelector('[data-field="end_date"]');checkbox.addEventListener('change',()=>{end.disabled=checkbox.checked;end.required=!checkbox.checked;if(checkbox.checked)end.value='';});}
+document.getElementById(kind+'Entries').appendChild(fragment);refresh(kind);entry.scrollIntoView({behavior:'smooth',block:'nearest'});}
+document.getElementById('addEducation').addEventListener('click',()=>addEntry('education'));
+document.getElementById('addExperience').addEventListener('click',()=>addEntry('experience'));
+function collectEntries(kind){return [...document.querySelectorAll(`[data-kind="${kind}"]`)].map(entry=>Object.fromEntries([...entry.querySelectorAll('[data-field]')].map(control=>[control.dataset.field,control.type==='checkbox'?control.checked:control.value])));}
+document.getElementById('applicationForm').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;const data=Object.fromEntries(new FormData(form).entries());Object.keys(data).filter(key=>key.startsWith('education[')||key.startsWith('experience[')).forEach(key=>delete data[key]);data.education=collectEntries('education');data.experience=collectEntries('experience');document.getElementById('output').textContent=JSON.stringify(data,null,2);document.getElementById('result').style.display='block';document.getElementById('result').scrollIntoView({behavior:'smooth'});});
+</script>
+</body></html>
