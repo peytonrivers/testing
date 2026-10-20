@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Job Application - Custom State Dropdown</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#222}
+.header{background:white;border-bottom:1px solid #ddd;padding:20px 40px}
+.header h1{margin:0;font-size:24px}.header p{margin:5px 0 0;color:#666}
+.container{width:700px;max-width:90%;margin:35px auto;background:white;padding:35px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+h2{margin-top:0}.section-title{margin-top:35px;margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #ddd;font-size:18px;font-weight:bold}
+.field{margin-bottom:24px;position:relative}label{display:block;font-weight:bold;margin-bottom:7px}.required{color:#d93025}
+.custom-trigger{width:100%;padding:12px;border:1px solid #aaa;border-radius:5px;font-size:16px;background:white;color:#777;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.custom-trigger.has-value{color:#222}.custom-trigger:focus-visible{outline:2px solid #4285f4;border-color:#4285f4}.custom-trigger[aria-expanded="true"]{border-color:#4285f4;outline:2px solid #4285f4}
+.chevron{width:9px;height:9px;border-right:2px solid #666;border-bottom:2px solid #666;transform:rotate(45deg);margin-right:4px;margin-top:-5px}
+.custom-trigger[aria-expanded="true"] .chevron{transform:rotate(225deg);margin-top:5px}
+.state-options{position:absolute;top:100%;left:0;right:0;z-index:100;background:#fff;border:1px solid #aaa;border-radius:0 0 5px 5px;max-height:240px;overflow-y:auto;box-shadow:0 3px 7px rgba(0,0,0,.15);margin-top:3px;padding:4px 0}
+.state-options[hidden]{display:none}.state-option{padding:11px 12px;cursor:pointer;font-size:16px}.state-option:hover,.state-option.active{background:#e8f0fe}.state-option[aria-selected="true"]{font-weight:bold}
+.hint{margin-top:8px;color:#777;font-size:13px}.submit-button{margin-top:15px;width:100%;padding:14px;border:none;border-radius:5px;background:#1769aa;color:white;font-size:16px;font-weight:bold;cursor:pointer}.submit-button:hover{background:#12558a}
+#result{display:none;margin-top:25px;padding:15px;background:#e9f7ef;border:1px solid #79c99e;border-radius:5px}.error{border-color:red!important;outline-color:red!important}
+</style>
+</head>
+<body>
+<div class="header"><h1>Acme Technologies</h1><p>Software Engineer Intern Application</p></div>
+<div class="container">
+<h2>Job Application</h2>
+<p>Please complete the following information to apply for the Software Engineer Intern position.</p>
+<div class="section-title">Location</div>
+<div class="field" data-dropdown="state">
+<label id="state-label" for="state-trigger">State <span class="required">*</span></label>
+<button id="state-trigger" class="custom-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="state-options" aria-labelledby="state-label state-display" aria-required="true"><span id="state-display">Select a state</span><span class="chevron" aria-hidden="true"></span></button>
+<div id="state-options" class="state-options" role="listbox" aria-labelledby="state-label" hidden></div>
+<input type="hidden" id="state" name="state" value="">
+</div>
+<div class="section-title">Employment Questions</div>
+<div class="field" data-dropdown="authorization">
+<label id="authorization-label" for="authorization-trigger">Are you legally authorized to work in the United States? <span class="required">*</span></label>
+<button id="authorization-trigger" class="custom-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="authorization-options" aria-labelledby="authorization-label authorization-display" aria-required="true"><span id="authorization-display">Select an option</span><span class="chevron" aria-hidden="true"></span></button>
+<div id="authorization-options" class="state-options" role="listbox" aria-labelledby="authorization-label" hidden></div>
+<input type="hidden" id="authorization" name="authorization" value="">
+</div>
+<div class="field" data-dropdown="sponsorship">
+<label id="sponsorship-label" for="sponsorship-trigger">Will you now or in the future require employment sponsorship? <span class="required">*</span></label>
+<button id="sponsorship-trigger" class="custom-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="sponsorship-options" aria-labelledby="sponsorship-label sponsorship-display" aria-required="true"><span id="sponsorship-display">Select an option</span><span class="chevron" aria-hidden="true"></span></button>
+<div id="sponsorship-options" class="state-options" role="listbox" aria-labelledby="sponsorship-label" hidden></div>
+<input type="hidden" id="sponsorship" name="sponsorship" value="">
+</div>
+<div class="field" data-dropdown="employment">
+<label id="employment-label" for="employment-trigger">What type of employment are you seeking? <span class="required">*</span></label>
+<button id="employment-trigger" class="custom-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="employment-options" aria-labelledby="employment-label employment-display" aria-required="true"><span id="employment-display">Select an option</span><span class="chevron" aria-hidden="true"></span></button>
+<div id="employment-options" class="state-options" role="listbox" aria-labelledby="employment-label" hidden></div>
+<input type="hidden" id="employment" name="employment" value="">
+</div>
+<div class="field" data-dropdown="workplace">
+<label id="workplace-label" for="workplace-trigger">What is your preferred work arrangement? <span class="required">*</span></label>
+<button id="workplace-trigger" class="custom-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="workplace-options" aria-labelledby="workplace-label workplace-display" aria-required="true"><span id="workplace-display">Select an option</span><span class="chevron" aria-hidden="true"></span></button>
+<div id="workplace-options" class="state-options" role="listbox" aria-labelledby="workplace-label" hidden></div>
+<input type="hidden" id="workplace" name="workplace" value="">
+</div>
+<div class="field" data-dropdown="experience">
+<label id="experience-label" for="experience-trigger">How many years of professional experience do you have? <span class="required">*</span></label>
+<button id="experience-trigger" class="custom-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="experience-options" aria-labelledby="experience-label experience-display" aria-required="true"><span id="experience-display">Select an option</span><span class="chevron" aria-hidden="true"></span></button>
+<div id="experience-options" class="state-options" role="listbox" aria-labelledby="experience-label" hidden></div>
+<input type="hidden" id="experience" name="experience" value="">
+</div>
+<div class="field" data-dropdown="start">
+<label id="start-label" for="start-trigger">When are you available to start? <span class="required">*</span></label>
+<button id="start-trigger" class="custom-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="start-options" aria-labelledby="start-label start-display" aria-required="true"><span id="start-display">Select an option</span><span class="chevron" aria-hidden="true"></span></button>
+<div id="start-options" class="state-options" role="listbox" aria-labelledby="start-label" hidden></div>
+<input type="hidden" id="start" name="start" value="">
+</div>
+<button type="button" class="submit-button" id="submit-button">Submit Application</button>
+<div id="result" role="status">Application successfully completed.</div>
+</div>
+<script>
+const states=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+const questions={
+ state:states,
+ authorization:['Yes','No'],
+ sponsorship:['Yes','No'],
+ employment:['Full-time','Part-time','Internship','Contract'],
+ workplace:['On-site','Hybrid','Remote','No preference'],
+ experience:['Less than 1 year','1–2 years','3–5 years','6–10 years','More than 10 years'],
+ start:['Immediately','Within 2 weeks','Within 1 month','Within 2 months','Flexible']
+};
+const result=document.getElementById('result');
+const dropdowns=[];
+for(const [key,values] of Object.entries(questions)){
+ const trigger=document.getElementById(key+'-trigger');
+ const menu=document.getElementById(key+'-options');
+ const input=document.getElementById(key);
+ const display=document.getElementById(key+'-display');
+ let active=-1,selected=-1;
+ values.forEach((value,i)=>{
+  const el=document.createElement('div');
+  el.className='state-option';el.id=key+'-option-'+i;
+  el.setAttribute('role','option');el.setAttribute('aria-selected','false');el.textContent=value;
+  el.addEventListener('click',()=>choose(i));
+  el.addEventListener('mousemove',()=>highlight(i));
+  menu.appendChild(el);
+ });
+ const items=[...menu.children];
+ const isOpen=()=>trigger.getAttribute('aria-expanded')==='true';
+ function highlight(i){active=i;items.forEach((el,j)=>el.classList.toggle('active',i===j));if(i>=0){trigger.setAttribute('aria-activedescendant',items[i].id);items[i].scrollIntoView({block:'nearest'})}else trigger.removeAttribute('aria-activedescendant')}
+ function close(){menu.hidden=true;trigger.setAttribute('aria-expanded','false');trigger.removeAttribute('aria-activedescendant')}
+ function open(){dropdowns.forEach(d=>d.close());menu.hidden=false;trigger.setAttribute('aria-expanded','true');highlight(selected>=0?selected:0)}
+ function choose(i){selected=i;input.value=values[i];display.textContent=values[i];trigger.classList.add('has-value');trigger.classList.remove('error');items.forEach((el,j)=>el.setAttribute('aria-selected',String(j===i)));close();trigger.focus();result.style.display='none';input.dispatchEvent(new Event('change',{bubbles:true}))}
+ trigger.addEventListener('click',()=>isOpen()?close():open());
+ trigger.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();if(!isOpen()){open();return}highlight((active+(e.key==='ArrowDown'?1:-1)+values.length)%values.length)}
+  else if(e.key==='Enter'||e.key===' '){e.preventDefault();if(isOpen()&&active>=0)choose(active);else open()}
+  else if(e.key==='Escape'&&isOpen()){e.preventDefault();close()}
+  else if(e.key==='Home'&&isOpen()){e.preventDefault();highlight(0)}
+  else if(e.key==='End'&&isOpen()){e.preventDefault();highlight(values.length-1)}
+ });
+ dropdowns.push({trigger,menu,input,close});
+}
+document.addEventListener('pointerdown',e=>{dropdowns.forEach(d=>{if(!d.trigger.contains(e.target)&&!d.menu.contains(e.target))d.close()})});
+document.getElementById('submit-button').addEventListener('click',()=>{
+ let firstMissing=null;
+ dropdowns.forEach(d=>{const missing=!d.input.value;d.trigger.classList.toggle('error',missing);if(missing&&!firstMissing)firstMissing=d.trigger});
+ if(firstMissing){result.style.display='none';firstMissing.focus();alert('Please complete all required questions.');return}
+ result.style.display='block';result.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+</script>
+</body>
+</html>

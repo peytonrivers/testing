@@ -27,6 +27,13 @@ h2{margin-top:0}.section-title{margin-top:35px;margin-bottom:15px;padding-bottom
 <div class="container">
 <h2>Job Application</h2>
 <p>Please complete the following information to apply for the Software Engineer Intern position.</p>
+<div class="section-title">Work Preferences</div>
+<div class="field" data-dropdown="workstyle">
+<label id="workstyle-label" for="workstyle-trigger">Which working style best describes your preference? <span class="required">*</span></label>
+<button id="workstyle-trigger" class="custom-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="workstyle-options" aria-labelledby="workstyle-label workstyle-display" aria-required="true"><span id="workstyle-display">Select an option</span><span class="chevron" aria-hidden="true"></span></button>
+<div id="workstyle-options" class="state-options" role="listbox" aria-labelledby="workstyle-label" hidden></div>
+<input type="hidden" id="workstyle" name="workstyle" value="">
+</div>
 <div class="section-title">Location</div>
 <div class="field" data-dropdown="state">
 <label id="state-label" for="state-trigger">State <span class="required">*</span></label>
@@ -77,6 +84,23 @@ h2{margin-top:0}.section-title{margin-top:35px;margin-bottom:15px;padding-bottom
 <script>
 const states=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 const questions={
+ workstyle:[
+  'Remote',
+  'Hybrid schedule with two office days per week',
+  'I prefer working independently on clearly defined tasks, with occasional check-ins and regular opportunities to share progress with the team.',
+  'On-site',
+  'I enjoy a collaborative environment where engineers pair program, review code together, and coordinate closely with product managers and designers. I prefer a schedule that provides frequent face-to-face discussion while still allowing uninterrupted time for focused development.',
+  'Flexible',
+  'Mostly remote with monthly team meetings',
+  'I would prefer a role where I can work from home most days, travel to the office for important planning sessions, collaborate across time zones, and adjust my schedule around major releases. Clear written documentation, asynchronous updates, and predictable meeting times are particularly important to me because they help me stay productive while supporting colleagues in different locations.',
+  'In-office',
+  'A balanced mix of remote and in-person collaboration',
+  'I am comfortable with a wide range of work arrangements, including fully remote, hybrid, and on-site schedules. My ideal environment emphasizes meaningful feedback, accessible mentors, strong engineering practices, and reasonable flexibility. I value the ability to concentrate on complex problems without interruptions, but I also appreciate team workshops, design discussions, shared debugging sessions, and opportunities to learn from experienced developers.',
+  'No preference',
+  'Hybrid with flexible hours',
+  'I thrive in a structured, collaborative engineering organization that offers frequent opportunities for learning, code reviews, architecture discussions, and mentorship. I am happy to work on-site during critical project phases and remotely when individual focus is more valuable. The most important factors for me are clear expectations, good communication, supportive teammates, thoughtful planning, and a healthy balance between deep technical work and team coordination.',
+  'Part-time remote'
+ ],
  state:states,
  authorization:['Yes','No'],
  sponsorship:['Yes','No'],
