@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ApplyR - Date Dropdown Test</title>
+<title>ApplyR - Job Application Test</title>
 
 <style>
     * {
@@ -43,11 +43,47 @@
         margin-bottom: 30px;
     }
 
-    .question label {
+    .question label,
+    .question-title {
         display: block;
         font-size: 15px;
         font-weight: 600;
         margin-bottom: 10px;
+    }
+
+    .question input[type="text"],
+    .question input[type="email"],
+    .question input[type="tel"],
+    .question input[type="number"],
+    .question select,
+    .question textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 14px;
+        background: white;
+    }
+
+    .question textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .radio-group {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .radio-group label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-weight: 400;
+        margin: 0;
+        cursor: pointer;
     }
 
     .date-container {
@@ -154,7 +190,7 @@
     }
 
     .submit-button {
-        margin-top: 25px;
+        margin-top: 10px;
         background: #2563eb;
         color: white;
         border: none;
@@ -174,6 +210,8 @@
         background: #f1f5f9;
         border-radius: 8px;
         display: none;
+        white-space: pre-wrap;
+        line-height: 1.7;
     }
 </style>
 </head>
@@ -185,46 +223,135 @@
     <h1>Job Application</h1>
 
     <p class="description">
-        Please provide your availability information below.
+        Please complete the following application questions.
     </p>
 
-    <div class="question">
+    <form id="application-form">
 
-        <label>Earliest Available Date</label>
+        <!-- QUESTION 1 -->
+        <div class="question">
+            <label for="full-name">1. Full Name</label>
+            <input type="text" id="full-name" name="full_name" required>
+        </div>
 
-        <div class="date-container">
+        <!-- QUESTION 2 -->
+        <div class="question">
+            <label for="email">2. Email Address</label>
+            <input type="email" id="email" name="email" required>
+        </div>
 
-            <div class="dropdown month" data-field="month">
-                <button type="button" class="dropdown-button" aria-expanded="false">
-                    <span>Month</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-options" role="listbox" aria-label="Month"></div>
+        <!-- QUESTION 3 -->
+        <div class="question">
+            <label for="phone">3. Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <!-- QUESTION 4 -->
+        <div class="question">
+            <label for="experience">4. How many years of professional experience do you have?</label>
+            <select id="experience" name="experience" required>
+                <option value="">Select experience</option>
+                <option value="0">Less than 1 year</option>
+                <option value="1-2">1-2 years</option>
+                <option value="3-5">3-5 years</option>
+                <option value="6-10">6-10 years</option>
+                <option value="10+">More than 10 years</option>
+            </select>
+        </div>
+
+        <!-- QUESTION 5 -->
+        <div class="question">
+            <span class="question-title">5. Are you legally authorized to work in the United States?</span>
+            <div class="radio-group">
+                <label><input type="radio" name="authorized" value="Yes" required> Yes</label>
+                <label><input type="radio" name="authorized" value="No"> No</label>
             </div>
+        </div>
 
-            <div class="dropdown" data-field="day">
-                <button type="button" class="dropdown-button" aria-expanded="false">
-                    <span>Day</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-options" role="listbox" aria-label="Day"></div>
+        <!-- QUESTION 6 -->
+        <div class="question">
+            <span class="question-title">6. Will you now or in the future require employment sponsorship?</span>
+            <div class="radio-group">
+                <label><input type="radio" name="sponsorship" value="Yes" required> Yes</label>
+                <label><input type="radio" name="sponsorship" value="No"> No</label>
             </div>
+        </div>
 
-            <div class="dropdown" data-field="year">
-                <button type="button" class="dropdown-button" aria-expanded="false">
-                    <span>Year</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-options" role="listbox" aria-label="Year"></div>
+        <!-- QUESTION 7 -->
+        <div class="question">
+            <label for="education">7. What is your highest level of education?</label>
+            <select id="education" name="education" required>
+                <option value="">Select education level</option>
+                <option>High School Diploma</option>
+                <option>Associate Degree</option>
+                <option>Bachelor's Degree</option>
+                <option>Master's Degree</option>
+                <option>Doctoral Degree</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <!-- QUESTION 8: THREE-PART DATE DROPDOWN -->
+        <div class="question">
+
+            <label>8. Earliest Available Date</label>
+
+            <div class="date-container">
+
+                <div class="dropdown month" data-field="month">
+                    <button type="button" class="dropdown-button" aria-expanded="false">
+                        <span>Month</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="dropdown-options" role="listbox" aria-label="Month"></div>
+                </div>
+
+                <div class="dropdown" data-field="day">
+                    <button type="button" class="dropdown-button" aria-expanded="false">
+                        <span>Day</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="dropdown-options" role="listbox" aria-label="Day"></div>
+                </div>
+
+                <div class="dropdown" data-field="year">
+                    <button type="button" class="dropdown-button" aria-expanded="false">
+                        <span>Year</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="dropdown-options" role="listbox" aria-label="Year"></div>
+                </div>
+
             </div>
 
         </div>
 
-    </div>
+        <!-- QUESTION 9 -->
+        <div class="question">
+            <label for="salary">9. What is your expected annual salary (USD)?</label>
+            <input type="number" id="salary" name="salary" min="0" placeholder="e.g. 65000" required>
+        </div>
 
-    <button class="submit-button" onclick="submitDate()">
-        Continue
-    </button>
+        <!-- QUESTION 10 -->
+        <div class="question">
+            <span class="question-title">10. Are you willing to relocate for this position?</span>
+            <div class="radio-group">
+                <label><input type="radio" name="relocate" value="Yes" required> Yes</label>
+                <label><input type="radio" name="relocate" value="No"> No</label>
+            </div>
+        </div>
+
+        <!-- QUESTION 11 -->
+        <div class="question">
+            <label for="interest">11. Why are you interested in this position?</label>
+            <textarea id="interest" name="interest" placeholder="Enter your response..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-button">
+            Continue
+        </button>
+
+    </form>
 
     <div class="result" id="result"></div>
 
@@ -255,10 +382,12 @@ const selectedDate = {
 };
 
 function closeDropdowns() {
+
     document.querySelectorAll(".dropdown").forEach(dropdown => {
         dropdown.classList.remove("open");
         dropdown.querySelector(".dropdown-button").setAttribute("aria-expanded", "false");
     });
+
 }
 
 document.querySelectorAll(".dropdown").forEach(dropdown => {
@@ -328,14 +457,15 @@ document.addEventListener("keydown", event => {
 
 });
 
-function submitDate() {
+document.getElementById("application-form").addEventListener("submit", event => {
+
+    event.preventDefault();
 
     const result = document.getElementById("result");
 
-    result.style.display = "block";
-
     if (!selectedDate.month || !selectedDate.day || !selectedDate.year) {
-        result.textContent = "Please select a complete date.";
+        result.style.display = "block";
+        result.textContent = "Please complete Question 8: Earliest Available Date.";
         return;
     }
 
@@ -349,17 +479,27 @@ function submitDate() {
         date.getMonth() !== monthIndex ||
         date.getDate() !== day
     ) {
-        result.textContent = "Please select a valid calendar date.";
+        result.style.display = "block";
+        result.textContent = "Please select a valid date for Question 8.";
         return;
     }
 
-    result.textContent =
-        "Selected Date: " +
+    const formData = new FormData(event.target);
+
+    const answers = Object.fromEntries(formData.entries());
+
+    answers.earliest_available_date =
         selectedDate.month + " " +
         selectedDate.day + ", " +
         selectedDate.year;
 
-}
+    result.style.display = "block";
+
+    result.textContent =
+        "Application Test Completed Successfully!\n\n" +
+        JSON.stringify(answers, null, 2);
+
+});
 
 </script>
 
