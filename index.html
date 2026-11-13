@@ -12,18 +12,10 @@
 <div class="container">
 <h1>Job Application</h1>
 <p class="description">Please complete the following application questions.</p>
-<div class="question">
-<label>1. Earliest Available Date</label>
-<div class="date-container">
-<div class="dropdown month" data-field="month"><button type="button" class="dropdown-button" aria-expanded="false"><span>Month</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="Month"></div></div>
-<div class="dropdown" data-field="day"><button type="button" class="dropdown-button" aria-expanded="false"><span>Day</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="Day"></div></div>
-<div class="dropdown" data-field="year"><button type="button" class="dropdown-button" aria-expanded="false"><span>Year</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="Year"></div></div>
-</div>
-</div>
-<div class="question"><label>2. Are you legally authorized to work in the United States?</label><div class="dropdown" data-field="authorization"><button type="button" class="dropdown-button" aria-expanded="false"><span>Select an answer</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="Work authorization"></div></div></div>
-<div class="question"><label>3. State of Residence</label><div class="dropdown" data-field="state"><button type="button" class="dropdown-button" aria-expanded="false"><span>Select a state</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="State of residence"></div></div></div>
-<div class="question"><label for="city-search">4. City of Residence</label><div class="search-wrapper" id="city-wrapper"><input id="city-search" class="search-input" type="text" placeholder="Search for your city..." autocomplete="off" aria-label="Search for your city" aria-expanded="false" aria-controls="city-options"><div class="search-options" id="city-options" role="listbox" aria-label="City suggestions"></div></div><div class="helper">Type a city name and choose a result.</div></div>
-<div class="question"><label for="birth-date">5. Date of Birth</label><input id="birth-date" class="date-text-input" type="text" placeholder="MM/DD/YYYY" inputmode="numeric" maxlength="10" autocomplete="off"><div class="helper">Enter your date using MM/DD/YYYY.</div></div>
+<div class="question"><label>1. Are you legally authorized to work in the United States?</label><div class="dropdown" data-field="authorization"><button type="button" class="dropdown-button" aria-expanded="false"><span>Select an answer</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="Work authorization"></div></div></div>
+<div class="question"><label>2. State of Residence</label><div class="dropdown" data-field="state"><button type="button" class="dropdown-button" aria-expanded="false"><span>Select a state</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="State of residence"></div></div></div>
+<div class="question"><label for="city-search">3. City of Residence</label><div class="search-wrapper" id="city-wrapper"><input id="city-search" class="search-input" type="text" placeholder="Search for your city..." autocomplete="off" aria-label="Search for your city" aria-expanded="false" aria-controls="city-options"><div class="search-options" id="city-options" role="listbox" aria-label="City suggestions"></div></div><div class="helper">Type a city name and choose a result.</div></div>
+<div class="question"><label for="first-job-date">4. Date of Your First Job</label><input id="first-job-date" class="date-text-input" type="text" placeholder="MM/DD/YYYY" inputmode="numeric" maxlength="10" autocomplete="off"><div class="helper">Enter your date using MM/DD/YYYY.</div></div>
 <button class="submit-button" type="button" id="submit-button">Continue</button>
 <div class="result" id="result" role="status" aria-live="polite"></div>
 </div>
@@ -33,8 +25,8 @@ const days=Array.from({length:31},(_,i)=>String(i+1));
 const years=Array.from({length:71},(_,i)=>String(2026-i));
 const states=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
 const cities=["Atlanta","Austin","Baltimore","Boston","Charlotte","Chicago","Cincinnati","Cleveland","Columbia","Columbus","Dallas","Denver","Detroit","Durham","Fayetteville","Fort Worth","Greensboro","Greenville","Houston","Indianapolis","Jacksonville","Kansas City","Las Vegas","Los Angeles","Miami","Minneapolis","Nashville","New Orleans","New York","Orlando","Philadelphia","Phoenix","Pittsburgh","Portland","Raleigh","Richmond","Sacramento","San Antonio","San Diego","San Francisco","San Jose","Seattle","Tampa","Washington","Wilmington","Winston-Salem"];
-const options={month:months,day:days,year:years,authorization:["Yes","No"],state:states};
-const selected={month:null,day:null,year:null,authorization:null,state:null,city:null};
+const options={authorization:["Yes","No"],state:states};
+const selected={authorization:null,state:null,city:null};
 function closeDropdowns(){document.querySelectorAll('.dropdown').forEach(dropdown=>{dropdown.classList.remove('open');dropdown.querySelector('.dropdown-button').setAttribute('aria-expanded','false')});}
 function closeCity(){document.getElementById('city-wrapper').classList.remove('open');document.getElementById('city-search').setAttribute('aria-expanded','false');}
 document.querySelectorAll('.dropdown').forEach(dropdown=>{
@@ -48,7 +40,19 @@ cityInput.addEventListener('focus',()=>{closeDropdowns();renderCities()});cityIn
 document.addEventListener('click',event=>{if(!event.target.closest('.dropdown'))closeDropdowns();if(!event.target.closest('#city-wrapper'))closeCity()});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeDropdowns();closeCity()}});
 function validDate(year,month,day){const date=new Date(year,month-1,day);return date.getFullYear()===year&&date.getMonth()===month-1&&date.getDate()===day}
-function submitForm(){const result=document.getElementById('result'),errors=[];result.style.display='block';const month=months.indexOf(selected.month)+1,day=Number(selected.day),year=Number(selected.year);if(!selected.month||!selected.day||!selected.year||!validDate(year,month,day))errors.push('Select a valid earliest available date.');if(!selected.authorization)errors.push('Select your work authorization.');if(!selected.state)errors.push('Select your state of residence.');if(!selected.city||cityInput.value!==selected.city)errors.push('Search for and select a city.');const dob=document.getElementById('birth-date').value.trim(),match=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(dob);if(!match||!validDate(Number(match[3]),Number(match[1]),Number(match[2]))||new Date(Number(match?.[3]||0),Number(match?.[1]||1)-1,Number(match?.[2]||1))>new Date())errors.push('Enter a valid date of birth in MM/DD/YYYY format.');if(errors.length){result.className='result error';result.textContent=errors.join('\n');return}result.className='result success';result.textContent=`Application Answers:\nEarliest Available Date: ${selected.month} ${selected.day}, ${selected.year}\nWork Authorized: ${selected.authorization}\nState: ${selected.state}\nCity: ${selected.city}\nDate of Birth: ${dob}`;}
+function submitForm(){
+ const result=document.getElementById('result'),errors=[];
+ result.style.display='block';
+ if(!selected.authorization)errors.push('Select your work authorization.');
+ if(!selected.state)errors.push('Select your state of residence.');
+ if(!selected.city||cityInput.value!==selected.city)errors.push('Search for and select a city.');
+ const firstJobDate=document.getElementById('first-job-date').value.trim();
+ const match=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(firstJobDate);
+ if(!match||!validDate(Number(match[3]),Number(match[1]),Number(match[2]))||new Date(Number(match?.[3]||0),Number(match?.[1]||1)-1,Number(match?.[2]||1))>new Date())errors.push('Enter a valid first job date in MM/DD/YYYY format.');
+ if(errors.length){result.className='result error';result.textContent=errors.join('\n');return;}
+ result.className='result success';
+ result.textContent=`Application Answers:\nWork Authorized: ${selected.authorization}\nState: ${selected.state}\nCity: ${selected.city}\nDate of Your First Job: ${firstJobDate}`;
+}
 document.getElementById('submit-button').addEventListener('click',submitForm);
 </script>
 </body>
