@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ApplyR - Date Dropdown Test</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        margin: 0;
+        padding: 40px 20px;
+        color: #222;
+    }
+
+    .container {
+        max-width: 750px;
+        margin: 40px auto;
+        padding: 40px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+
+    .description {
+        color: #666;
+        margin-bottom: 35px;
+    }
+
+    .question {
+        margin-bottom: 30px;
+    }
+
+    .question label {
+        display: block;
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .date-container {
+        display: flex;
+        width: 100%;
+        height: 48px;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        background: white;
+    }
+
+    .date-container:focus-within {
+        border-color: #2563eb;
+    }
+
+    .dropdown {
+        position: relative;
+        min-width: 0;
+        flex: 1;
+    }
+
+    .dropdown.month {
+        flex: 1.8;
+    }
+
+    .dropdown:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 10px;
+        height: 26px;
+        width: 1px;
+        background: #d1d5db;
+    }
+
+    .dropdown-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        padding: 0 14px;
+        border: none;
+        background: transparent;
+        font-size: 14px;
+        color: #475569;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .dropdown-button span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .arrow {
+        font-size: 11px;
+        color: #64748b;
+    }
+
+    .dropdown-options {
+        display: none;
+        position: absolute;
+        top: calc(100% + 3px);
+        left: 0;
+        width: 100%;
+        min-width: 110px;
+        max-height: 350px;
+        overflow-y: auto;
+        background: white;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        z-index: 100;
+        padding: 4px;
+    }
+
+    .dropdown.open .dropdown-options {
+        display: block;
+    }
+
+    .dropdown-option {
+        display: block;
+        width: 100%;
+        padding: 11px 12px;
+        border: none;
+        background: white;
+        text-align: left;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .dropdown-option:hover,
+    .dropdown-option:focus {
+        background: #eff6ff;
+        outline: none;
+    }
+
+    .dropdown-option.selected {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .submit-button {
+        margin-top: 25px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 13px 28px;
+        border-radius: 7px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .submit-button:hover {
+        background: #1d4ed8;
+    }
+
+    .result {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f1f5f9;
+        border-radius: 8px;
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Job Application</h1>
+
+    <p class="description">
+        Please provide your availability information below.
+    </p>
+
+    <div class="question">
+
+        <label>Earliest Available Date</label>
+
+        <div class="date-container">
+
+            <div class="dropdown month" data-field="month">
+                <button type="button" class="dropdown-button" aria-expanded="false">
+                    <span>Month</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="dropdown-options" role="listbox" aria-label="Month"></div>
+            </div>
+
+            <div class="dropdown" data-field="day">
+                <button type="button" class="dropdown-button" aria-expanded="false">
+                    <span>Day</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="dropdown-options" role="listbox" aria-label="Day"></div>
+            </div>
+
+            <div class="dropdown" data-field="year">
+                <button type="button" class="dropdown-button" aria-expanded="false">
+                    <span>Year</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="dropdown-options" role="listbox" aria-label="Year"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <button class="submit-button" onclick="submitDate()">
+        Continue
+    </button>
+
+    <div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+const months = [
+    "January", "February", "March", "April",
+    "May", "June", "July", "August",
+    "September", "October", "November", "December"
+];
+
+const days = Array.from({length: 31}, (_, i) => String(i + 1));
+
+const years = Array.from({length: 71}, (_, i) => String(2026 - i));
+
+const options = {
+    month: months,
+    day: days,
+    year: years
+};
+
+const selectedDate = {
+    month: null,
+    day: null,
+    year: null
+};
+
+function closeDropdowns() {
+    document.querySelectorAll(".dropdown").forEach(dropdown => {
+        dropdown.classList.remove("open");
+        dropdown.querySelector(".dropdown-button").setAttribute("aria-expanded", "false");
+    });
+}
+
+document.querySelectorAll(".dropdown").forEach(dropdown => {
+
+    const field = dropdown.dataset.field;
+    const button = dropdown.querySelector(".dropdown-button");
+    const optionContainer = dropdown.querySelector(".dropdown-options");
+
+    options[field].forEach(value => {
+
+        const option = document.createElement("button");
+
+        option.type = "button";
+        option.className = "dropdown-option";
+        option.textContent = value;
+        option.setAttribute("role", "option");
+        option.setAttribute("aria-selected", "false");
+
+        option.addEventListener("click", () => {
+
+            selectedDate[field] = value;
+
+            button.querySelector("span").textContent = value;
+
+            optionContainer.querySelectorAll(".dropdown-option").forEach(item => {
+                const selected = item === option;
+                item.classList.toggle("selected", selected);
+                item.setAttribute("aria-selected", String(selected));
+            });
+
+            closeDropdowns();
+
+        });
+
+        optionContainer.appendChild(option);
+
+    });
+
+    button.addEventListener("click", () => {
+
+        const wasOpen = dropdown.classList.contains("open");
+
+        closeDropdowns();
+
+        if (!wasOpen) {
+            dropdown.classList.add("open");
+            button.setAttribute("aria-expanded", "true");
+        }
+
+    });
+
+});
+
+document.addEventListener("click", event => {
+
+    if (!event.target.closest(".dropdown")) {
+        closeDropdowns();
+    }
+
+});
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+        closeDropdowns();
+    }
+
+});
+
+function submitDate() {
+
+    const result = document.getElementById("result");
+
+    result.style.display = "block";
+
+    if (!selectedDate.month || !selectedDate.day || !selectedDate.year) {
+        result.textContent = "Please select a complete date.";
+        return;
+    }
+
+    const monthIndex = months.indexOf(selectedDate.month);
+    const day = Number(selectedDate.day);
+    const year = Number(selectedDate.year);
+    const date = new Date(year, monthIndex, day);
+
+    if (
+        date.getFullYear() !== year ||
+        date.getMonth() !== monthIndex ||
+        date.getDate() !== day
+    ) {
+        result.textContent = "Please select a valid calendar date.";
+        return;
+    }
+
+    result.textContent =
+        "Selected Date: " +
+        selectedDate.month + " " +
+        selectedDate.day + ", " +
+        selectedDate.year;
+
+}
+
+</script>
+
+</body>
+</html>

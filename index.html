@@ -1,367 +1,55 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ApplyR - Date Dropdown Test</title>
-
+<title>ApplyR - Custom Form Test</title>
 <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        background: #f5f7fa;
-        margin: 0;
-        padding: 40px 20px;
-        color: #222;
-    }
-
-    .container {
-        max-width: 750px;
-        margin: 40px auto;
-        padding: 40px;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-    }
-
-    h1 {
-        font-size: 26px;
-        margin-bottom: 10px;
-    }
-
-    .description {
-        color: #666;
-        margin-bottom: 35px;
-    }
-
-    .question {
-        margin-bottom: 30px;
-    }
-
-    .question label {
-        display: block;
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 10px;
-    }
-
-    .date-container {
-        display: flex;
-        width: 100%;
-        height: 48px;
-        border: 1px solid #cbd5e1;
-        border-radius: 10px;
-        background: white;
-    }
-
-    .date-container:focus-within {
-        border-color: #2563eb;
-    }
-
-    .dropdown {
-        position: relative;
-        min-width: 0;
-        flex: 1;
-    }
-
-    .dropdown.month {
-        flex: 1.8;
-    }
-
-    .dropdown:not(:last-child)::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        top: 10px;
-        height: 26px;
-        width: 1px;
-        background: #d1d5db;
-    }
-
-    .dropdown-button {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        height: 100%;
-        padding: 0 14px;
-        border: none;
-        background: transparent;
-        font-size: 14px;
-        color: #475569;
-        cursor: pointer;
-        text-align: left;
-    }
-
-    .dropdown-button span {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .arrow {
-        font-size: 11px;
-        color: #64748b;
-    }
-
-    .dropdown-options {
-        display: none;
-        position: absolute;
-        top: calc(100% + 3px);
-        left: 0;
-        width: 100%;
-        min-width: 110px;
-        max-height: 350px;
-        overflow-y: auto;
-        background: white;
-        border: 1px solid #d1d5db;
-        border-radius: 10px;
-        box-shadow: 0 6px 15px rgba(0,0,0,0.12);
-        z-index: 100;
-        padding: 4px;
-    }
-
-    .dropdown.open .dropdown-options {
-        display: block;
-    }
-
-    .dropdown-option {
-        display: block;
-        width: 100%;
-        padding: 11px 12px;
-        border: none;
-        background: white;
-        text-align: left;
-        font-size: 14px;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-    .dropdown-option:hover,
-    .dropdown-option:focus {
-        background: #eff6ff;
-        outline: none;
-    }
-
-    .dropdown-option.selected {
-        background: #dbeafe;
-        color: #1d4ed8;
-    }
-
-    .submit-button {
-        margin-top: 25px;
-        background: #2563eb;
-        color: white;
-        border: none;
-        padding: 13px 28px;
-        border-radius: 7px;
-        font-size: 15px;
-        cursor: pointer;
-    }
-
-    .submit-button:hover {
-        background: #1d4ed8;
-    }
-
-    .result {
-        margin-top: 20px;
-        padding: 15px;
-        background: #f1f5f9;
-        border-radius: 8px;
-        display: none;
-    }
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f5f7fa;margin:0;padding:40px 20px;color:#222}.container{max-width:750px;margin:40px auto;padding:40px;background:#fff;border:1px solid #ddd;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.04)}h1{font-size:26px;margin:0 0 10px}.description{color:#666;margin-bottom:35px}.question{margin-bottom:30px}.question>label{display:block;font-size:15px;font-weight:600;margin-bottom:10px}.date-container{display:flex;width:100%;height:48px;border:1px solid #cbd5e1;border-radius:10px;background:#fff}.date-container:focus-within{border-color:#2563eb}.dropdown{position:relative;min-width:0;flex:1}.dropdown.month{flex:1.8}.date-container .dropdown:not(:last-child)::after{content:"";position:absolute;right:0;top:10px;height:26px;width:1px;background:#d1d5db;pointer-events:none}.dropdown-button{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:48px;padding:0 14px;border:1px solid #cbd5e1;border-radius:10px;background:transparent;font-size:14px;color:#475569;cursor:pointer;text-align:left}.date-container .dropdown-button{height:100%;border:0;border-radius:0}.dropdown-button span:first-child{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.arrow{font-size:11px;color:#64748b}.dropdown-options{display:none;position:absolute;top:calc(100% + 3px);left:0;width:100%;min-width:110px;max-height:300px;overflow-y:auto;background:#fff;border:1px solid #d1d5db;border-radius:10px;box-shadow:0 6px 15px rgba(0,0,0,.12);z-index:100;padding:4px}.dropdown.open .dropdown-options,.search-wrapper.open .search-options{display:block}.dropdown-option{display:block;width:100%;padding:11px 12px;border:0;background:#fff;text-align:left;font-size:14px;cursor:pointer;border-radius:5px;color:#222}.dropdown-option:hover,.dropdown-option:focus{background:#eff6ff;outline:none}.dropdown-option.selected{background:#dbeafe;color:#1d4ed8}.search-wrapper{position:relative}.search-input,.date-text-input{width:100%;height:48px;padding:0 14px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font:14px Arial,sans-serif;outline:none}.search-input:focus,.date-text-input:focus,.dropdown-button:focus-visible{border-color:#2563eb}.search-options{display:none;position:absolute;top:calc(100% + 3px);left:0;width:100%;max-height:240px;overflow-y:auto;padding:4px;background:white;border:1px solid #d1d5db;border-radius:10px;box-shadow:0 6px 15px rgba(0,0,0,.12);z-index:100}.empty-option{padding:12px;color:#64748b;font-size:14px}.helper{font-size:12px;color:#64748b;margin-top:7px}.submit-button{margin-top:10px;background:#2563eb;color:white;border:0;padding:13px 28px;border-radius:7px;font-size:15px;cursor:pointer}.submit-button:hover{background:#1d4ed8}.result{margin-top:20px;padding:15px;background:#f1f5f9;border-radius:8px;display:none;white-space:pre-line;line-height:1.6}.result.error{background:#fef2f2;color:#991b1b}.result.success{background:#f0fdf4;color:#166534}@media(max-width:500px){.container{padding:22px}.date-container .dropdown-button{padding:0 7px;font-size:12px}}
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
-    <h1>Job Application</h1>
-
-    <p class="description">
-        Please provide your availability information below.
-    </p>
-
-    <div class="question">
-
-        <label>Earliest Available Date</label>
-
-        <div class="date-container">
-
-            <div class="dropdown month" data-field="month">
-                <button type="button" class="dropdown-button" aria-expanded="false">
-                    <span>Month</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-options" role="listbox" aria-label="Month"></div>
-            </div>
-
-            <div class="dropdown" data-field="day">
-                <button type="button" class="dropdown-button" aria-expanded="false">
-                    <span>Day</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-options" role="listbox" aria-label="Day"></div>
-            </div>
-
-            <div class="dropdown" data-field="year">
-                <button type="button" class="dropdown-button" aria-expanded="false">
-                    <span>Year</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-options" role="listbox" aria-label="Year"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <button class="submit-button" onclick="submitDate()">
-        Continue
-    </button>
-
-    <div class="result" id="result"></div>
-
+<h1>Job Application</h1>
+<p class="description">Please complete the following application questions.</p>
+<div class="question">
+<label>1. Earliest Available Date</label>
+<div class="date-container">
+<div class="dropdown month" data-field="month"><button type="button" class="dropdown-button" aria-expanded="false"><span>Month</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="Month"></div></div>
+<div class="dropdown" data-field="day"><button type="button" class="dropdown-button" aria-expanded="false"><span>Day</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="Day"></div></div>
+<div class="dropdown" data-field="year"><button type="button" class="dropdown-button" aria-expanded="false"><span>Year</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="Year"></div></div>
 </div>
-
+</div>
+<div class="question"><label>2. Are you legally authorized to work in the United States?</label><div class="dropdown" data-field="authorization"><button type="button" class="dropdown-button" aria-expanded="false"><span>Select an answer</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="Work authorization"></div></div></div>
+<div class="question"><label>3. State of Residence</label><div class="dropdown" data-field="state"><button type="button" class="dropdown-button" aria-expanded="false"><span>Select a state</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="State of residence"></div></div></div>
+<div class="question"><label for="city-search">4. City of Residence</label><div class="search-wrapper" id="city-wrapper"><input id="city-search" class="search-input" type="text" placeholder="Search for your city..." autocomplete="off" aria-label="Search for your city" aria-expanded="false" aria-controls="city-options"><div class="search-options" id="city-options" role="listbox" aria-label="City suggestions"></div></div><div class="helper">Type a city name and choose a result.</div></div>
+<div class="question"><label for="birth-date">5. Date of Birth</label><input id="birth-date" class="date-text-input" type="text" placeholder="MM/DD/YYYY" inputmode="numeric" maxlength="10" autocomplete="off"><div class="helper">Enter your date using MM/DD/YYYY.</div></div>
+<button class="submit-button" type="button" id="submit-button">Continue</button>
+<div class="result" id="result" role="status" aria-live="polite"></div>
+</div>
 <script>
-
-const months = [
-    "January", "February", "March", "April",
-    "May", "June", "July", "August",
-    "September", "October", "November", "December"
-];
-
-const days = Array.from({length: 31}, (_, i) => String(i + 1));
-
-const years = Array.from({length: 71}, (_, i) => String(2026 - i));
-
-const options = {
-    month: months,
-    day: days,
-    year: years
-};
-
-const selectedDate = {
-    month: null,
-    day: null,
-    year: null
-};
-
-function closeDropdowns() {
-    document.querySelectorAll(".dropdown").forEach(dropdown => {
-        dropdown.classList.remove("open");
-        dropdown.querySelector(".dropdown-button").setAttribute("aria-expanded", "false");
-    });
-}
-
-document.querySelectorAll(".dropdown").forEach(dropdown => {
-
-    const field = dropdown.dataset.field;
-    const button = dropdown.querySelector(".dropdown-button");
-    const optionContainer = dropdown.querySelector(".dropdown-options");
-
-    options[field].forEach(value => {
-
-        const option = document.createElement("button");
-
-        option.type = "button";
-        option.className = "dropdown-option";
-        option.textContent = value;
-        option.setAttribute("role", "option");
-        option.setAttribute("aria-selected", "false");
-
-        option.addEventListener("click", () => {
-
-            selectedDate[field] = value;
-
-            button.querySelector("span").textContent = value;
-
-            optionContainer.querySelectorAll(".dropdown-option").forEach(item => {
-                const selected = item === option;
-                item.classList.toggle("selected", selected);
-                item.setAttribute("aria-selected", String(selected));
-            });
-
-            closeDropdowns();
-
-        });
-
-        optionContainer.appendChild(option);
-
-    });
-
-    button.addEventListener("click", () => {
-
-        const wasOpen = dropdown.classList.contains("open");
-
-        closeDropdowns();
-
-        if (!wasOpen) {
-            dropdown.classList.add("open");
-            button.setAttribute("aria-expanded", "true");
-        }
-
-    });
-
+const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const days=Array.from({length:31},(_,i)=>String(i+1));
+const years=Array.from({length:71},(_,i)=>String(2026-i));
+const states=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+const cities=["Atlanta","Austin","Baltimore","Boston","Charlotte","Chicago","Cincinnati","Cleveland","Columbia","Columbus","Dallas","Denver","Detroit","Durham","Fayetteville","Fort Worth","Greensboro","Greenville","Houston","Indianapolis","Jacksonville","Kansas City","Las Vegas","Los Angeles","Miami","Minneapolis","Nashville","New Orleans","New York","Orlando","Philadelphia","Phoenix","Pittsburgh","Portland","Raleigh","Richmond","Sacramento","San Antonio","San Diego","San Francisco","San Jose","Seattle","Tampa","Washington","Wilmington","Winston-Salem"];
+const options={month:months,day:days,year:years,authorization:["Yes","No"],state:states};
+const selected={month:null,day:null,year:null,authorization:null,state:null,city:null};
+function closeDropdowns(){document.querySelectorAll('.dropdown').forEach(dropdown=>{dropdown.classList.remove('open');dropdown.querySelector('.dropdown-button').setAttribute('aria-expanded','false')});}
+function closeCity(){document.getElementById('city-wrapper').classList.remove('open');document.getElementById('city-search').setAttribute('aria-expanded','false');}
+document.querySelectorAll('.dropdown').forEach(dropdown=>{
+ const field=dropdown.dataset.field,button=dropdown.querySelector('.dropdown-button'),container=dropdown.querySelector('.dropdown-options');
+ options[field].forEach(value=>{const option=document.createElement('button');option.type='button';option.className='dropdown-option';option.textContent=value;option.setAttribute('role','option');option.setAttribute('aria-selected','false');option.addEventListener('click',()=>{selected[field]=value;button.querySelector('span').textContent=value;container.querySelectorAll('.dropdown-option').forEach(item=>{const isSelected=item===option;item.classList.toggle('selected',isSelected);item.setAttribute('aria-selected',String(isSelected))});closeDropdowns();});container.appendChild(option)});
+ button.addEventListener('click',()=>{const wasOpen=dropdown.classList.contains('open');closeDropdowns();closeCity();if(!wasOpen){dropdown.classList.add('open');button.setAttribute('aria-expanded','true')}});
 });
-
-document.addEventListener("click", event => {
-
-    if (!event.target.closest(".dropdown")) {
-        closeDropdowns();
-    }
-
-});
-
-document.addEventListener("keydown", event => {
-
-    if (event.key === "Escape") {
-        closeDropdowns();
-    }
-
-});
-
-function submitDate() {
-
-    const result = document.getElementById("result");
-
-    result.style.display = "block";
-
-    if (!selectedDate.month || !selectedDate.day || !selectedDate.year) {
-        result.textContent = "Please select a complete date.";
-        return;
-    }
-
-    const monthIndex = months.indexOf(selectedDate.month);
-    const day = Number(selectedDate.day);
-    const year = Number(selectedDate.year);
-    const date = new Date(year, monthIndex, day);
-
-    if (
-        date.getFullYear() !== year ||
-        date.getMonth() !== monthIndex ||
-        date.getDate() !== day
-    ) {
-        result.textContent = "Please select a valid calendar date.";
-        return;
-    }
-
-    result.textContent =
-        "Selected Date: " +
-        selectedDate.month + " " +
-        selectedDate.day + ", " +
-        selectedDate.year;
-
-}
-
+const cityInput=document.getElementById('city-search'),cityWrapper=document.getElementById('city-wrapper'),cityOptions=document.getElementById('city-options');
+function renderCities(){const query=cityInput.value.trim().toLowerCase();const matches=cities.filter(city=>city.toLowerCase().includes(query));cityOptions.replaceChildren();if(!matches.length){const empty=document.createElement('div');empty.className='empty-option';empty.textContent='No matching cities';cityOptions.appendChild(empty)}else{matches.forEach(city=>{const option=document.createElement('button');option.type='button';option.className='dropdown-option';option.setAttribute('role','option');option.textContent=city;option.addEventListener('click',()=>{selected.city=city;cityInput.value=city;closeCity()});cityOptions.appendChild(option)})}cityWrapper.classList.add('open');cityInput.setAttribute('aria-expanded','true');}
+cityInput.addEventListener('focus',()=>{closeDropdowns();renderCities()});cityInput.addEventListener('input',()=>{selected.city=null;renderCities()});cityInput.addEventListener('keydown',event=>{if(event.key==='Enter'&&cityWrapper.classList.contains('open')){const first=cityOptions.querySelector('button');if(first){event.preventDefault();first.click()}}});
+document.addEventListener('click',event=>{if(!event.target.closest('.dropdown'))closeDropdowns();if(!event.target.closest('#city-wrapper'))closeCity()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeDropdowns();closeCity()}});
+function validDate(year,month,day){const date=new Date(year,month-1,day);return date.getFullYear()===year&&date.getMonth()===month-1&&date.getDate()===day}
+function submitForm(){const result=document.getElementById('result'),errors=[];result.style.display='block';const month=months.indexOf(selected.month)+1,day=Number(selected.day),year=Number(selected.year);if(!selected.month||!selected.day||!selected.year||!validDate(year,month,day))errors.push('Select a valid earliest available date.');if(!selected.authorization)errors.push('Select your work authorization.');if(!selected.state)errors.push('Select your state of residence.');if(!selected.city||cityInput.value!==selected.city)errors.push('Search for and select a city.');const dob=document.getElementById('birth-date').value.trim(),match=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(dob);if(!match||!validDate(Number(match[3]),Number(match[1]),Number(match[2]))||new Date(Number(match?.[3]||0),Number(match?.[1]||1)-1,Number(match?.[2]||1))>new Date())errors.push('Enter a valid date of birth in MM/DD/YYYY format.');if(errors.length){result.className='result error';result.textContent=errors.join('\n');return}result.className='result success';result.textContent=`Application Answers:\nEarliest Available Date: ${selected.month} ${selected.day}, ${selected.year}\nWork Authorized: ${selected.authorization}\nState: ${selected.state}\nCity: ${selected.city}\nDate of Birth: ${dob}`;}
+document.getElementById('submit-button').addEventListener('click',submitForm);
 </script>
-
 </body>
 </html>
