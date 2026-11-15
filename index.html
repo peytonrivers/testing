@@ -12,7 +12,10 @@
 <div class="container">
 <h1>Job Application</h1>
 <p class="description">Please complete the following application questions.</p>
+<div class="question"><label for="first-name">1. First Name</label><input class="search-input" id="first-name" type="text" autocomplete="given-name" placeholder="Enter your first name"></div>
 <div class="question"><label>2. State of Residence</label><div class="dropdown" data-field="state"><button type="button" class="dropdown-button" aria-expanded="false"><span>Select a state</span><span class="arrow">▼</span></button><div class="dropdown-options" role="listbox" aria-label="State of residence"></div></div></div>
+<div class="question"><label for="last-name">3. Last Name</label><input class="search-input" id="last-name" type="text" autocomplete="family-name" placeholder="Enter your last name"></div>
+<div class="question"><label for="email">4. Email</label><input class="search-input" id="email" type="email" autocomplete="email" placeholder="Enter your email"></div>
 <button class="submit-button" type="button" id="submit-button">Continue</button>
 <div class="result" id="result" role="status" aria-live="polite"></div>
 </div>
@@ -30,10 +33,19 @@ document.addEventListener('click',event=>{if(!event.target.closest('.dropdown'))
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeDropdowns()}});
 function submitForm(){
  const result=document.getElementById('result');
+ const firstName=document.getElementById('first-name').value.trim();
+ const lastName=document.getElementById('last-name').value.trim();
+ const emailInput=document.getElementById('email');
+ const email=emailInput.value.trim();
+ const errors=[];
+ if(!firstName)errors.push('Enter your first name.');
+ if(!selected.state)errors.push('Select your state of residence.');
+ if(!lastName)errors.push('Enter your last name.');
+ if(!email||!emailInput.checkValidity())errors.push('Enter a valid email address.');
  result.style.display='block';
- if(!selected.state){result.className='result error';result.textContent='Select your state of residence.';return;}
+ if(errors.length){result.className='result error';result.textContent=errors.join('\n');return;}
  result.className='result success';
- result.textContent=`Application Answers:\nState: ${selected.state}`;
+ result.textContent=`Application Answers:\nFirst Name: ${firstName}\nState: ${selected.state}\nLast Name: ${lastName}\nEmail: ${email}`;
 }
 document.getElementById('submit-button').addEventListener('click',submitForm);
 </script>
