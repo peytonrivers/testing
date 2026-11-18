@@ -1,0 +1,597 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ApplyR Radio Button Detection Test</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+.header {
+    background: white;
+    border-bottom: 1px solid #ddd;
+    padding: 22px 40px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.header p {
+    margin: 7px 0 0;
+    color: #666;
+}
+
+.container {
+    width: 760px;
+    max-width: 92%;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+.section-title {
+    margin-top: 45px;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.field {
+    margin-bottom: 35px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.required {
+    color: #d93025;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #4285f4;
+    border-color: #4285f4;
+}
+
+.question-number {
+    color: #777;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+
+/* RADIO BUTTON TESTING SECTION */
+
+.radio-section {
+    margin-top: 60px;
+    border-top: 2px solid #ddd;
+    padding-top: 30px;
+}
+
+.radio-question {
+    margin-bottom: 45px;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    max-width: 220px;
+}
+
+.radio-option {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 8px;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: normal;
+    margin: 0;
+}
+
+.radio-option span {
+    font-size: 13px;
+    font-weight: 400;
+    color: #414852;
+}
+
+/* SMALL CIRCULAR RADIO BUTTONS */
+
+.radio-option input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 12px;
+    height: 12px;
+    min-width: 12px;
+
+    margin: 0;
+    padding: 0;
+
+    background: white;
+    border: 1.5px solid #829bb7;
+    border-radius: 50%;
+
+    cursor: pointer;
+    position: relative;
+    outline: none;
+}
+
+/* SELECTED RADIO BUTTON */
+
+.radio-option input[type="radio"]:checked {
+    border-color: #4b9cff;
+}
+
+/* BLUE FILLED CENTER */
+
+.radio-option input[type="radio"]:checked::after {
+    content: "";
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    top: 1.5px;
+    left: 1.5px;
+
+    background: #4b9cff;
+    border-radius: 50%;
+}
+
+/* KEYBOARD FOCUS */
+
+.radio-option input[type="radio"]:focus-visible {
+    outline: 2px solid #4b9cff;
+    outline-offset: 2px;
+}
+
+.submit-button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 5px;
+    background: #1769aa;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background: #12558a;
+}
+
+#result {
+    display: none;
+    margin-top: 25px;
+    padding: 18px;
+    background: #e9f7ef;
+    border: 1px solid #79c99e;
+    border-radius: 5px;
+}
+
+.error {
+    outline: 2px solid #d93025;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.footer {
+    text-align: center;
+    padding: 30px;
+    color: #888;
+    font-size: 13px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Acme Technologies</h1>
+    <p>Software Engineer Application</p>
+</div>
+
+<div class="container">
+
+<h2>Software Engineer Application</h2>
+
+<p class="description">
+Thank you for your interest in joining Acme Technologies.
+Please complete the following application form.
+All information will be used for testing purposes only.
+</p>
+
+<form id="applicationForm" novalidate>
+
+<div class="section-title">
+    Personal Information
+</div>
+
+<!-- QUESTION 1 -->
+<div class="field">
+    <div class="question-number">QUESTION 1</div>
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" name="first_name">
+</div>
+
+<!-- QUESTION 2 -->
+<div class="field">
+    <div class="question-number">QUESTION 2</div>
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="last_name">
+</div>
+
+<!-- QUESTION 3 -->
+<div class="field">
+    <div class="question-number">QUESTION 3</div>
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email">
+</div>
+
+<!-- QUESTION 4 -->
+<div class="field">
+    <div class="question-number">QUESTION 4</div>
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone">
+</div>
+
+<!-- QUESTION 5 -->
+<div class="field">
+    <div class="question-number">QUESTION 5</div>
+    <label for="city">City</label>
+    <input type="text" id="city" name="city">
+</div>
+
+<!-- QUESTION 6 -->
+<div class="field">
+    <div class="question-number">QUESTION 6</div>
+    <label for="state">State</label>
+    <input type="text" id="state" name="state">
+</div>
+
+<!-- QUESTION 7 -->
+<div class="field">
+    <div class="question-number">QUESTION 7</div>
+    <label for="zip">ZIP Code</label>
+    <input type="text" id="zip" name="zip">
+</div>
+
+<div class="section-title">
+    Education
+</div>
+
+<!-- QUESTION 8 -->
+<div class="field">
+    <div class="question-number">QUESTION 8</div>
+    <label for="university">University</label>
+    <input type="text" id="university" name="university">
+</div>
+
+<!-- QUESTION 9 -->
+<div class="field">
+    <div class="question-number">QUESTION 9</div>
+    <label for="degree">Degree</label>
+    <select id="degree" name="degree">
+        <option value="">Select Degree</option>
+        <option>Bachelor's Degree</option>
+        <option>Master's Degree</option>
+        <option>Doctoral Degree</option>
+        <option>Associate Degree</option>
+        <option>High School Diploma</option>
+    </select>
+</div>
+
+<!-- QUESTION 10 -->
+<div class="field">
+    <div class="question-number">QUESTION 10</div>
+    <label for="major">Major</label>
+    <input type="text" id="major" name="major">
+</div>
+
+<!-- QUESTION 11 -->
+<div class="field">
+    <div class="question-number">QUESTION 11</div>
+    <label for="graduationYear">Graduation Year</label>
+    <input type="number" id="graduationYear" name="graduation_year">
+</div>
+
+<div class="section-title">
+    Professional Experience
+</div>
+
+<!-- QUESTION 12 -->
+<div class="field">
+    <div class="question-number">QUESTION 12</div>
+    <label for="jobTitle">Most Recent Job Title</label>
+    <input type="text" id="jobTitle" name="job_title">
+</div>
+
+<!-- QUESTION 13 -->
+<div class="field">
+    <div class="question-number">QUESTION 13</div>
+    <label for="company">Most Recent Company</label>
+    <input type="text" id="company" name="company">
+</div>
+
+<!-- QUESTION 14 -->
+<div class="field">
+    <div class="question-number">QUESTION 14</div>
+    <label for="experience">Years of Experience</label>
+    <input type="number" id="experience" name="experience">
+</div>
+
+<!-- QUESTION 15 -->
+<div class="field">
+    <div class="question-number">QUESTION 15</div>
+    <label for="skills">Technical Skills</label>
+    <textarea id="skills" name="skills"
+        placeholder="Python, Java, SQL, React..."></textarea>
+</div>
+
+<!-- QUESTION 16 -->
+<div class="field">
+    <div class="question-number">QUESTION 16</div>
+    <label for="projects">Describe a Recent Project</label>
+    <textarea id="projects" name="projects"></textarea>
+</div>
+
+<!-- QUESTION 17 -->
+<div class="field">
+    <div class="question-number">QUESTION 17</div>
+    <label for="github">GitHub Profile URL</label>
+    <input type="text" id="github" name="github">
+</div>
+
+<!-- QUESTION 18 -->
+<div class="field">
+    <div class="question-number">QUESTION 18</div>
+    <label for="linkedin">LinkedIn Profile URL</label>
+    <input type="text" id="linkedin" name="linkedin">
+</div>
+
+<!-- QUESTION 19 -->
+<div class="field">
+    <div class="question-number">QUESTION 19</div>
+    <label for="salary">Expected Annual Salary</label>
+    <input type="number" id="salary" name="salary">
+</div>
+
+<!-- QUESTION 20 -->
+<div class="field">
+    <div class="question-number">QUESTION 20</div>
+    <label for="motivation">Why Do You Want to Work Here?</label>
+    <textarea id="motivation" name="motivation"></textarea>
+</div>
+
+<!-- RADIO BUTTON TESTING SECTION -->
+
+<div class="radio-section">
+
+    <div class="section-title">
+        Additional Application Questions
+    </div>
+
+    <!-- QUESTION 21 -->
+    <div class="radio-question" id="radioQuestion21">
+
+        <div class="question-number">
+            QUESTION 21 — RADIO BUTTON TEST
+        </div>
+
+        <label>
+            Are you legally authorized to work
+            in the United States?
+            <span class="required">*</span>
+        </label>
+
+        <div class="radio-group">
+
+            <label class="radio-option">
+                <input
+                    type="radio"
+                    name="work_authorization"
+                    value="Yes"
+                    required
+                >
+                <span>Yes</span>
+            </label>
+
+            <label class="radio-option">
+                <input
+                    type="radio"
+                    name="work_authorization"
+                    value="No"
+                >
+                <span>No</span>
+            </label>
+
+        </div>
+
+    </div>
+
+    <!-- QUESTION 22 -->
+    <div class="radio-question" id="radioQuestion22">
+
+        <div class="question-number">
+            QUESTION 22 — RADIO BUTTON TEST
+        </div>
+
+        <label>
+            Will you now or in the future require
+            visa sponsorship for employment?
+            <span class="required">*</span>
+        </label>
+
+        <div class="radio-group">
+
+            <label class="radio-option">
+                <input
+                    type="radio"
+                    name="visa_sponsorship"
+                    value="Yes"
+                    required
+                >
+                <span>Yes</span>
+            </label>
+
+            <label class="radio-option">
+                <input
+                    type="radio"
+                    name="visa_sponsorship"
+                    value="No"
+                >
+                <span>No</span>
+            </label>
+
+        </div>
+
+    </div>
+
+</div>
+
+<button
+    type="submit"
+    class="submit-button"
+>
+    Submit Application
+</button>
+
+<div id="result">
+    Application successfully submitted.
+    Both radio button questions were completed.
+</div>
+
+</form>
+
+</div>
+
+<div class="footer">
+    Acme Technologies — Application Testing Environment
+</div>
+
+<script>
+
+const form = document.getElementById("applicationForm");
+
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const question21 =
+        document.querySelector(
+            'input[name="work_authorization"]:checked'
+        );
+
+    const question22 =
+        document.querySelector(
+            'input[name="visa_sponsorship"]:checked'
+        );
+
+    const radio21 =
+        document.getElementById("radioQuestion21");
+
+    const radio22 =
+        document.getElementById("radioQuestion22");
+
+    radio21.classList.remove("error");
+    radio22.classList.remove("error");
+
+    if (!question21) {
+
+        radio21.classList.add("error");
+
+        radio21.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        alert("Please answer Question 21.");
+
+        return;
+    }
+
+    if (!question22) {
+
+        radio22.classList.add("error");
+
+        radio22.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        alert("Please answer Question 22.");
+
+        return;
+    }
+
+    document.getElementById("result").style.display =
+        "block";
+
+});
+
+</script>
+
+</body>
+</html>
