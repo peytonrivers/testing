@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Date Picker Test</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+.header {
+    background: white;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 40px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+.container {
+    width: 700px;
+    max-width: 90%;
+    margin: 35px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.section-title {
+    margin-top: 35px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.field {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.required {
+    color: #d93025;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+}
+
+input:focus {
+    outline: 2px solid #4285f4;
+    border-color: #4285f4;
+}
+
+.hint {
+    margin-top: 6px;
+    color: #777;
+    font-size: 13px;
+}
+
+.test-type {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: #eef2f7;
+    color: #555;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.submit-button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    background: #1769aa;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background: #12558a;
+}
+
+#result {
+    display: none;
+    margin-top: 25px;
+    padding: 15px;
+    background: #e9f7ef;
+    border: 1px solid #79c99e;
+    border-radius: 5px;
+}
+
+.error {
+    border-color: red !important;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Acme Technologies</h1>
+    <p>Date Picker Testing</p>
+</div>
+
+<div class="container">
+
+    <h2>Application Date Questions</h2>
+
+    <p>
+        Please complete all four date questions.
+        Use the browser's native date picker.
+    </p>
+
+    <div class="section-title">
+        Education Dates
+    </div>
+
+    <!-- QUESTION 1 -->
+    <div class="field">
+
+        <div class="test-type">
+            MONTH — PICKER ONLY
+        </div>
+
+        <label for="graduationEndMonth">
+            Graduation End Month
+            <span class="required">*</span>
+        </label>
+
+        <input
+            id="graduationEndMonth"
+            name="graduation_end_month"
+            type="month"
+            required
+        >
+
+        <div class="hint">
+            Select your graduation month and year.
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        Employment Dates
+    </div>
+
+    <!-- QUESTION 2 -->
+    <div class="field">
+
+        <div class="test-type">
+            DATE — PICKER ONLY
+        </div>
+
+        <label for="firstJobDate">
+            Start Date of Your First Job
+            <span class="required">*</span>
+        </label>
+
+        <input
+            id="firstJobDate"
+            name="first_job_date"
+            type="date"
+            required
+        >
+
+        <div class="hint">
+            Select the day, month, and year
+            you started your first job.
+        </div>
+
+    </div>
+
+    <!-- QUESTION 3 -->
+    <div class="field">
+
+        <div class="test-type">
+            MONTH — PICKER ONLY
+        </div>
+
+        <label for="employmentEndMonth">
+            Employment End Month
+            <span class="required">*</span>
+        </label>
+
+        <input
+            id="employmentEndMonth"
+            name="employment_end_month"
+            type="month"
+            required
+        >
+
+        <div class="hint">
+            Select the month and year
+            your most recent employment ended.
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        Personal Information
+    </div>
+
+    <!-- QUESTION 4 -->
+    <div class="field">
+
+        <div class="test-type">
+            DATE — PICKER ONLY
+        </div>
+
+        <label for="dateOfBirth">
+            Date of Birth
+            <span class="required">*</span>
+        </label>
+
+        <input
+            id="dateOfBirth"
+            name="date_of_birth"
+            type="date"
+            required
+        >
+
+        <div class="hint">
+            Select your complete date of birth.
+        </div>
+
+    </div>
+
+    <button
+        type="button"
+        class="submit-button"
+        onclick="submitApplication()"
+    >
+        Submit
+    </button>
+
+    <div id="result">
+        All date questions successfully completed.
+    </div>
+
+</div>
+
+<script>
+
+/*
+Get all native date and month inputs.
+*/
+const dateInputs = document.querySelectorAll(
+    'input[type="date"], input[type="month"]'
+);
+
+
+/*
+Apply the same picker-only behavior
+to all four questions.
+*/
+dateInputs.forEach(function(input) {
+
+    /*
+    Block keyboard entry.
+    Allow Tab navigation.
+    */
+    input.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key !== "Tab") {
+                event.preventDefault();
+            }
+
+        }
+    );
+
+
+    /*
+    Block pasting.
+    */
+    input.addEventListener(
+        "paste",
+        function(event) {
+            event.preventDefault();
+        }
+    );
+
+
+    /*
+    Block dragging text into the field.
+    */
+    input.addEventListener(
+        "drop",
+        function(event) {
+            event.preventDefault();
+        }
+    );
+
+
+    /*
+    Open the native browser picker
+    when the field is clicked.
+    */
+    input.addEventListener(
+        "click",
+        function() {
+
+            if (
+                typeof input.showPicker === "function"
+            ) {
+
+                try {
+                    input.showPicker();
+                }
+                catch (error) {
+                    // Fall back to normal browser behavior.
+                }
+
+            }
+
+        }
+    );
+
+});
+
+
+/*
+Submit validation.
+All four questions are required.
+*/
+function submitApplication() {
+
+    let allValid = true;
+    let firstInvalidInput = null;
+
+    dateInputs.forEach(function(input) {
+
+        input.classList.remove("error");
+
+        if (!input.value) {
+
+            input.classList.add("error");
+
+            allValid = false;
+
+            if (!firstInvalidInput) {
+                firstInvalidInput = input;
+            }
+
+        }
+
+    });
+
+    if (!allValid) {
+
+        document.getElementById("result").style.display =
+            "none";
+
+        alert("Please complete all four date questions.");
+
+        firstInvalidInput.focus();
+
+        return;
+    }
+
+    document.getElementById("result").style.display =
+        "block";
+
+}
+
+</script>
+
+</body>
+</html>
