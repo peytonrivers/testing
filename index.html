@@ -1,159 +1,52 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ApplyR - State and Country Test</title>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Northstar — Software Engineer Intern Application</title>
 <style>
-*{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f5f7fa;margin:0;padding:40px 20px;color:#222}
-.container{max-width:750px;margin:40px auto;padding:40px;background:#fff;border:1px solid #ddd;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.04)}
-h1{font-size:26px;margin:0 0 10px}.description{color:#666;margin-bottom:35px}
-.question{margin-bottom:30px}.question>label{display:block;font-size:15px;font-weight:600;margin-bottom:10px}
-.dropdown{position:relative;width:100%}
-.dropdown-button{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:48px;padding:0 14px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font-size:14px;color:#475569;cursor:pointer;text-align:left}
-.dropdown-button:focus-visible,.dropdown.open .dropdown-button{outline:none;border-color:#2563eb}
-.dropdown-button span:first-child{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.arrow{font-size:11px;color:#64748b}
-.dropdown-options{display:none;position:static;width:100%;max-height:none;overflow:visible;background:#fff;border:1px solid #d1d5db;border-radius:10px;box-shadow:none;margin-top:4px;padding:4px}
-.dropdown.open .dropdown-options{display:block}
-.dropdown-option{display:block;width:100%;padding:11px 12px;border:0;background:#fff;text-align:left;font-size:14px;cursor:pointer;border-radius:5px;color:#222}
-.dropdown-option:hover,.dropdown-option:focus{background:#eff6ff;outline:none}.dropdown-option.selected{background:#dbeafe;color:#1d4ed8}.dropdown-option.active{background:#eff6ff;outline:2px solid #93c5fd;outline-offset:-2px}
-.helper{font-size:12px;color:#64748b;margin-top:7px}
-.submit-button{margin-top:10px;background:#2563eb;color:#fff;border:0;padding:13px 28px;border-radius:7px;font-size:15px;cursor:pointer}.submit-button:hover{background:#1d4ed8}
-.result{margin-top:20px;padding:15px;background:#f1f5f9;border-radius:8px;display:none;white-space:pre-line;line-height:1.6}.result.error{background:#fef2f2;color:#991b1b}.result.success{background:#f0fdf4;color:#166534}
-@media(max-width:500px){.container{padding:22px}}
-.text-input{width:100%;height:48px;padding:0 14px;border:1px solid #cbd5e1;border-radius:10px;font:14px Arial,sans-serif}.text-input:focus{outline:none;border-color:#2563eb}.radio-row{display:flex;gap:30px;padding:10px 0}.radio-row label{display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer}.radio-row input{accent-color:#2563eb}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box}html,body{margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Poppins,Arial,sans-serif;font-size:15px;color:#141a26;background:#fff}.site-header{height:120px;padding:20px 30px;display:flex;justify-content:space-between;align-items:flex-start}.logo{font-family:Arial,sans-serif;font-size:35px;font-weight:800;letter-spacing:-1.6px;color:#050505}.header-links{display:flex;gap:60px;padding-top:11px;color:#102c6c;font-size:21px}.page{position:relative;width:100%;height:4880px;min-height:4880px;padding:46px 0 110px}.steps{position:fixed;top:210px;left:max(30px,calc(50% - 580px));width:300px;z-index:2}.step{display:flex;gap:30px;align-items:center;min-height:112px;font-size:14px;font-weight:500}.dot{width:20px;height:20px;border:2px solid #4d9fd0;border-radius:50%;background:#fff;position:relative;flex:none;box-shadow:0 0 0 5px #e8f2f7}.step:not(:last-child) .dot:after{content:"";position:absolute;left:8px;top:22px;height:85px;border-left:1px dashed #59a9dc}.step:first-child .dot{background:#149ab2}.main{width:824px;margin-left:max(330px,calc(50% - 235px));margin-right:0}.muted{color:#677083;font-size:13px}.heading{font-size:23px;font-weight:600;margin:28px 0 14px}.job{border:1px solid #d3d8df;border-radius:3px;padding:16px;display:flex;gap:14px;align-items:center;margin-bottom:25px;min-height:124px}.job-icon{border-radius:50%;background:#ac710a;color:white;padding:14px;font-size:19px}.job strong{font-weight:600;font-size:18px;color:#4d556a}.job .muted{font-size:13px}.job a,a{color:#278bc4}.section{border:1px solid #d5d9e0;border-radius:3px;padding:20px;margin:24px 0}.section-title{font-size:19px;font-weight:600;border-bottom:1px solid #c8cdd4;padding-bottom:17px;margin-bottom:24px}.field{margin-bottom:34px}.field label{display:block;font-size:15px;line-height:1.65;margin-bottom:8px}.required{color:#b33}.field input:not([type=checkbox]):not([type=radio]):not([type=file]),.field select,.field textarea{width:100%;height:38px;border:1px solid #7d899c;border-radius:7px;background:#fff;padding:7px 10px;color:#4d596c;font:14px Poppins,Arial,sans-serif}.field textarea{height:80px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}.upload{border:1px dashed #98a4b6;border-radius:17px;padding:28px;text-align:center;color:#657082}.upload input{max-width:100%}.subheading{font-size:29px;font-weight:400;margin:40px 0 48px;color:#111}.paragraph{font-size:15px;line-height:1.75;margin:22px 0 8px}.checkline{display:flex;align-items:flex-start;gap:10px;margin:10px 0 32px;font-size:13px;line-height:1.5}.checkline input{margin:4px 0 0;accent-color:#0785bd}.fineprint{font-size:13px;color:#90959e;line-height:1.5}.choicegrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.choicegrid label{font-size:12px}.choicegrid input{vertical-align:middle}.bottom-actions{display:flex;justify-content:flex-end;gap:12px;margin:30px 0}.btn{background:#0075bc;border:0;border-radius:5px;color:white;padding:12px 24px;cursor:pointer;font:14px Poppins,Arial,sans-serif}.btn.secondary{background:white;border:1px solid #aeb9c6;color:#233b57}.cookie{position:fixed;bottom:20px;left:8%;width:84%;min-height:82px;border-radius:13px;box-shadow:0 7px 25px #0002;display:flex;align-items:center;justify-content:space-between;gap:24px;background:#fff;font-size:13px;padding:14px 48px;z-index:10}.cookie button{display:block;background:#0075bc;border:0;color:white;border-radius:20px;padding:5px 20px;cursor:pointer;min-width:130px;margin:4px;font-size:12px}#status{font-size:14px;color:#a32626}.site-footer{position:absolute;bottom:30px;left:0;width:100%;text-align:center;color:#99a1ad;font-size:12px}@media(max-width:1250px){.main{width:min(824px,calc(100% - 350px));margin-left:330px}.steps{left:30px}}@media(max-width:850px){.steps{display:none}.main{width:calc(100% - 32px);margin:0 auto}.header-links{font-size:13px;gap:15px}.cookie{left:2%;width:96%;padding:12px}.site-header{height:100px}}
+
+/* All dropdowns are custom DIV/button components, never native SELECT elements. */
+.custom-dropdown{position:relative;width:100%;font-family:inherit}
+.dropdown-trigger{display:flex;align-items:center;justify-content:space-between;width:100%;height:39px;padding:0 10px;border:1px solid #798398;border-radius:7px;background:#fff;color:#657086;font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.dropdown-trigger.chosen{color:#151a26}.dropdown-trigger:focus{outline:2px solid #3395ce;outline-offset:1px}
+.dropdown-trigger.invalid{border:2px solid #b42318}.dropdown-arrow{margin-left:8px;font-size:20px;line-height:1;color:#59667b}
+.dropdown-menu{display:none;position:absolute;top:calc(100% + 3px);left:0;right:0;max-height:240px;overflow-y:auto;background:white;border:1px solid #8a97aa;border-radius:5px;box-shadow:0 8px 20px #0002;z-index:1000}
+.custom-dropdown.open .dropdown-menu{display:block}.dropdown-option{padding:10px 12px;font-size:14px;cursor:pointer;background:white;color:#192233}
+.dropdown-option:hover,.dropdown-option.active{background:#e9f4fb}.dropdown-option[aria-selected="true"]{font-weight:600;background:#dceefa}
 </style>
 </head>
-<body>
-<div class="container">
-<h1>Job Application</h1>
-<p class="description">Please complete the following application questions.</p>
-<div class="question"><label for="first">1. What is your first name? <span aria-hidden="true">*</span></label><input class="text-input" id="first" type="text" placeholder="Enter your first name" autocomplete="off"></div>
-<div class="question"><label id="state-label">2. What state are you from? <span aria-hidden="true">*</span></label><div class="dropdown" data-field="state"><button type="button" class="dropdown-button" aria-labelledby="state-label state-value" aria-haspopup="listbox" aria-expanded="false" aria-controls="state-options"><span id="state-value">Select a state</span><span class="arrow">▼</span></button><div class="dropdown-options" id="state-options" role="listbox" aria-label="State"></div></div><div class="helper">Use ↑/↓ to navigate, Enter to select, or click an option.</div></div>
-<div class="question"><label for="last">3. What is your last name? <span aria-hidden="true">*</span></label><input class="text-input" id="last" type="text" placeholder="Enter your last name" autocomplete="off"></div>
-<div class="question"><label for="email">4. What is your email address? <span aria-hidden="true">*</span></label><input class="text-input" id="email" type="email" placeholder="Enter your email address" autocomplete="off"></div>
-<div class="question"><label id="country-label">5. What country are you from? <span aria-hidden="true">*</span></label><div class="dropdown" data-field="country"><button type="button" class="dropdown-button" aria-labelledby="country-label country-value" aria-haspopup="listbox" aria-expanded="false" aria-controls="country-options"><span id="country-value">Select a country</span><span class="arrow">▼</span></button><div class="dropdown-options" id="country-options" role="listbox" aria-label="Country"></div></div><div class="helper">Use ↑/↓ to navigate, Enter to select, or click an option.</div></div>
-<div class="question"><label for="phone">6. What is your phone number? <span aria-hidden="true">*</span></label><input class="text-input" id="phone" type="tel" placeholder="Enter your phone number" autocomplete="off"></div>
-<div class="question"><label for="city">7. What city do you live in? <span aria-hidden="true">*</span></label><input class="text-input" id="city" type="text" placeholder="Enter your city" autocomplete="off"></div>
-<div class="question"><label>8. Are you at least 18 years old? <span aria-hidden="true">*</span></label><div class="radio-row"><label><input type="radio" name="adult" value="Yes"> Yes</label><label><input type="radio" name="adult" value="No"> No</label></div></div>
-<div class="question"><label>9. Are you legally authorized to work in the United States? <span aria-hidden="true">*</span></label><div class="radio-row"><label><input type="radio" name="authorized" value="Yes"> Yes</label><label><input type="radio" name="authorized" value="No"> No</label></div></div>
-<button class="submit-button" type="button" id="submit-button">Continue</button>
-<div class="result" id="result" role="status" aria-live="polite"></div>
+<body><header class="site-header"><div class="logo">Northstar</div><div class="header-links"><span>Candidate Login</span><span>Join Talent Community</span></div></header>
+<div class="page">
+<nav class="steps"><div class="step"><i class="dot"></i><span>Resume</span></div><div class="step"><i class="dot"></i><span>Contact Information</span></div><div class="step"><i class="dot"></i><span>Application questions</span></div><div class="step"><i class="dot"></i><span>Application questions</span></div><div class="step"><i class="dot"></i><span>Application Questions</span></div></nav>
+<main class="main"><div class="muted">Required fields are marked with <b class="required">*</b></div><h3 class="heading">Application for</h3><div class="job"><div class="job-icon">▣</div><div><strong>Software Engineer Intern – Summer 2027</strong><div class="muted">San Jose, California · Chicago, Illinois · Omaha, Nebraska</div><a href="#" style="font-size:11px">+ 2 more</a></div></div><p style="font-size:11px"><b>Required fields are indicated with <span class="required">*</span></b></p>
+<form id="application">
+<section class="section"><div class="section-title">Resume</div><div class="field"><label>Upload your resume<span class="required">*</span></label><div class="upload">Drag &amp; drop file or <input accept=".pdf,.doc,.docx,.txt" required="" type="file"/></div></div><p class="muted">OR   <button class="btn secondary" type="button">Apply With LinkedIn</button></p></section>
+<section class="section"><div class="section-title">Contact Information</div><div class="field"><label>First Name<span class="required">*</span></label><input autocomplete="given-name" required=""/></div><div class="field"><label>Last Name<span class="required">*</span></label><input autocomplete="family-name" required=""/></div><div class="field"><label>Email<span class="required">*</span></label><input autocomplete="email" required="" type="email"/></div><div class="field"><label>Phone</label><div class="two"><div class="custom-dropdown" data-required="false"><button aria-controls="custom-options-0" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select country code<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-0" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="United States (+1)" role="option" tabindex="-1">United States (+1)</div><div aria-selected="false" class="dropdown-option" data-value="Canada (+1)" role="option" tabindex="-1">Canada (+1)</div><div aria-selected="false" class="dropdown-option" data-value="United Kingdom (+44)" role="option" tabindex="-1">United Kingdom (+44)</div><div aria-selected="false" class="dropdown-option" data-value="India (+91)" role="option" tabindex="-1">India (+91)</div></div><input class="dropdown-value" name="custom_dropdown_0" type="hidden" value=""/></div><input placeholder="Phone Number" type="tel"/></div></div></section>
+<section class="section"><div class="section-title">Application questions</div><h2 class="subheading">My Information</h2><div class="field"><label>How did you hear about us?<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-1" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-1" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Company Website" role="option" tabindex="-1">Company Website</div><div aria-selected="false" class="dropdown-option" data-value="LinkedIn" role="option" tabindex="-1">LinkedIn</div><div aria-selected="false" class="dropdown-option" data-value="Indeed" role="option" tabindex="-1">Indeed</div><div aria-selected="false" class="dropdown-option" data-value="University Career Fair" role="option" tabindex="-1">University Career Fair</div><div aria-selected="false" class="dropdown-option" data-value="Employee Referral" role="option" tabindex="-1">Employee Referral</div><div aria-selected="false" class="dropdown-option" data-value="Other" role="option" tabindex="-1">Other</div></div><input class="dropdown-value" name="custom_dropdown_1" type="hidden" value=""/></div></div><div class="field"><label>Are you a previous employee of Northstar Technologies or any of its subsidiaries?<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-2" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-2" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Yes" role="option" tabindex="-1">Yes</div><div aria-selected="false" class="dropdown-option" data-value="No" role="option" tabindex="-1">No</div></div><input class="dropdown-value" name="custom_dropdown_2" type="hidden" value=""/></div></div><div class="field"><label>Country<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-3" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-3" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="United States" role="option" tabindex="-1">United States</div><div aria-selected="false" class="dropdown-option" data-value="Canada" role="option" tabindex="-1">Canada</div><div aria-selected="false" class="dropdown-option" data-value="United Kingdom" role="option" tabindex="-1">United Kingdom</div><div aria-selected="false" class="dropdown-option" data-value="India" role="option" tabindex="-1">India</div><div aria-selected="false" class="dropdown-option" data-value="Other" role="option" tabindex="-1">Other</div></div><input class="dropdown-value" name="custom_dropdown_3" type="hidden" value=""/></div></div></section>
+<section class="section"><div class="section-title">Application questions</div><h2 class="subheading">Terms and Conditions</h2><p class="paragraph">Learn more about how Northstar Technologies processes your personal data by reviewing our <a href="#">Candidate Privacy Statement</a>.<span class="required">*</span></p><label class="checkline"><input required="" type="checkbox"/>Yes, I have read and consent to this Privacy Statement.</label><p class="paragraph">Please review the <a href="#">Non-disclosure Agreement</a> and acknowledge your understanding and intention to comply with company policies.<span class="required">*</span></p><label class="checkline"><input required="" type="checkbox"/>Yes, I acknowledge and agree to abide by the terms of this Nondisclosure Agreement.</label><h2 class="subheading">Voluntary Disclosures</h2><p class="fineprint"><b>Note:</b><br/>Candidate demographic data submitted voluntarily helps Northstar Technologies further our Diversity, Inclusion, Equity and Belonging initiatives. Sensitive data will only be used for aggregated reporting purposes and will be accessible by a small group of HR administrators. All personal data is kept confidential and will never be used in individual decisions regarding recruitment or hiring.</p><p style="text-align:center"><a href="#">Read more</a></p><h2 class="subheading">VEVRAA Invitation to Self-Identify</h2><p class="fineprint">Individuals seeking employment are considered without regard to race, color, religion, national origin, age, sex, marital status, ancestry, physical or mental disability, veteran status, sexual orientation, or any other status protected by applicable law.</p><p style="text-align:center"><a href="#">Read more</a></p><div class="field"><label>Veteran Status<br/><span class="fineprint">If you believe you belong to any of the categories of protected veterans listed above, please indicate by selecting the appropriate box below.</span></label><div class="custom-dropdown" data-required="false"><button aria-controls="custom-options-4" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-4" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="I am a protected veteran" role="option" tabindex="-1">I am a protected veteran</div><div aria-selected="false" class="dropdown-option" data-value="I am not a protected veteran" role="option" tabindex="-1">I am not a protected veteran</div><div aria-selected="false" class="dropdown-option" data-value="I do not wish to answer" role="option" tabindex="-1">I do not wish to answer</div></div><input class="dropdown-value" name="custom_dropdown_4" type="hidden" value=""/></div></div><div class="field"><label>Gender<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-5" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-5" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Male" role="option" tabindex="-1">Male</div><div aria-selected="false" class="dropdown-option" data-value="Female" role="option" tabindex="-1">Female</div><div aria-selected="false" class="dropdown-option" data-value="Non-binary" role="option" tabindex="-1">Non-binary</div><div aria-selected="false" class="dropdown-option" data-value="I do not wish to answer" role="option" tabindex="-1">I do not wish to answer</div></div><input class="dropdown-value" name="custom_dropdown_5" type="hidden" value=""/></div></div><div class="field"><label>Race/Ethnicity:<br/><em>Please select any/all group(s) that you identify with<span class="required">*</span></em></label><div class="choicegrid"><label><input name="race" type="checkbox"/> American Indian or Alaskan Native</label><label><input name="race" type="checkbox"/> Asian</label><label><input name="race" type="checkbox"/> Black or African American</label><label><input name="race" type="checkbox"/> Hispanic or Latino</label><label><input name="race" type="checkbox"/> Native Hawaiian or Other Pacific Islander</label><label><input name="race" type="checkbox"/> White (Not of Hispanic Origin)</label><label><input name="race" type="checkbox"/> Do not wish to identify</label></div></div></section>
+<section class="section"><div class="section-title">Application Questions</div><div class="field"><label>Do you or your spouse have, or plan to have, a role on a board, advisory group, management team, or any business interest in a company or organization that competes, or could be perceived to compete, with Northstar Technologies?<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-6" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-6" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Yes" role="option" tabindex="-1">Yes</div><div aria-selected="false" class="dropdown-option" data-value="No" role="option" tabindex="-1">No</div></div><input class="dropdown-value" name="custom_dropdown_6" type="hidden" value=""/></div></div><div class="field"><label>Do you have a family relationship (including spouse, partner, parent, grandparent, child, sibling, in-law, aunt, uncle) or close personal relationship (close friendship or relationship) with an employee of Northstar Technologies?<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-7" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-7" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Yes" role="option" tabindex="-1">Yes</div><div aria-selected="false" class="dropdown-option" data-value="No" role="option" tabindex="-1">No</div></div><input class="dropdown-value" name="custom_dropdown_7" type="hidden" value=""/></div></div><div class="field"><label>Are you a current Government Official? A Government Official is an officer or employee of a Government at any level, or of any department, agency, or instrumentality of a Government; holder of or candidate for public office; political party or official of a political party; employee or other representative of a public international organization of which Governments are members; or a person acting for or on behalf of any of the foregoing.<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-8" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-8" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Yes" role="option" tabindex="-1">Yes</div><div aria-selected="false" class="dropdown-option" data-value="No" role="option" tabindex="-1">No</div></div><input class="dropdown-value" name="custom_dropdown_8" type="hidden" value=""/></div></div><div class="field"><label>Do you have a family relationship (including spouse, partner, parent, grandparent, child, sibling, in-law, aunt, uncle) or close personal relationship with a Government Official?<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-9" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-9" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Yes" role="option" tabindex="-1">Yes</div><div aria-selected="false" class="dropdown-option" data-value="No" role="option" tabindex="-1">No</div></div><input class="dropdown-value" name="custom_dropdown_9" type="hidden" value=""/></div></div><div class="field"><label>To the best of your knowledge, are you a referral of an existing/potential known merchant, or by an existing or potential Third Party, or a current government official? For purposes of this question, these terms include suppliers, vendors, recruiting agencies, public international organizations, and representatives of governmental entities.<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-10" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-10" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Yes" role="option" tabindex="-1">Yes</div><div aria-selected="false" class="dropdown-option" data-value="No" role="option" tabindex="-1">No</div></div><input class="dropdown-value" name="custom_dropdown_10" type="hidden" value=""/></div></div><div class="field"><label>I understand that a positive declaration does not mean that I would automatically be disqualified from being considered for employment, and that a false declaration may constitute a conflict of interest which has consequences should I be hired. Please enter today's date on your acknowledgement.<span class="required">*</span></label><input required="" type="date"/></div><div class="field"><label>Are you legally authorized to work in the United States for Northstar Technologies?<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-11" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-11" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Yes" role="option" tabindex="-1">Yes</div><div aria-selected="false" class="dropdown-option" data-value="No" role="option" tabindex="-1">No</div></div><input class="dropdown-value" name="custom_dropdown_11" type="hidden" value=""/></div></div><div class="field"><label>Will you now or in the future require work sponsorship by Northstar Technologies?<span class="required">*</span></label><div class="custom-dropdown" data-required="true"><button aria-controls="custom-options-12" aria-expanded="false" aria-haspopup="listbox" class="dropdown-trigger" role="combobox" type="button">Select<span aria-hidden="true" class="dropdown-arrow">⌄</span></button><div class="dropdown-menu" id="custom-options-12" role="listbox"><div aria-selected="false" class="dropdown-option" data-value="Yes" role="option" tabindex="-1">Yes</div><div aria-selected="false" class="dropdown-option" data-value="No" role="option" tabindex="-1">No</div></div><input class="dropdown-value" name="custom_dropdown_12" type="hidden" value=""/></div></div></section>
+<div class="bottom-actions"><button class="btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})" type="button">Back to top</button><button class="btn" type="submit">Submit Application</button></div><p id="status" role="status"></p>
+</form></main>
+<div class="cookie" id="cookie"><span>We currently use cookies to improve and customize your experience on our site. If you accept, we’ll also use marketing cookies to show you personalized ads. <a href="#">Manage your cookies and learn more</a>.</span><button onclick="document.getElementById('cookie').remove()">Yes, I accept</button><button onclick="document.getElementById('cookie').remove()">No, I decline</button></div>
 </div>
 <script>
-const states=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
-const countries=["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Republic of the)","Costa Rica","Côte d’Ivoire","Croatia","Cuba","Cyprus","Czechia","Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","São Tomé and Príncipe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
-const options={state:states,country:countries};
-const selected={state:null,country:null};
-function closeDropdowns(){
- document.querySelectorAll('.dropdown').forEach(dropdown=>{
-  dropdown.classList.remove('open');
-  const button=dropdown.querySelector('.dropdown-button');
-  button.setAttribute('aria-expanded','false');
-  button.removeAttribute('aria-activedescendant');
- });
-}
-document.querySelectorAll('.dropdown').forEach(dropdown=>{
- const field=dropdown.dataset.field;
- const button=dropdown.querySelector('.dropdown-button');
- const container=dropdown.querySelector('.dropdown-options');
- let activeIndex=-1;
- const items=[];
- function highlight(index){
-  activeIndex=Math.max(0,Math.min(items.length-1,index));
-  items.forEach((item,i)=>item.classList.toggle('active',i===activeIndex));
-  button.setAttribute('aria-activedescendant',items[activeIndex].id);
-  items[activeIndex].scrollIntoView({block:'nearest'});
- }
- function openDropdown(){
-  closeDropdowns();
-  dropdown.classList.add('open');
-  button.setAttribute('aria-expanded','true');
-  const previous=options[field].indexOf(selected[field]);
-  highlight(previous>=0?previous:0);
- }
- function choose(index){
-  if(index<0||index>=items.length)return;
-  selected[field]=options[field][index];
-  button.querySelector('span').textContent=selected[field];
-  items.forEach((item,i)=>{
-   item.classList.toggle('selected',i===index);
-   item.setAttribute('aria-selected',String(i===index));
-  });
-  closeDropdowns();
-  button.focus();
- }
- options[field].forEach((value,index)=>{
-  const option=document.createElement('button');
-  option.type='button';
-  option.id=`${field}-option-${index}`;
-  option.className='dropdown-option';
-  option.textContent=value;
-  option.setAttribute('role','option');
-  option.setAttribute('aria-selected','false');
-  option.tabIndex=-1;
-  option.addEventListener('click',()=>choose(index));
-  option.addEventListener('mouseenter',()=>{
-   if(dropdown.classList.contains('open'))highlight(index);
-  });
-  container.appendChild(option);
-  items.push(option);
- });
- button.addEventListener('click',()=>{
-  if(dropdown.classList.contains('open'))closeDropdowns();
-  else openDropdown();
- });
- button.addEventListener('keydown',event=>{
-  const open=dropdown.classList.contains('open');
-  if(['ArrowDown','ArrowUp','Home','End','PageDown','PageUp','Enter',' ','Escape'].includes(event.key)){
-   event.preventDefault();
-  }else{return;}
-  if(event.key==='Escape'){closeDropdowns();return;}
-  if(event.key==='Enter'||event.key===' '){
-   if(open)choose(activeIndex);
-   else openDropdown();
-   return;
-  }
-  if(!open)openDropdown();
-  if(event.key==='ArrowDown')highlight(activeIndex+1);
-  if(event.key==='ArrowUp')highlight(activeIndex-1);
-  if(event.key==='Home')highlight(0);
-  if(event.key==='End')highlight(items.length-1);
-  if(event.key==='PageDown')highlight(activeIndex+10);
-  if(event.key==='PageUp')highlight(activeIndex-10);
- });
-});
-document.addEventListener('click',event=>{
- if(!event.target.closest('.dropdown'))closeDropdowns();
-});
-document.addEventListener('keydown',event=>{
- if(event.key==='Escape')closeDropdowns();
-});
-document.getElementById('submit-button').addEventListener('click',()=>{
- const result=document.getElementById('result');result.style.display='block';
- const errors=[];
- const fields=['first','last','email','phone','city'];
- for(const field of fields){if(!document.getElementById(field).value.trim())errors.push(`Please complete ${field}.`);}
- const email=document.getElementById('email');
- if(email.value.trim()&&!email.checkValidity())errors.push('Please enter a valid email address.');
- if(!selected.state)errors.push('Please select a state.');
- if(!selected.country)errors.push('Please select a country.');
- for(const field of ['adult','authorized']){if(!document.querySelector(`input[name="${field}"]:checked`))errors.push(`Please answer ${field}.`);}
- if(errors.length){result.className='result error';result.textContent=errors.join('\n');return;}
- result.className='result success';
- result.textContent='Application completed successfully!\n'+[
- `First name: ${document.getElementById('first').value}`,
- `State: ${selected.state}`,
- `Last name: ${document.getElementById('last').value}`,
- `Email: ${email.value}`,
- `Country: ${selected.country}`,
- `Phone: ${document.getElementById('phone').value}`,
- `City: ${document.getElementById('city').value}`,
- `At least 18: ${document.querySelector('input[name="adult"]:checked').value}`,
- `Work authorized: ${document.querySelector('input[name="authorized"]:checked').value}`
- ].join('\n');
-});
+document.getElementById('application').addEventListener('submit',function(e){e.preventDefault();document.getElementById('status').style.color='#087b46';document.getElementById('status').textContent='Application completed successfully (local test only — no data was sent).';});
+// Keep the full page exactly 5000 CSS pixels tall for automated screenshot testing.
+function enforceHeight(){const p=document.querySelector('.page');p.style.height='4880px';p.style.minHeight='4880px';}
+enforceHeight();
+console.log('document.body.scrollHeight:',document.body.scrollHeight);
 </script>
-</body>
-</html>
+<script>
+// Custom dropdown behavior: click, choose, outside-click, Escape, arrows and Enter.
+const dropdowns=[...document.querySelectorAll('.custom-dropdown')];
+function closeDropdown(d){d.classList.remove('open');d.querySelector('.dropdown-trigger').setAttribute('aria-expanded','false')}
+function openDropdown(d){dropdowns.forEach(x=>{if(x!==d)closeDropdown(x)});d.classList.add('open');d.querySelector('.dropdown-trigger').setAttribute('aria-expanded','true')}
+function chooseOption(d,opt){const b=d.querySelector('.dropdown-trigger');b.firstChild.textContent=opt.textContent;b.classList.add('chosen');b.classList.remove('invalid');d.querySelector('.dropdown-value').value=opt.dataset.value;d.querySelectorAll('.dropdown-option').forEach(x=>x.setAttribute('aria-selected',String(x===opt)));closeDropdown(d);b.focus()}
+dropdowns.forEach(d=>{const b=d.querySelector('.dropdown-trigger');const opts=[...d.querySelectorAll('.dropdown-option')];b.addEventListener('click',()=>d.classList.contains('open')?closeDropdown(d):openDropdown(d));opts.forEach(o=>o.addEventListener('click',()=>chooseOption(d,o)));b.addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','Enter',' '].includes(e.key)){e.preventDefault();if(!d.classList.contains('open'))openDropdown(d);let index=opts.findIndex(o=>o.classList.contains('active'));index=e.key==='ArrowUp'?Math.max(0,index-1):Math.min(opts.length-1,index+1);opts.forEach(o=>o.classList.remove('active'));if(opts[index]){opts[index].classList.add('active');opts[index].scrollIntoView({block:'nearest'});if(e.key==='Enter'||e.key===' ')chooseOption(d,opts[index])}}else if(e.key==='Escape')closeDropdown(d)});});
+document.addEventListener('click',e=>dropdowns.forEach(d=>{if(!d.contains(e.target))closeDropdown(d)}));
+// Block submission when a required custom dropdown has no answer.
+document.getElementById('application').addEventListener('submit',e=>{const missing=dropdowns.filter(d=>d.dataset.required==='true'&&!d.querySelector('.dropdown-value').value);if(missing.length){e.preventDefault();e.stopImmediatePropagation();missing.forEach(d=>d.querySelector('.dropdown-trigger').classList.add('invalid'));missing[0].querySelector('.dropdown-trigger').focus();document.getElementById('status').textContent='Please complete all required dropdown questions.';document.getElementById('status').style.color='#b42318';}},true);
+</script></body></html>
