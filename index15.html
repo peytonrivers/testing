@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ApplyR - State and Country Test</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f5f7fa;margin:0;padding:40px 20px;color:#222}
+.container{max-width:750px;margin:40px auto;padding:40px;background:#fff;border:1px solid #ddd;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.04)}
+h1{font-size:26px;margin:0 0 10px}.description{color:#666;margin-bottom:35px}
+.question{margin-bottom:30px}.question>label{display:block;font-size:15px;font-weight:600;margin-bottom:10px}
+.dropdown{position:relative;width:100%}
+.dropdown-button{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:48px;padding:0 14px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font-size:14px;color:#475569;cursor:pointer;text-align:left}
+.dropdown-button:focus-visible,.dropdown.open .dropdown-button{outline:none;border-color:#2563eb}
+.dropdown-button span:first-child{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.arrow{font-size:11px;color:#64748b}
+.dropdown-options{display:none;position:absolute;top:calc(100% + 3px);left:0;width:100%;max-height:300px;overflow-y:auto;overscroll-behavior:contain;background:#fff;border:1px solid #d1d5db;border-radius:10px;box-shadow:0 6px 15px rgba(0,0,0,.12);z-index:100;padding:4px}
+.dropdown.open .dropdown-options{display:block}
+.dropdown-option{display:block;width:100%;padding:11px 12px;border:0;background:#fff;text-align:left;font-size:14px;cursor:pointer;border-radius:5px;color:#222}
+.dropdown-option:hover,.dropdown-option:focus{background:#eff6ff;outline:none}.dropdown-option.selected{background:#dbeafe;color:#1d4ed8}.dropdown-option.active{background:#eff6ff;outline:2px solid #93c5fd;outline-offset:-2px}
+.helper{font-size:12px;color:#64748b;margin-top:7px}
+.submit-button{margin-top:10px;background:#2563eb;color:#fff;border:0;padding:13px 28px;border-radius:7px;font-size:15px;cursor:pointer}.submit-button:hover{background:#1d4ed8}
+.result{margin-top:20px;padding:15px;background:#f1f5f9;border-radius:8px;display:none;white-space:pre-line;line-height:1.6}.result.error{background:#fef2f2;color:#991b1b}.result.success{background:#f0fdf4;color:#166534}
+@media(max-width:500px){.container{padding:22px}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Job Application</h1>
+<p class="description">Please complete the following application questions.</p>
+<div class="question">
+<label id="state-label">1. What state are you from? <span aria-hidden="true">*</span></label>
+<div class="dropdown" data-field="state">
+<button type="button" class="dropdown-button" aria-labelledby="state-label state-value" aria-haspopup="listbox" aria-expanded="false" aria-controls="state-options"><span id="state-value">Select a state</span><span class="arrow">▼</span></button>
+<div class="dropdown-options" id="state-options" role="listbox" aria-label="State"></div>
+</div>
+<div class="helper">Use ↑/↓ to navigate, Enter to select, or click an option.</div>
+</div>
+<div class="question">
+<label id="country-label">2. What country are you from? <span aria-hidden="true">*</span></label>
+<div class="dropdown" data-field="country">
+<button type="button" class="dropdown-button" aria-labelledby="country-label country-value" aria-haspopup="listbox" aria-expanded="false" aria-controls="country-options"><span id="country-value">Select a country</span><span class="arrow">▼</span></button>
+<div class="dropdown-options" id="country-options" role="listbox" aria-label="Country"></div>
+</div>
+<div class="helper">Use ↑/↓ to navigate, Page Up/Down to jump, and Enter to select.</div>
+</div>
+<button class="submit-button" type="button" id="submit-button">Continue</button>
+<div class="result" id="result" role="status" aria-live="polite"></div>
+</div>
+<script>
+const states=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+const countries=["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Republic of the)","Costa Rica","Côte d’Ivoire","Croatia","Cuba","Cyprus","Czechia","Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","São Tomé and Príncipe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+const options={state:states,country:countries};
+const selected={state:null,country:null};
+function closeDropdowns(){
+ document.querySelectorAll('.dropdown').forEach(dropdown=>{
+  dropdown.classList.remove('open');
+  const button=dropdown.querySelector('.dropdown-button');
+  button.setAttribute('aria-expanded','false');
+  button.removeAttribute('aria-activedescendant');
+ });
+}
+document.querySelectorAll('.dropdown').forEach(dropdown=>{
+ const field=dropdown.dataset.field;
+ const button=dropdown.querySelector('.dropdown-button');
+ const container=dropdown.querySelector('.dropdown-options');
+ let activeIndex=-1;
+ const items=[];
+ function highlight(index){
+  activeIndex=Math.max(0,Math.min(items.length-1,index));
+  items.forEach((item,i)=>item.classList.toggle('active',i===activeIndex));
+  button.setAttribute('aria-activedescendant',items[activeIndex].id);
+  items[activeIndex].scrollIntoView({block:'nearest'});
+ }
+ function openDropdown(){
+  closeDropdowns();
+  dropdown.classList.add('open');
+  button.setAttribute('aria-expanded','true');
+  const previous=options[field].indexOf(selected[field]);
+  highlight(previous>=0?previous:0);
+ }
+ function choose(index){
+  if(index<0||index>=items.length)return;
+  selected[field]=options[field][index];
+  button.querySelector('span').textContent=selected[field];
+  items.forEach((item,i)=>{
+   item.classList.toggle('selected',i===index);
+   item.setAttribute('aria-selected',String(i===index));
+  });
+  closeDropdowns();
+  button.focus();
+ }
+ options[field].forEach((value,index)=>{
+  const option=document.createElement('button');
+  option.type='button';
+  option.id=`${field}-option-${index}`;
+  option.className='dropdown-option';
+  option.textContent=value;
+  option.setAttribute('role','option');
+  option.setAttribute('aria-selected','false');
+  option.tabIndex=-1;
+  option.addEventListener('click',()=>choose(index));
+  option.addEventListener('mouseenter',()=>{
+   if(dropdown.classList.contains('open'))highlight(index);
+  });
+  container.appendChild(option);
+  items.push(option);
+ });
+ button.addEventListener('click',()=>{
+  if(dropdown.classList.contains('open'))closeDropdowns();
+  else openDropdown();
+ });
+ button.addEventListener('keydown',event=>{
+  const open=dropdown.classList.contains('open');
+  if(['ArrowDown','ArrowUp','Home','End','PageDown','PageUp','Enter',' ','Escape'].includes(event.key)){
+   event.preventDefault();
+  }else{return;}
+  if(event.key==='Escape'){closeDropdowns();return;}
+  if(event.key==='Enter'||event.key===' '){
+   if(open)choose(activeIndex);
+   else openDropdown();
+   return;
+  }
+  if(!open)openDropdown();
+  if(event.key==='ArrowDown')highlight(activeIndex+1);
+  if(event.key==='ArrowUp')highlight(activeIndex-1);
+  if(event.key==='Home')highlight(0);
+  if(event.key==='End')highlight(items.length-1);
+  if(event.key==='PageDown')highlight(activeIndex+10);
+  if(event.key==='PageUp')highlight(activeIndex-10);
+ });
+});
+document.addEventListener('click',event=>{
+ if(!event.target.closest('.dropdown'))closeDropdowns();
+});
+document.addEventListener('keydown',event=>{
+ if(event.key==='Escape')closeDropdowns();
+});
+document.getElementById('submit-button').addEventListener('click',()=>{
+ const result=document.getElementById('result');result.style.display='block';
+ const errors=[];
+ if(!selected.state)errors.push('Please select a state.');
+ if(!selected.country)errors.push('Please select a country.');
+ if(errors.length){result.className='result error';result.textContent=errors.join('\n');return;}
+ result.className='result success';
+ result.textContent=`Application completed successfully!\nState: ${selected.state}\nCountry: ${selected.country}`;
+});
+</script>
+</body>
+</html>
