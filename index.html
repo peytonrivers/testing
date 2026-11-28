@@ -35,7 +35,7 @@ function setupSearch(inputId,listId,options,requiresEnter){
  input.addEventListener('click',()=>{if(inputId==='phoneCode' && !chosen)render();});
  input.addEventListener('input',()=>{chosen=null;input.classList.remove('error');loaded=false;if(requiresEnter)close();else render();});
  input.addEventListener('keydown',e=>{if(e.key==='Escape'){close();return;}if(e.key==='Enter'){
- e.preventDefault();if(list.classList.contains('open')){if(active>=0)select(filtered[active]);else if(requiresEnter)close();}else if(requiresEnter){loaded=true;render();}return;}
+ e.preventDefault();if(list.classList.contains('open')){if(inputId==='county' && filtered.length)select(filtered[0]);else if(active>=0)select(filtered[active]);else if(requiresEnter)close();}else if(requiresEnter){loaded=true;render();}return;}
  if(e.key==='ArrowDown'||e.key==='ArrowUp'){if(!list.classList.contains('open'))return;e.preventDefault();active=(active+(e.key==='ArrowDown'?1:-1)+filtered.length)%filtered.length;highlight();}});
  input.addEventListener('blur',()=>setTimeout(close,120));
  return {input,getValue:()=>chosen};
